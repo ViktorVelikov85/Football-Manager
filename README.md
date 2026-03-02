@@ -36,7 +36,7 @@ This application is a desktop solution for managing football clubs and players, 
 * `ClubsForm.cs`: Main interface for club management.
 * `ClubsRepository.cs`: Data access logic for the clubs table.
 * `Db.cs`: Centralized database connection and command execution helper.
-* `clubs.sql`: Database export including table structures and unique constraints.
+* `football_manager.sql`: Database export including table structures and unique constraints.
 
 ---
 Developed by: Viktor Velikov
