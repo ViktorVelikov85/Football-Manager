@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvClubs = new DataGridView();
             txtName = new TextBox();
             txtCity = new TextBox();
@@ -39,6 +39,10 @@
             btnClear = new Button();
             label1 = new Label();
             label2 = new Label();
+            txtStadium = new TextBox();
+            txtCreatedIn = new TextBox();
+            label3 = new Label();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvClubs).BeginInit();
             SuspendLayout();
             // 
@@ -48,16 +52,16 @@
             dgvClubs.AllowUserToDeleteRows = false;
             dgvClubs.AllowUserToResizeColumns = false;
             dgvClubs.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dgvClubs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvClubs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dgvClubs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvClubs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvClubs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClubs.Location = new Point(45, 28);
             dgvClubs.MultiSelect = false;
@@ -71,7 +75,7 @@
             // txtName
             // 
             txtName.Font = new Font("Segoe UI", 14.25F);
-            txtName.Location = new Point(48, 315);
+            txtName.Location = new Point(45, 315);
             txtName.Name = "txtName";
             txtName.Size = new Size(368, 33);
             txtName.TabIndex = 1;
@@ -79,7 +83,7 @@
             // txtCity
             // 
             txtCity.Font = new Font("Segoe UI", 14.25F);
-            txtCity.Location = new Point(48, 385);
+            txtCity.Location = new Point(45, 385);
             txtCity.Name = "txtCity";
             txtCity.Size = new Size(232, 33);
             txtCity.TabIndex = 2;
@@ -88,22 +92,22 @@
             // 
             btnAdd.BackColor = Color.LightGreen;
             btnAdd.Font = new Font("Segoe UI", 14.25F);
-            btnAdd.Location = new Point(501, 308);
+            btnAdd.Location = new Point(620, 299);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(94, 45);
+            btnAdd.Size = new Size(126, 61);
             btnAdd.TabIndex = 3;
-            btnAdd.Text = "Add";
+            btnAdd.Text = "Добави";
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
             btnEdit.Font = new Font("Segoe UI", 14.25F);
-            btnEdit.Location = new Point(501, 373);
+            btnEdit.Location = new Point(460, 499);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(94, 45);
+            btnEdit.Size = new Size(126, 61);
             btnEdit.TabIndex = 4;
-            btnEdit.Text = "Update";
+            btnEdit.Text = "Промени";
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
             // 
@@ -111,11 +115,11 @@
             // 
             btnDelete.BackColor = Color.Coral;
             btnDelete.Font = new Font("Segoe UI", 14.25F);
-            btnDelete.Location = new Point(620, 308);
+            btnDelete.Location = new Point(620, 398);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(94, 45);
+            btnDelete.Size = new Size(126, 61);
             btnDelete.TabIndex = 5;
-            btnDelete.Text = "Delete";
+            btnDelete.Text = "Изтрий";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
@@ -123,11 +127,11 @@
             // 
             btnClear.BackColor = Color.LightBlue;
             btnClear.Font = new Font("Segoe UI", 14.25F);
-            btnClear.Location = new Point(322, 378);
+            btnClear.Location = new Point(620, 499);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(94, 45);
+            btnClear.Size = new Size(126, 61);
             btnClear.TabIndex = 6;
-            btnClear.Text = "Clear";
+            btnClear.Text = "Изчисти";
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClear_Click;
             // 
@@ -151,11 +155,51 @@
             label2.TabIndex = 8;
             label2.Text = "Град";
             // 
+            // txtStadium
+            // 
+            txtStadium.Font = new Font("Segoe UI", 14.25F);
+            txtStadium.Location = new Point(45, 457);
+            txtStadium.Name = "txtStadium";
+            txtStadium.Size = new Size(230, 33);
+            txtStadium.TabIndex = 9;
+            // 
+            // txtCreatedIn
+            // 
+            txtCreatedIn.Font = new Font("Segoe UI", 14.25F);
+            txtCreatedIn.Location = new Point(45, 527);
+            txtCreatedIn.Name = "txtCreatedIn";
+            txtCreatedIn.Size = new Size(100, 33);
+            txtCreatedIn.TabIndex = 10;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14.25F);
+            label3.Location = new Point(45, 429);
+            label3.Name = "label3";
+            label3.Size = new Size(85, 25);
+            label3.TabIndex = 11;
+            label3.Text = "Стадион";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 14.25F);
+            label4.Location = new Point(45, 499);
+            label4.Name = "label4";
+            label4.Size = new Size(194, 25);
+            label4.TabIndex = 12;
+            label4.Text = "Година на създаване";
+            // 
             // ClubsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(779, 450);
+            ClientSize = new Size(781, 585);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(txtCreatedIn);
+            Controls.Add(txtStadium);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnClear);
@@ -169,7 +213,7 @@
             MaximizeBox = false;
             Name = "ClubsForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ClubsForm ";
+            Text = "Отбори";
             ((System.ComponentModel.ISupportInitialize)dgvClubs).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -186,5 +230,9 @@
         private Button btnClear;
         private Label label1;
         private Label label2;
+        private TextBox txtStadium;
+        private TextBox txtCreatedIn;
+        private Label label3;
+        private Label label4;
     }
 }
