@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2026 at 05:29 PM
+-- Generation Time: Mar 02, 2026 at 10:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,22 +31,18 @@ CREATE TABLE `clubs` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `city` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `stadium` varchar(100) DEFAULT NULL,
+  `founded_year` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `clubs`
 --
 
-INSERT INTO `clubs` (`id`, `name`, `city`, `created_at`) VALUES
-(1, 'Levski12', 'Sofia', '2026-02-21 14:23:27'),
-(2, 'CSKA', 'Sofia', '2026-02-21 14:23:27'),
-(7, 'Тест1', 'Бургас', '2026-02-21 15:22:44'),
-(8, 'Лудогорец', 'Разград', '2026-02-21 15:55:03'),
-(9, 'Не знам', 'Пловдив', '2026-02-21 16:03:17'),
-(11, 'Не игая футбол', 'Варна', '2026-02-21 16:10:27'),
-(12, 'Спартак', 'Варна', '2026-02-21 16:16:00'),
-(18, '123АБВ', 'Тест', '2026-02-21 16:22:22');
+INSERT INTO `clubs` (`id`, `name`, `city`, `stadium`, `founded_year`) VALUES
+(1, 'Берое', 'Стара Загора', 'Берое', 1916),
+(2, 'Спартак', 'Варна', 'Спартак Варна', 1918),
+(3, 'Test', 'Ne znam', '', 0);
 
 --
 -- Indexes for dumped tables
@@ -67,7 +63,7 @@ ALTER TABLE `clubs`
 -- AUTO_INCREMENT for table `clubs`
 --
 ALTER TABLE `clubs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
