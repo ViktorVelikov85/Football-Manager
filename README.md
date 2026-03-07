@@ -19,17 +19,17 @@
 ## 🗄️ База данни
 Проектът използва **MySQL / MariaDB**. За да подготвите средата:
 
-1. Използвайте локален сървър (напр. **XAMPP**, **WAMP** или **Laragon**).
+1. Използвайте локален сървър (напр. **XAMPP**).
 2. Стартирайте **Apache** и **MySQL** модулите.
 3. Отворете **phpMyAdmin** и създайте база данни `football_manager`.
 4. Импортирайте предоставения файл `football_manager.sql`.
 
 ## 🔗 Connection String
 Настройката се намира в класа `Database.cs`:
-`server=localhost;database=football_manager;uid=root;pwd=;charset=utf8;`
+`private static string connString = "server=localhost;database=football_manager;uid=root;pwd=;charset=utf8;";`
 
 ## ⚡ Как се стартира
 
-1. Отворете решението (`.sln`) във **Visual Studio 2022**.
+1. Отворете .sln файла във **Visual Studio**.
 2. Възстановете NuGet пакетите (ако използвате външни библиотеки като `MySql.Data`).
 3. Натиснете **F5** или бутона **Start**, за да компилирате и стартирате приложението.
