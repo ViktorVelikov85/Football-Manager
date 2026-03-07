@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2026 at 10:15 AM
+-- Generation Time: Mar 07, 2026 at 11:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,32 @@ CREATE TABLE `clubs` (
 INSERT INTO `clubs` (`id`, `name`, `city`, `stadium`, `founded_year`) VALUES
 (1, 'Берое', 'Стара Загора', 'Берое', 1916),
 (2, 'Спартак', 'Варна', 'Спартак Варна', 1918),
-(3, 'Test', 'Ne znam', '', 0);
+(3, 'Test', 'Ne znam', '', 0),
+(4, 'Черно Море', 'Варна', 'Черно море', 1920);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `players`
+--
+
+CREATE TABLE `players` (
+  `id` int(11) NOT NULL,
+  `club_id` int(11) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `birth_date` date NOT NULL,
+  `position` enum('GK','DF','MF','FW') NOT NULL,
+  `shirt_number` int(11) DEFAULT NULL,
+  `status` enum('Active','Injured','Suspended') DEFAULT 'Active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `players`
+--
+
+INSERT INTO `players` (`id`, `club_id`, `full_name`, `birth_date`, `position`, `shirt_number`, `status`) VALUES
+(1, 1, 'Викторчо Великов', '2008-05-08', 'DF', 1, 'Active'),
+(2, 1, 'Матео Желев', '2009-01-01', 'DF', 2, 'Active');
 
 --
 -- Indexes for dumped tables
@@ -56,6 +81,13 @@ ALTER TABLE `clubs`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indexes for table `players`
+--
+ALTER TABLE `players`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_player_club` (`club_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -63,7 +95,23 @@ ALTER TABLE `clubs`
 -- AUTO_INCREMENT for table `clubs`
 --
 ALTER TABLE `clubs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `players`
+--
+ALTER TABLE `players`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `players`
+--
+ALTER TABLE `players`
+  ADD CONSTRAINT `fk_player_club` FOREIGN KEY (`club_id`) REFERENCES `clubs` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
