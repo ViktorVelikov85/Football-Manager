@@ -16,27 +16,17 @@
 * **База данни**: MySQL / MariaDB
 * **UI**: Автоматично форматиране на DataGridView, динамично управление на фокуса и изчистване на селекциите.
 
-## 🗄️ Настройка на базата данни
+## 🗄️ База данни
+Проектът използва **MySQL / MariaDB**. За да подготвите средата:
 
-За да подготвите базата данни, изпълнете следните стъпки в **phpMyAdmin** или друга MySQL клиентска програма:
+1. Използвайте локален сървър (напр. **XAMPP**, **WAMP** или **Laragon**).
+2. Стартирайте **Apache** и **MySQL** модулите.
+3. Отворете **phpMyAdmin** и създайте база данни `football_manager`.
+4. Импортирайте предоставения файл `football_manager.sql`.
 
-1. Създайте нова база данни: `CREATE DATABASE football_manager;`
-2. Изберете базата: `USE football_manager;`
-3. Копирайте и поставете съдържанието на файла `football_manager.sql` в SQL конзолата и го изпълнете.
-## 🔗 Настройка на Connection String
-
-Връзката с базата данни се управлява в класа `Database.cs`. Променете стойностите според вашия локален сървър:
-
-```csharp
-// Примерен Connection String за MySQL
-string connectionString = "Server=localhost; Database=football_manager; Uid=root; Pwd=;";
-
-```
-
-* **Server**: Адресът на вашия сървър (обикновено `localhost`).
-* **Database**: Името на създадената база данни (`football_manager`).
-* **Uid**: Вашият MySQL потребител (по подразбиране `root`).
-* **Pwd**: Вашата парола (оставете празно `""`, ако няма такава).
+## 🔗 Connection String
+Настройката се намира в класа `Database.cs`:
+`server=localhost;database=football_manager;uid=root;pwd=;charset=utf8;`
 
 ## ⚡ Как се стартира
 
