@@ -1,43 +1,45 @@
-# Football Manager - Phase 2: Clubs Management
+# Football Manager System ⚽
 
-This application is a desktop solution for managing football clubs and players, developed using C# WinForms and MySQL. Phase 2 focuses on the core functionality for club data administration.
+Система за управление на футболни клубове и играчи, проектирана за лесна администрация на спортни бази данни.
 
-## Core Features
+## 🚀 Core Features
 
-* **CRUD Operations**: Full support for Create, Read, Update, and Delete actions for football clubs.
-* **Data Validation**: 
-    * Mandatory field checks for club name and city.
-    * Unique constraint handling to prevent duplicate club entries.
-* **User Interface Enhancements**: 
-    * Localized DataGridView headers.
-    * Fixed-width ID columns and automatic row scaling.
-    * Input clearing functionality for improved workflow.
+* **Управление на клубове**: Пълен CRUD цикъл за добавяне, преглед, редакция и изтриване на отбори.
+* **Управление на състави**: Детайлна информация за играчи (позиции, номера, статус и възраст).
+* **Интелигентно филтриране**: Търсене в реално време по име и комбинирани филтри по клуб и позиция.
+* **Валидация на данни**: Защита срещу невалидни имена, цифри в текстови полета и логически проверки за възраст (15-60 г.).
 
-## Technical Specifications
+## 🛠 Technical Specifications
 
-* **Language**: C# (.NET)
-* **Database**: MySQL (MariaDB)
-* **Driver**: MySql.Data
-* **Architecture**: Repository Pattern for data access separation.
+* **Технология**: C# WinForms (.NET Framework / .NET)
+* **Архитектура**: Repository Pattern
+* **База данни**: MySQL / MariaDB
+* **UI**: Автоматично форматиране на DataGridView, динамично управление на фокуса и изчистване на селекциите.
 
-## Installation and Configuration
+## 🗄️ Настройка на базата данни
 
-### 1. Database Setup
-1. Ensure MySQL is running via XAMPP or a standalone service.
-2. Create a database named `football_manager`.
-3. Import the provided `football_manager.sql` file using phpMyAdmin or the MySQL command line to recreate the schema and initial data.
+За да подготвите базата данни, изпълнете следните стъпки в **phpMyAdmin** или друга MySQL клиентска програма:
 
-### 2. Application Setup
-1. Open the solution file (`.sln`) in Microsoft Visual Studio.
-2. Verify the connection string in the `Db.cs` class to ensure it matches your local database credentials (server, user, and password).
-3. Build and run the project using F5.
+1. Създайте нова база данни: `CREATE DATABASE football_manager;`
+2. Изберете базата: `USE football_manager;`
+3. Копирайте и поставете съдържанието на файла `football_manager.sql` в SQL конзолата и го изпълнете.
+## 🔗 Настройка на Connection String
 
-## Project Structure
-* `ClubsForm.cs`: Main interface for club management.
-* `ClubsRepository.cs`: Data access logic for the clubs table.
-* `Db.cs`: Centralized database connection and command execution helper.
-* `football_manager.sql`: Database export including table structures and unique constraints.
+Връзката с базата данни се управлява в класа `Database.cs`. Променете стойностите според вашия локален сървър:
 
----
-Developed by: Viktor Velikov
-Date: February 2026
+```csharp
+// Примерен Connection String за MySQL
+string connectionString = "Server=localhost; Database=football_manager; Uid=root; Pwd=;";
+
+```
+
+* **Server**: Адресът на вашия сървър (обикновено `localhost`).
+* **Database**: Името на създадената база данни (`football_manager`).
+* **Uid**: Вашият MySQL потребител (по подразбиране `root`).
+* **Pwd**: Вашата парола (оставете празно `""`, ако няма такава).
+
+## ⚡ Как се стартира
+
+1. Отворете решението (`.sln`) във **Visual Studio 2022**.
+2. Възстановете NuGet пакетите (ако използвате външни библиотеки като `MySql.Data`).
+3. Натиснете **F5** или бутона **Start**, за да компилирате и стартирате приложението.
