@@ -54,6 +54,7 @@
             label9 = new Label();
             label10 = new Label();
             label11 = new Label();
+            btnClearFilters = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvPlayers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numShirtNumber).BeginInit();
             SuspendLayout();
@@ -111,10 +112,11 @@
             // txtSearchName
             // 
             txtSearchName.Font = new Font("Segoe UI", 14.25F);
-            txtSearchName.Location = new Point(35, 38);
+            txtSearchName.Location = new Point(30, 38);
             txtSearchName.Name = "txtSearchName";
             txtSearchName.Size = new Size(305, 33);
             txtSearchName.TabIndex = 5;
+            txtSearchName.TextChanged += txtSearchName_TextChanged;
             // 
             // dgvPlayers
             // 
@@ -135,7 +137,7 @@
             // txtFirstName
             // 
             txtFirstName.Font = new Font("Segoe UI", 14.25F);
-            txtFirstName.Location = new Point(36, 430);
+            txtFirstName.Location = new Point(30, 430);
             txtFirstName.Name = "txtFirstName";
             txtFirstName.Size = new Size(209, 33);
             txtFirstName.TabIndex = 7;
@@ -143,7 +145,7 @@
             // numShirtNumber
             // 
             numShirtNumber.Font = new Font("Segoe UI", 14.25F);
-            numShirtNumber.Location = new Point(36, 573);
+            numShirtNumber.Location = new Point(30, 572);
             numShirtNumber.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
             numShirtNumber.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numShirtNumber.Name = "numShirtNumber";
@@ -164,7 +166,7 @@
             // txtLastName
             // 
             txtLastName.Font = new Font("Segoe UI", 14.25F);
-            txtLastName.Location = new Point(36, 500);
+            txtLastName.Location = new Point(30, 500);
             txtLastName.Name = "txtLastName";
             txtLastName.Size = new Size(209, 33);
             txtLastName.TabIndex = 10;
@@ -220,7 +222,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F);
-            label1.Location = new Point(36, 402);
+            label1.Location = new Point(32, 402);
             label1.Name = "label1";
             label1.Size = new Size(49, 25);
             label1.TabIndex = 13;
@@ -230,7 +232,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F);
-            label2.Location = new Point(36, 472);
+            label2.Location = new Point(30, 472);
             label2.Name = "label2";
             label2.Size = new Size(91, 25);
             label2.TabIndex = 13;
@@ -240,7 +242,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F);
-            label3.Location = new Point(32, 545);
+            label3.Location = new Point(30, 544);
             label3.Name = "label3";
             label3.Size = new Size(187, 25);
             label3.TabIndex = 13;
@@ -290,7 +292,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(35, 9);
+            label8.Location = new Point(30, 9);
             label8.Name = "label8";
             label8.Size = new Size(211, 25);
             label8.TabIndex = 14;
@@ -300,7 +302,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 14.25F);
-            label9.Location = new Point(604, 9);
+            label9.Location = new Point(582, 9);
             label9.Name = "label9";
             label9.Size = new Size(108, 25);
             label9.TabIndex = 15;
@@ -326,11 +328,24 @@
             label11.TabIndex = 16;
             label11.Text = "позиция";
             // 
+            // btnClearFilters
+            // 
+            btnClearFilters.BackColor = Color.LightCoral;
+            btnClearFilters.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClearFilters.Location = new Point(528, 38);
+            btnClearFilters.Name = "btnClearFilters";
+            btnClearFilters.Size = new Size(162, 33);
+            btnClearFilters.TabIndex = 17;
+            btnClearFilters.Text = "Изчисти филтри";
+            btnClearFilters.UseVisualStyleBackColor = false;
+            btnClearFilters.Click += btnClearFilters_Click;
+            // 
             // PlayersForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1003, 626);
+            Controls.Add(btnClearFilters);
             Controls.Add(label11);
             Controls.Add(label10);
             Controls.Add(label9);
@@ -361,7 +376,7 @@
             MaximizeBox = false;
             Name = "PlayersForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "PlayerForm";
+            Text = "Играчи";
             Load += PlayersForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPlayers).EndInit();
             ((System.ComponentModel.ISupportInitialize)numShirtNumber).EndInit();
@@ -397,5 +412,6 @@
         private Label label9;
         private Label label10;
         private Label label11;
+        private Button btnClearFilters;
     }
 }

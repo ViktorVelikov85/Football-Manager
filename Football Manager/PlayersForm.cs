@@ -64,20 +64,77 @@ namespace Football_Manager
         private void ApplyFilters()
         {
             int? selectedClubId = null;
+            if (cboFilterClub.SelectedValue is int cid && cid > 0) selectedClubId = cid;
 
-            // Проверяваме дали SelectedValue е число (int)
-            if (cboFilterClub.SelectedValue is int cid)
+            string selectedPosition = cboFilterPosition.SelectedItem?.ToString() ?? "Всички";
+            string searchText = txtSearchName.Text.Trim();
+
+            dgvPlayers.DataSource = repo.GetFilteredPlayers(selectedClubId, selectedPosition, searchText);
+            SetupGridHeaders(); // Прилагаме настройките отново
+        }
+        private void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            txtSearchName.Clear();
+
+            // Връщаме филтъра за отбор на "Всички" (който е на индекс 0)
+            if (cboFilterClub.Items.Count > 0)
             {
-                if (cid > 0) selectedClubId = cid;
+                cboFilterClub.SelectedIndex = 0;
             }
-            // Ако е в процес на зареждане, SelectedValue може да е DataRowView - тогава просто го прескачаме
 
-            string selectedPosition = cboFilterPosition.SelectedItem?.ToString();
+            // Връщаме филтъра за позиция на "Всички" (който е на индекс 0)
+            if (cboFilterPosition.Items.Count > 0)
+            {
+                cboFilterPosition.SelectedIndex = 0;
+            }
+            ApplyFilters();
+            txtSearchName.Focus();
+        }
+        private void SetupGridHeaders()
+        {
+            if (dgvPlayers.Columns.Count == 0) return;
 
-            // Зареждаме данните само ако не сме в "счупено" състояние
-            dgvPlayers.DataSource = repo.GetFilteredPlayers(selectedClubId, selectedPosition);
+            // --- 1. Настройка на шрифта (за да не се нулира) ---
+            Font commonFont = new Font("Arial", 10);
+            dgvPlayers.DefaultCellStyle.Font = commonFont;
+            dgvPlayers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+            dgvPlayers.RowsDefaultCellStyle.Font = commonFont;
+            dgvPlayers.AlternatingRowsDefaultCellStyle.Font = commonFont;
 
-            // Не забравяй да извикаш разкрасяването на таблицата тук (Headers, Widths)
+            // --- 2. Преименуване на български ---
+            var headers = new Dictionary<string, string>
+            {
+                { "id", "ID" },
+                { "full_name", "Име на играч" },
+                { "club_name", "Отбор" },
+                { "position", "Позиция" },
+                { "shirt_number", "№" },
+                { "birth_date", "Дата на раждане" },
+                { "status", "Статус" }
+            };
+
+            foreach (var header in headers)
+            {
+                if (dgvPlayers.Columns.Contains(header.Key))
+                {
+                    dgvPlayers.Columns[header.Key].HeaderText = header.Value;
+                }
+            }
+
+            // --- 3. Настройка на размерите ---
+            if (dgvPlayers.Columns.Contains("id"))
+            {
+                dgvPlayers.Columns["id"].Width = 45;
+                dgvPlayers.Columns["id"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvPlayers.Columns.Contains("shirt_number"))
+            {
+                dgvPlayers.Columns["shirt_number"].Width = 45;
+                dgvPlayers.Columns["shirt_number"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            dgvPlayers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         private void cboFilterClub_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -91,44 +148,8 @@ namespace Football_Manager
 
         private void LoadPlayers()
         {
-            // 1. Зареждане на данните
             dgvPlayers.DataSource = repo.GetPlayers();
-
-            // 2. Настройка на шрифта
-            Font commonFont = new Font("Arial", 10);
-            dgvPlayers.DefaultCellStyle.Font = commonFont;
-            dgvPlayers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
-            dgvPlayers.RowsDefaultCellStyle.Font = commonFont;
-
-
-            // 3. Преименуване на колоните на български
-            if (dgvPlayers.Columns["id"] != null) dgvPlayers.Columns["id"].HeaderText = "ID";
-            if (dgvPlayers.Columns["full_name"] != null) dgvPlayers.Columns["full_name"].HeaderText = "Име на играч";
-            if (dgvPlayers.Columns["club_name"] != null) dgvPlayers.Columns["club_name"].HeaderText = "Отбор";
-            if (dgvPlayers.Columns["position"] != null) dgvPlayers.Columns["position"].HeaderText = "Позиция";
-            if (dgvPlayers.Columns["shirt_number"] != null) dgvPlayers.Columns["shirt_number"].HeaderText = "№";
-            if (dgvPlayers.Columns["birth_date"] != null) dgvPlayers.Columns["birth_date"].HeaderText = "Дата на раждане";
-            if (dgvPlayers.Columns["status"] != null) dgvPlayers.Columns["status"].HeaderText = "Статус";
-
-            dgvPlayers.Columns["birth_date"].DefaultCellStyle.Format = "dd.MM.yyyy";
-            // 4. Настройка на ширината (Размери)
-            // Изключваме автоматичното разтягане за малките колони
-            if (dgvPlayers.Columns["id"] != null)
-            {
-                dgvPlayers.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvPlayers.Columns["id"].Width = 40;
-                dgvPlayers.Columns["id"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-
-            if (dgvPlayers.Columns["shirt_number"] != null)
-            {
-                dgvPlayers.Columns["shirt_number"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvPlayers.Columns["shirt_number"].Width = 40;
-                dgvPlayers.Columns["shirt_number"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-
-            // Всички останали колони се разпределят равномерно
-            dgvPlayers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            SetupGridHeaders(); // Всички заглавия и размери се поемат оттук
         }
 
         //  зареждане на данните при клик в таблицата
@@ -210,8 +231,8 @@ namespace Football_Manager
                 );
 
                 MessageBox.Show("Играчът е добавен успешно!");
-                LoadPlayers(); 
-                ClearInputs(); 
+                LoadPlayers();
+                ClearInputs();
             }
             catch (Exception ex)
             {
@@ -264,5 +285,12 @@ namespace Football_Manager
             selectedPlayerId = -1;
             txtFirstName.Focus();
         }
+
+        private void txtSearchName_TextChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        
     }
 }

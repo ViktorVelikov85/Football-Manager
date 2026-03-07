@@ -11,10 +11,11 @@ namespace Football_Manager
         public DataTable GetPlayers()
         {
             //  викаме филтрираната заявка без параметри
-            return GetFilteredPlayers(null, "Всички");
+            return GetFilteredPlayers(null, "Всички", "");
+        
         }
 
-        public DataTable GetFilteredPlayers(int? clubId, string position)
+        public DataTable GetFilteredPlayers(int? clubId, string position, string searchTerm)
         {
             string query = @"SELECT p.id, p.full_name, c.name as club_name, p.position, 
                             p.shirt_number, p.birth_date, p.status 
@@ -29,6 +30,12 @@ namespace Football_Manager
             if (!string.IsNullOrEmpty(position) && position != "Всички")
             {
                 query += $" AND p.position = '{position}'";
+            }
+
+            // Търсене по име
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query += $" AND p.full_name LIKE '%{searchTerm}%'";
             }
 
             return Db.GetTable(query);
