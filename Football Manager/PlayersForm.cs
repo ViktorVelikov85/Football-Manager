@@ -19,18 +19,74 @@ namespace Football_Manager
 
         private void PlayersForm_Load(object sender, EventArgs e)
         {
-            // Пълним комбо боксовете
-            DataTable clubs = Db.GetTable("SELECT id, name FROM clubs");
-            cboClub.DataSource = clubs;
-            cboClub.DisplayMember = "name";
-            cboClub.ValueMember = "id";
-
+            // 1. Пълнене на позициите (за Добавяне/Редакция)
+            cboPosition.Items.Clear();
             cboPosition.Items.AddRange(new string[] { "GK", "DF", "MF", "FW" });
+
+            // 2. Пълнене на статуса (за Добавяне/Редакция)
+            cboStatus.Items.Clear();
             cboStatus.Items.AddRange(new string[] { "Active", "Injured", "Suspended" });
             cboStatus.SelectedIndex = 0;
 
+            // 3. Пълнене на позициите за ФИЛТЪРА (с опция "Всички")
+            cboFilterPosition.Items.Clear();
+            cboFilterPosition.Items.AddRange(new string[] { "Всички", "GK", "DF", "MF", "FW" });
+            cboFilterPosition.SelectedIndex = 0;
+
+            // 4. Зареждане на клубовете от базата данни
+            DataTable clubs = Db.GetTable("SELECT id, name FROM clubs");
+
+            // --- Настройка на cboClub (за Добавяне) ---
+            cboClub.DisplayMember = "name";
+            cboClub.ValueMember = "id";
+            cboClub.DataSource = clubs; // DataSource винаги последен
+            cboClub.SelectedIndex = -1; // Да започне празно
+
+            // --- Настройка на cboFilterClub (за Филтриране) ---
+            // Правим копие на таблицата, за да добавим "Всички отбори" без да развалим първия комбо бокс
+            DataTable filterClubs = clubs.Copy();
+            DataRow row = filterClubs.NewRow();
+            row["id"] = 0;
+            row["name"] = "Всички";
+            filterClubs.Rows.InsertAt(row, 0);
+
+            cboFilterClub.DisplayMember = "name";
+            cboFilterClub.ValueMember = "id";
+            cboFilterClub.DataSource = filterClubs;
+            cboFilterClub.SelectedIndex = 0; // По подразбиране "Всички отбори"
+
+            // 5. Зареждане на играчите в таблицата
             LoadPlayers();
+
+            // 6. Пълно изчистване на селекцията и полетата при старт
             ClearInputs();
+        }
+        private void ApplyFilters()
+        {
+            int? selectedClubId = null;
+
+            // Проверяваме дали SelectedValue е число (int)
+            if (cboFilterClub.SelectedValue is int cid)
+            {
+                if (cid > 0) selectedClubId = cid;
+            }
+            // Ако е в процес на зареждане, SelectedValue може да е DataRowView - тогава просто го прескачаме
+
+            string selectedPosition = cboFilterPosition.SelectedItem?.ToString();
+
+            // Зареждаме данните само ако не сме в "счупено" състояние
+            dgvPlayers.DataSource = repo.GetFilteredPlayers(selectedClubId, selectedPosition);
+
+            // Не забравяй да извикаш разкрасяването на таблицата тук (Headers, Widths)
+        }
+        private void cboFilterClub_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void cboFilterPosition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
         }
 
         private void LoadPlayers()

@@ -8,36 +8,30 @@ namespace Football_Manager
 {
     internal class PlayersRepository
     {
-        // Метод за извличане на играчи с комбинирани филтри
-        public DataTable GetPlayers(int? clubId = null, string position = null, string searchName = null)
+        public DataTable GetPlayers()
         {
-            // JOIN ни позволява да вземем името на клуба от таблицата clubs
-            string sql = @"SELECT p.id, p.full_name, c.name AS club_name, p.position, p.birth_date, p.shirt_number 
-                       FROM players p 
-                       JOIN clubs c ON p.club_id = c.id WHERE 1=1";
+            //  викаме филтрираната заявка без параметри
+            return GetFilteredPlayers(null, "Всички");
+        }
 
-            List<MySqlParameter> parameters = new List<MySqlParameter>();
+        public DataTable GetFilteredPlayers(int? clubId, string position)
+        {
+            string query = @"SELECT p.id, p.full_name, c.name as club_name, p.position, 
+                            p.shirt_number, p.birth_date, p.status 
+                     FROM players p 
+                     JOIN clubs c ON p.club_id = c.id WHERE 1=1";
 
-            // Динамично добавяне на филтри
-            if (clubId.HasValue && clubId > 0)
+            if (clubId.HasValue && clubId.Value > 0)
             {
-                sql += " AND p.club_id = @clubId";
-                parameters.Add(new MySqlParameter("@clubId", clubId));
+                query += " AND p.club_id = " + clubId.Value;
             }
 
             if (!string.IsNullOrEmpty(position) && position != "Всички")
             {
-                sql += " AND p.position = @position";
-                parameters.Add(new MySqlParameter("@position", position));
+                query += $" AND p.position = '{position}'";
             }
 
-            if (!string.IsNullOrEmpty(searchName))
-            {
-                sql += " AND p.full_name LIKE @name";
-                parameters.Add(new MySqlParameter("@name", "%" + searchName + "%"));
-            }
-
-            return Db.GetTable(sql, parameters.ToArray());
+            return Db.GetTable(query);
         }
         public void Add(int clubId, string fullName, string birthDate, string position, int shirtNumber, string status)
         {
@@ -76,5 +70,6 @@ namespace Football_Manager
             string sql = "DELETE FROM players WHERE id = @id";
             Db.Execute(sql, new[] { new MySqlParameter("@id", id) });
         }
+       
     }
 }

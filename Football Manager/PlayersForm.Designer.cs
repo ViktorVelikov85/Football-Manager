@@ -91,10 +91,11 @@
             cboFilterClub.DropDownStyle = ComboBoxStyle.DropDownList;
             cboFilterClub.Font = new Font("Segoe UI", 14.25F);
             cboFilterClub.FormattingEnabled = true;
-            cboFilterClub.Location = new Point(694, 37);
+            cboFilterClub.Location = new Point(706, 37);
             cboFilterClub.Name = "cboFilterClub";
-            cboFilterClub.Size = new Size(154, 33);
+            cboFilterClub.Size = new Size(142, 33);
             cboFilterClub.TabIndex = 3;
+            cboFilterClub.SelectedIndexChanged += cboFilterClub_SelectedIndexChanged;
             // 
             // cboFilterPosition
             // 
@@ -105,6 +106,7 @@
             cboFilterPosition.Name = "cboFilterPosition";
             cboFilterPosition.Size = new Size(103, 33);
             cboFilterPosition.TabIndex = 4;
+            cboFilterPosition.SelectedIndexChanged += cboFilterPosition_SelectedIndexChanged;
             // 
             // txtSearchName
             // 
@@ -308,7 +310,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 14.25F);
-            label10.Location = new Point(718, 9);
+            label10.Location = new Point(706, 9);
             label10.Name = "label10";
             label10.Size = new Size(51, 25);
             label10.TabIndex = 16;
@@ -356,7 +358,9 @@
             Controls.Add(cboPosition);
             Controls.Add(cboClub);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MaximizeBox = false;
             Name = "PlayersForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "PlayerForm";
             Load += PlayersForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPlayers).EndInit();
