@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2026 at 11:43 AM
+-- Generation Time: Mar 07, 2026 at 09:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `clubs` (
 INSERT INTO `clubs` (`id`, `name`, `city`, `stadium`, `founded_year`) VALUES
 (1, 'Берое', 'Стара Загора', 'Берое', 1916),
 (2, 'Спартак', 'Варна', 'Спартак Варна', 1918),
-(3, 'Test', 'Ne znam', '', 0),
+(3, 'Test', 'Ne znam', 'тест', 1990),
 (4, 'Черно Море', 'Варна', 'Черно море', 1920);
 
 -- --------------------------------------------------------
@@ -66,8 +66,9 @@ CREATE TABLE `players` (
 --
 
 INSERT INTO `players` (`id`, `club_id`, `full_name`, `birth_date`, `position`, `shirt_number`, `status`) VALUES
-(1, 1, 'Викторчо Великов', '2008-05-08', 'DF', 1, 'Active'),
-(2, 1, 'Матео Желев', '2009-01-01', 'DF', 2, 'Active');
+(1, 1, 'Викторчо Великов', '2008-05-08', 'FW', 1, 'Active'),
+(2, 4, 'Матео Желев', '2009-01-01', 'DF', 5, 'Active'),
+(4, 1, 'Иван Игнев', '1994-07-08', 'MF', 6, 'Active');
 
 --
 -- Indexes for dumped tables
@@ -101,7 +102,7 @@ ALTER TABLE `clubs`
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
