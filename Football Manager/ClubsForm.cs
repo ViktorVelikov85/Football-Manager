@@ -14,7 +14,7 @@ namespace Football_Manager
         public ClubsForm()
         {
             InitializeComponent();
-            LoadClubs(); 
+            LoadClubs();
         }
         private void LoadClubs()
         {
@@ -72,7 +72,7 @@ namespace Football_Manager
 
                 MessageBox.Show("Клубът е добавен успешно!");
                 LoadClubs(); // Обновяваме таблицата
-                ClearInputs(); 
+                ClearInputs();
             }
             catch (Exception ex)
             {
@@ -119,7 +119,7 @@ namespace Football_Manager
         }
         private void btnDelete_Click(object sender, EventArgs e)                       // DELETE BUTTON
         {
-            if (selectedId == -1) 
+            if (selectedId == -1)
             {
                 MessageBox.Show("Изберете клуб за изтриване!", "Внимание");
                 return;
@@ -147,6 +147,21 @@ namespace Football_Manager
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearInputs();
+        }
+
+        private void btnOpenPlayers_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            PlayerForm playersForm = new PlayerForm();
+            playersForm.ShowDialog();
+
+            this.Show();
+        }
+        private void ClubsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Този ред гарантира, че целият процес спира, когато затвориш главния прозорец
+            Application.Exit();
         }
     }
 }

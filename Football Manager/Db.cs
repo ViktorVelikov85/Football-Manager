@@ -42,5 +42,20 @@ namespace Football_Manager
                 }
             }
         }
+        public static DataTable GetTable(string sql, MySqlParameter[] parameters = null)
+        {
+            DataTable table = new DataTable();
+            using (MySqlConnection conn = GetConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                if (parameters != null)
+                {
+                    cmd.Parameters.AddRange(parameters);
+                }
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                adapter.Fill(table);
+            }
+            return table;
+        }
     }
 }

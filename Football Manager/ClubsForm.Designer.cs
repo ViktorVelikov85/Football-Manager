@@ -43,6 +43,7 @@
             txtCreatedIn = new TextBox();
             label3 = new Label();
             label4 = new Label();
+            btnOpenPlayers = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvClubs).BeginInit();
             SuspendLayout();
             // 
@@ -191,11 +192,23 @@
             label4.TabIndex = 12;
             label4.Text = "Година на създаване";
             // 
+            // btnOpenPlayers
+            // 
+            btnOpenPlayers.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnOpenPlayers.Location = new Point(460, 398);
+            btnOpenPlayers.Name = "btnOpenPlayers";
+            btnOpenPlayers.Size = new Size(126, 58);
+            btnOpenPlayers.TabIndex = 13;
+            btnOpenPlayers.Text = "Играчи";
+            btnOpenPlayers.UseVisualStyleBackColor = true;
+            btnOpenPlayers.Click += btnOpenPlayers_Click;
+            // 
             // ClubsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(781, 585);
+            Controls.Add(btnOpenPlayers);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(txtCreatedIn);
@@ -214,6 +227,7 @@
             Name = "ClubsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Отбори";
+            FormClosed += ClubsForm_FormClosed;
             ((System.ComponentModel.ISupportInitialize)dgvClubs).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -234,5 +248,6 @@
         private TextBox txtCreatedIn;
         private Label label3;
         private Label label4;
+        private Button btnOpenPlayers;
     }
 }
