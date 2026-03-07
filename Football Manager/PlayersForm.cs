@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace Football_Manager
 {
-    public partial class PlayerForm : Form
+    public partial class PlayersForm : Form
     {
         PlayersRepository repo = new PlayersRepository();
         int selectedPlayerId = -1;
 
-        public PlayerForm()
+        public PlayersForm()
         {
             InitializeComponent();
         }
@@ -30,6 +30,7 @@ namespace Football_Manager
             cboStatus.SelectedIndex = 0;
 
             LoadPlayers();
+            ClearInputs();
         }
 
         private void LoadPlayers()
@@ -74,7 +75,7 @@ namespace Football_Manager
             dgvPlayers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        // ВАЖНО: Методът, който зарежда данните при клик в таблицата
+        //  зареждане на данните при клик в таблицата
         private void dgvPlayers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -103,14 +104,63 @@ namespace Football_Manager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtFirstName.Text) || string.IsNullOrWhiteSpace(txtLastName.Text)) return;
+            // 1. Проверка за празни имена или наличие на цифри
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text) || string.IsNullOrWhiteSpace(txtLastName.Text))
+            {
+                MessageBox.Show("Моля, попълнете и двете имена!");
+                return;
+            }
+            if (txtFirstName.Text.Any(char.IsDigit) || txtLastName.Text.Any(char.IsDigit))
+            {
+                MessageBox.Show("Имената не трябва да съдържат цифри!");
+                return;
+            }
 
-            string fullName = $"{txtFirstName.Text.Trim()} {txtLastName.Text.Trim()}";
-            repo.Add(Convert.ToInt32(cboClub.SelectedValue), fullName, dtpBirthDate.Value.ToString("yyyy-MM-dd"),
-                     cboPosition.SelectedItem.ToString(), (int)numShirtNumber.Value, cboStatus.SelectedItem.ToString());
+            // 2. Проверка за избран клуб
+            if (cboClub.SelectedValue == null)
+            {
+                MessageBox.Show("Моля, изберете клуб от списъка!");
+                return;
+            }
 
-            LoadPlayers();
-            ClearInputs();
+            // 3. Проверка за позиция и статус
+            if (cboPosition.SelectedIndex == -1 || cboStatus.SelectedIndex == -1)
+            {
+                MessageBox.Show("Моля, изберете позиция и статус!");
+                return;
+            }
+
+            // 4. Проверка на възрастта 
+            int age = DateTime.Now.Year - dtpBirthDate.Value.Year;
+            if (dtpBirthDate.Value > DateTime.Now || age < 15 || age > 60)
+            {
+                MessageBox.Show("Невалидна дата на раждане! Възрастта трябва да е между 15 и 60 години.");
+                return;
+            }
+
+            // --- АКО ВСИЧКО Е НАРЕД, ПРОДЪЛЖАВАМЕ КЪМ ЗАПИС ---
+
+            try
+            {
+                string fullName = $"{txtFirstName.Text.Trim()} {txtLastName.Text.Trim()}";
+
+                repo.Add(
+                    Convert.ToInt32(cboClub.SelectedValue),
+                    fullName,
+                    dtpBirthDate.Value.ToString("yyyy-MM-dd"),
+                    cboPosition.SelectedItem.ToString(),
+                    (int)numShirtNumber.Value,
+                    cboStatus.SelectedItem.ToString()
+                );
+
+                MessageBox.Show("Играчът е добавен успешно!");
+                LoadPlayers(); 
+                ClearInputs(); 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Грешка при запис в базата: " + ex.Message);
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -139,27 +189,24 @@ namespace Football_Manager
 
         private void ClearInputs()
         {
-            // Изчистване на текстовите кутии
             txtFirstName.Clear();
             txtLastName.Clear();
-
-            // Нулиране на числовия контрол (Номер на тениска)
             numShirtNumber.Value = 1;
-
-            // Нулиране на датата (връща днешната дата)
             dtpBirthDate.Value = DateTime.Now;
-
-            // Нулиране на падащите менюта (ComboBox)
-            // Използваме -1, за да няма избран елемент, или 0 за първия по подразбиране
             cboPosition.SelectedIndex = -1;
             cboClub.SelectedIndex = -1;
+            cboStatus.SelectedIndex = 0;
 
-            // За статуса обикновено е добре да се върне на "Active" (който е индекс 0)
-            if (cboStatus.Items.Count > 0)
-                cboStatus.SelectedIndex = 0;
+            dgvPlayers.ClearSelection();
 
-            // Нулиране на избраното ID, за да не се обърка Add с Update
+            // Казваме на таблицата, че няма активна клетка
+            if (dgvPlayers.CurrentCell != null)
+            {
+                dgvPlayers.CurrentCell = null;
+            }
+
             selectedPlayerId = -1;
+            txtFirstName.Focus();
         }
     }
 }

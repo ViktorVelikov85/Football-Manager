@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             dgvClubs = new DataGridView();
             txtName = new TextBox();
             txtCity = new TextBox();
@@ -53,16 +53,16 @@
             dgvClubs.AllowUserToDeleteRows = false;
             dgvClubs.AllowUserToResizeColumns = false;
             dgvClubs.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dgvClubs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvClubs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dgvClubs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvClubs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvClubs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClubs.Location = new Point(45, 28);
             dgvClubs.MultiSelect = false;
@@ -78,7 +78,7 @@
             txtName.Font = new Font("Segoe UI", 14.25F);
             txtName.Location = new Point(45, 315);
             txtName.Name = "txtName";
-            txtName.Size = new Size(368, 33);
+            txtName.Size = new Size(381, 33);
             txtName.TabIndex = 1;
             // 
             // txtCity
@@ -95,7 +95,7 @@
             btnAdd.Font = new Font("Segoe UI", 14.25F);
             btnAdd.Location = new Point(620, 299);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(126, 61);
+            btnAdd.Size = new Size(120, 60);
             btnAdd.TabIndex = 3;
             btnAdd.Text = "Добави";
             btnAdd.UseVisualStyleBackColor = false;
@@ -103,13 +103,14 @@
             // 
             // btnEdit
             // 
+            btnEdit.BackColor = Color.LightBlue;
             btnEdit.Font = new Font("Segoe UI", 14.25F);
-            btnEdit.Location = new Point(460, 499);
+            btnEdit.Location = new Point(618, 499);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(126, 61);
+            btnEdit.Size = new Size(120, 60);
             btnEdit.TabIndex = 4;
-            btnEdit.Text = "Промени";
-            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Text = "Обнови";
+            btnEdit.UseVisualStyleBackColor = false;
             btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
@@ -118,7 +119,7 @@
             btnDelete.Font = new Font("Segoe UI", 14.25F);
             btnDelete.Location = new Point(620, 398);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(126, 61);
+            btnDelete.Size = new Size(120, 60);
             btnDelete.TabIndex = 5;
             btnDelete.Text = "Изтрий";
             btnDelete.UseVisualStyleBackColor = false;
@@ -126,11 +127,11 @@
             // 
             // btnClear
             // 
-            btnClear.BackColor = Color.LightBlue;
+            btnClear.BackColor = SystemColors.Control;
             btnClear.Font = new Font("Segoe UI", 14.25F);
-            btnClear.Location = new Point(620, 499);
+            btnClear.Location = new Point(306, 499);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(126, 61);
+            btnClear.Size = new Size(120, 60);
             btnClear.TabIndex = 6;
             btnClear.Text = "Изчисти";
             btnClear.UseVisualStyleBackColor = false;
@@ -195,9 +196,9 @@
             // btnOpenPlayers
             // 
             btnOpenPlayers.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOpenPlayers.Location = new Point(460, 398);
+            btnOpenPlayers.Location = new Point(483, 300);
             btnOpenPlayers.Name = "btnOpenPlayers";
-            btnOpenPlayers.Size = new Size(126, 58);
+            btnOpenPlayers.Size = new Size(120, 60);
             btnOpenPlayers.TabIndex = 13;
             btnOpenPlayers.Text = "Играчи";
             btnOpenPlayers.UseVisualStyleBackColor = true;
@@ -228,6 +229,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Отбори";
             FormClosed += ClubsForm_FormClosed;
+            Shown += ClubsForm_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvClubs).EndInit();
             ResumeLayout(false);
             PerformLayout();

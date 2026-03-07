@@ -16,6 +16,11 @@ namespace Football_Manager
             InitializeComponent();
             LoadClubs();
         }
+
+        private void ClubsForm_Shown(object sender, EventArgs e)
+        {
+            ClearInputs();
+        }
         private void LoadClubs()
         {
             try
@@ -142,6 +147,14 @@ namespace Football_Manager
             txtStadium.Clear();
             txtCreatedIn.Clear();
             selectedId = -1; // Нулираме избора
+            dgvClubs.ClearSelection();
+
+            // Казваме на таблицата, че няма активна клетка
+            if (dgvClubs.CurrentCell != null)
+            {
+                dgvClubs.CurrentCell = null;
+            }
+            txtName.Focus();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -152,16 +165,18 @@ namespace Football_Manager
         private void btnOpenPlayers_Click(object sender, EventArgs e)
         {
             this.Hide();
-
-            PlayerForm playersForm = new PlayerForm();
+            PlayersForm playersForm = new PlayersForm();
             playersForm.ShowDialog();
 
             this.Show();
+            ClearInputs(); 
         }
         private void ClubsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Този ред гарантира, че целият процес спира, когато затвориш главния прозорец
             Application.Exit();
         }
+
+        
     }
 }
