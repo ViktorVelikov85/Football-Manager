@@ -26,7 +26,7 @@
 
 ## 🔗 Connection String
 Настройката се намира в класа `Database.cs`:
-`private static string connString = "server=localhost;database=football_manager;uid=root;pwd=;charset=utf8;";`
+`private static string connString = "server=localhost;database=football_manager;port=3307;uid=root;pwd=;charset=utf8;";`
 
 ## ⚡ Как се стартира
 
