@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvClubs = new DataGridView();
             txtName = new TextBox();
             txtCity = new TextBox();
@@ -43,7 +43,6 @@
             txtCreatedIn = new TextBox();
             label3 = new Label();
             label4 = new Label();
-            btnOpenPlayers = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvClubs).BeginInit();
             SuspendLayout();
             // 
@@ -53,16 +52,16 @@
             dgvClubs.AllowUserToDeleteRows = false;
             dgvClubs.AllowUserToResizeColumns = false;
             dgvClubs.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dgvClubs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvClubs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dgvClubs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvClubs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvClubs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvClubs.Location = new Point(45, 28);
             dgvClubs.MultiSelect = false;
@@ -193,23 +192,11 @@
             label4.TabIndex = 12;
             label4.Text = "Година на създаване";
             // 
-            // btnOpenPlayers
-            // 
-            btnOpenPlayers.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOpenPlayers.Location = new Point(483, 300);
-            btnOpenPlayers.Name = "btnOpenPlayers";
-            btnOpenPlayers.Size = new Size(120, 60);
-            btnOpenPlayers.TabIndex = 13;
-            btnOpenPlayers.Text = "Играчи";
-            btnOpenPlayers.UseVisualStyleBackColor = true;
-            btnOpenPlayers.Click += btnOpenPlayers_Click;
-            // 
             // ClubsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(781, 585);
-            Controls.Add(btnOpenPlayers);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(txtCreatedIn);
@@ -228,7 +215,7 @@
             Name = "ClubsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Отбори";
-            FormClosed += ClubsForm_FormClosed;
+
             Shown += ClubsForm_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvClubs).EndInit();
             ResumeLayout(false);
@@ -250,6 +237,5 @@
         private TextBox txtCreatedIn;
         private Label label3;
         private Label label4;
-        private Button btnOpenPlayers;
     }
 }

@@ -171,12 +171,7 @@ namespace Football_Manager
             this.Show();
             ClearInputs(); 
         }
-        private void ClubsForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            // Този ред гарантира, че целият процес спира, когато затвориш главния прозорец
-            Application.Exit();
-        }
-
+       
         
     }
 }
