@@ -169,9 +169,12 @@ namespace Football_Manager
             playersForm.ShowDialog();
 
             this.Show();
-            ClearInputs(); 
+            ClearInputs();
         }
-       
-        
+
+        private void ClubsForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

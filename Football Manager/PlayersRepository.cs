@@ -17,8 +17,8 @@ namespace Football_Manager
 
         public DataTable GetFilteredPlayers(int? clubId, string position, string searchTerm)
         {
-            string query = @"SELECT p.id, p.full_name, c.name as club_name, p.position, 
-                            p.shirt_number, p.birth_date, p.status 
+            string query = @"SELECT p.id, p.full_name, c.name as club_name, p.club_id, 
+                            p.position, p.shirt_number, p.status 
                      FROM players p 
                      JOIN clubs c ON p.club_id = c.id WHERE 1=1";
 
@@ -32,11 +32,12 @@ namespace Football_Manager
                 query += $" AND p.position = '{position}'";
             }
 
-            // Търсене по име
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 query += $" AND p.full_name LIKE '%{searchTerm}%'";
             }
+
+            query += " ORDER BY p.full_name ASC";
 
             return Db.GetTable(query);
         }
@@ -77,6 +78,19 @@ namespace Football_Manager
             string sql = "DELETE FROM players WHERE id = @id";
             Db.Execute(sql, new[] { new MySqlParameter("@id", id) });
         }
+
+    
+
+        public void UpdatePlayerClub(int playerId, int newClubId)
+        {
+            string sql = "UPDATE players SET club_id = @newClubId WHERE id = @playerId";
+
+            Db.Execute(sql, new[] {
+        new MySqlParameter("@newClubId", newClubId),
+        new MySqlParameter("@playerId", playerId)
+    });
+        }
        
+
     }
 }

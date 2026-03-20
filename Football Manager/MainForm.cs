@@ -26,5 +26,10 @@ namespace Football_Manager
             ClubsForm clubsForm = new ClubsForm();
             clubsForm.ShowDialog();
         }
+        private void btnOpenTransfers_Click(object sender, EventArgs e)
+        {
+            TransfersForm transfersForm = new TransfersForm();
+            transfersForm.ShowDialog();
+        }
     }
 }

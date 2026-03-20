@@ -9,7 +9,7 @@ namespace Football_Manager
     public static class Db
     {
         // При XAMPP потребителят е root, а паролата е празна
-        private static string connString = "server=localhost;database=football_manager;uid=root;pwd=;charset=utf8;";
+        public static string connString = "server=localhost;database=football_manager;uid=root;pwd=;charset=utf8;";
 
         public static MySqlConnection GetConnection() => new MySqlConnection(connString);
 

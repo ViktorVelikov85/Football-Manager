@@ -37,5 +37,9 @@ namespace Football_Manager
             string sql = "DELETE FROM clubs WHERE id=@id";
             Db.Execute(sql, new[] { new MySqlParameter("@id", id) });
         }
+        public DataTable GetAllClubs()
+        {
+            return Db.GetTable("SELECT id, name FROM clubs ORDER BY name ASC");
+        }
     }
 }

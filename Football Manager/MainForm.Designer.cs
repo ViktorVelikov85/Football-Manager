@@ -30,6 +30,7 @@
         {
             btnOpenPlayers = new Button();
             btnOpenClubs = new Button();
+            btnOpenTransfers = new Button();
             SuspendLayout();
             // 
             // btnOpenPlayers
@@ -46,7 +47,7 @@
             // btnOpenClubs
             // 
             btnOpenClubs.Font = new Font("Segoe UI", 14.25F);
-            btnOpenClubs.Location = new Point(32, 170);
+            btnOpenClubs.Location = new Point(32, 156);
             btnOpenClubs.Name = "btnOpenClubs";
             btnOpenClubs.Size = new Size(195, 48);
             btnOpenClubs.TabIndex = 1;
@@ -54,11 +55,23 @@
             btnOpenClubs.UseVisualStyleBackColor = true;
             btnOpenClubs.Click += btnOpenClubs_Click;
             // 
+            // btnOpenTransfers
+            // 
+            btnOpenTransfers.Font = new Font("Segoe UI", 14.25F);
+            btnOpenTransfers.Location = new Point(32, 221);
+            btnOpenTransfers.Name = "btnOpenTransfers";
+            btnOpenTransfers.Size = new Size(195, 48);
+            btnOpenTransfers.TabIndex = 1;
+            btnOpenTransfers.Text = "Трансфери";
+            btnOpenTransfers.UseVisualStyleBackColor = true;
+            btnOpenTransfers.Click += btnOpenTransfers_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(279, 373);
+            Controls.Add(btnOpenTransfers);
             Controls.Add(btnOpenClubs);
             Controls.Add(btnOpenPlayers);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -73,5 +86,6 @@
 
         private Button btnOpenPlayers;
         private Button btnOpenClubs;
+        private Button btnOpenTransfers;
     }
 }
