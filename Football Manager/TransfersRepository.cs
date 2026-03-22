@@ -46,21 +46,28 @@ namespace Football_Manager
             }
         }
 
-        // Метод за извличане на историята за DataGridView
-        public DataTable GetTransfers()
+        public DataTable GetTransfers(string searchTerm = "")
         {
             string sql = @"
                 SELECT 
                     p.full_name AS 'Име на играч', 
                     COALESCE(c1.name, 'Свободен агент') AS 'От клуб', 
                     c2.name AS 'Към клуб', 
-                    t.Fee AS 'Такса', 
-                    t.TransferDate AS 'Дата'
+                    t.TransferDate AS 'Дата',   
+                    t.Fee AS 'Такса'            
                 FROM transfers t
                 JOIN players p ON t.PlayerId = p.id
                 LEFT JOIN clubs c1 ON t.FromClubId = c1.id
                 JOIN clubs c2 ON t.ToClubId = c2.id
-                ORDER BY t.TransferDate DESC";
+                WHERE 1=1";
+
+            // Ако има въведен текст за търсене, добавяме филтъра
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                sql += $" AND p.full_name LIKE '%{searchTerm}%'";
+            }
+
+            sql += " ORDER BY t.TransferDate DESC";
 
             return Db.GetTable(sql);
         }

@@ -64,7 +64,7 @@
             cboClub.DropDownStyle = ComboBoxStyle.DropDownList;
             cboClub.Font = new Font("Segoe UI", 14.25F);
             cboClub.FormattingEnabled = true;
-            cboClub.Location = new Point(310, 430);
+            cboClub.Location = new Point(308, 440);
             cboClub.Name = "cboClub";
             cboClub.Size = new Size(200, 33);
             cboClub.TabIndex = 0;
@@ -74,17 +74,19 @@
             cboPosition.DropDownStyle = ComboBoxStyle.DropDownList;
             cboPosition.Font = new Font("Segoe UI", 14.25F);
             cboPosition.FormattingEnabled = true;
-            cboPosition.Location = new Point(528, 430);
+            cboPosition.Location = new Point(526, 440);
             cboPosition.Name = "cboPosition";
             cboPosition.Size = new Size(121, 33);
             cboPosition.TabIndex = 1;
             // 
             // dtpBirthDate
             // 
+            dtpBirthDate.CustomFormat = "dd MMMM yyyy";
             dtpBirthDate.Font = new Font("Segoe UI", 14.25F);
-            dtpBirthDate.Location = new Point(310, 500);
+            dtpBirthDate.Format = DateTimePickerFormat.Custom;
+            dtpBirthDate.Location = new Point(308, 510);
             dtpBirthDate.Name = "dtpBirthDate";
-            dtpBirthDate.Size = new Size(339, 33);
+            dtpBirthDate.Size = new Size(215, 33);
             dtpBirthDate.TabIndex = 2;
             // 
             // cboFilterClub
@@ -92,7 +94,7 @@
             cboFilterClub.DropDownStyle = ComboBoxStyle.DropDownList;
             cboFilterClub.Font = new Font("Segoe UI", 14.25F);
             cboFilterClub.FormattingEnabled = true;
-            cboFilterClub.Location = new Point(706, 37);
+            cboFilterClub.Location = new Point(661, 38);
             cboFilterClub.Name = "cboFilterClub";
             cboFilterClub.Size = new Size(142, 33);
             cboFilterClub.TabIndex = 3;
@@ -103,7 +105,7 @@
             cboFilterPosition.DropDownStyle = ComboBoxStyle.DropDownList;
             cboFilterPosition.Font = new Font("Segoe UI", 14.25F);
             cboFilterPosition.FormattingEnabled = true;
-            cboFilterPosition.Location = new Point(872, 38);
+            cboFilterPosition.Location = new Point(827, 39);
             cboFilterPosition.Name = "cboFilterPosition";
             cboFilterPosition.Size = new Size(103, 33);
             cboFilterPosition.TabIndex = 4;
@@ -130,14 +132,14 @@
             dgvPlayers.Name = "dgvPlayers";
             dgvPlayers.ReadOnly = true;
             dgvPlayers.RowHeadersVisible = false;
-            dgvPlayers.Size = new Size(945, 317);
+            dgvPlayers.Size = new Size(901, 332);
             dgvPlayers.TabIndex = 6;
             dgvPlayers.CellClick += dgvPlayers_CellClick;
             // 
             // txtFirstName
             // 
             txtFirstName.Font = new Font("Segoe UI", 14.25F);
-            txtFirstName.Location = new Point(30, 430);
+            txtFirstName.Location = new Point(28, 440);
             txtFirstName.Name = "txtFirstName";
             txtFirstName.Size = new Size(209, 33);
             txtFirstName.TabIndex = 7;
@@ -145,7 +147,7 @@
             // numShirtNumber
             // 
             numShirtNumber.Font = new Font("Segoe UI", 14.25F);
-            numShirtNumber.Location = new Point(30, 572);
+            numShirtNumber.Location = new Point(28, 582);
             numShirtNumber.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
             numShirtNumber.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numShirtNumber.Name = "numShirtNumber";
@@ -158,7 +160,7 @@
             cboStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cboStatus.Font = new Font("Segoe UI", 14.25F);
             cboStatus.FormattingEnabled = true;
-            cboStatus.Location = new Point(310, 573);
+            cboStatus.Location = new Point(308, 583);
             cboStatus.Name = "cboStatus";
             cboStatus.Size = new Size(160, 33);
             cboStatus.TabIndex = 9;
@@ -166,7 +168,7 @@
             // txtLastName
             // 
             txtLastName.Font = new Font("Segoe UI", 14.25F);
-            txtLastName.Location = new Point(30, 500);
+            txtLastName.Location = new Point(28, 510);
             txtLastName.Name = "txtLastName";
             txtLastName.Size = new Size(209, 33);
             txtLastName.TabIndex = 10;
@@ -175,7 +177,7 @@
             // 
             btnAdd.BackColor = Color.LightGreen;
             btnAdd.Font = new Font("Segoe UI", 14.25F);
-            btnAdd.Location = new Point(718, 430);
+            btnAdd.Location = new Point(674, 439);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(120, 60);
             btnAdd.TabIndex = 11;
@@ -187,7 +189,7 @@
             // 
             btnUpdate.BackColor = Color.LightBlue;
             btnUpdate.Font = new Font("Segoe UI", 14.25F);
-            btnUpdate.Location = new Point(855, 430);
+            btnUpdate.Location = new Point(811, 439);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(120, 60);
             btnUpdate.TabIndex = 11;
@@ -199,7 +201,7 @@
             // 
             btnDelete.BackColor = Color.Coral;
             btnDelete.Font = new Font("Segoe UI", 14.25F);
-            btnDelete.Location = new Point(855, 545);
+            btnDelete.Location = new Point(811, 554);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(120, 60);
             btnDelete.TabIndex = 11;
@@ -210,7 +212,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 14.25F);
-            btnClear.Location = new Point(718, 545);
+            btnClear.Location = new Point(674, 554);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(120, 60);
             btnClear.TabIndex = 11;
@@ -222,7 +224,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F);
-            label1.Location = new Point(32, 402);
+            label1.Location = new Point(30, 412);
             label1.Name = "label1";
             label1.Size = new Size(49, 25);
             label1.TabIndex = 13;
@@ -232,7 +234,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F);
-            label2.Location = new Point(30, 472);
+            label2.Location = new Point(28, 482);
             label2.Name = "label2";
             label2.Size = new Size(91, 25);
             label2.TabIndex = 13;
@@ -242,7 +244,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F);
-            label3.Location = new Point(30, 544);
+            label3.Location = new Point(28, 554);
             label3.Name = "label3";
             label3.Size = new Size(187, 25);
             label3.TabIndex = 13;
@@ -252,7 +254,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F);
-            label4.Location = new Point(310, 545);
+            label4.Location = new Point(308, 555);
             label4.Name = "label4";
             label4.Size = new Size(68, 25);
             label4.TabIndex = 13;
@@ -262,7 +264,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 14.25F);
-            label5.Location = new Point(310, 472);
+            label5.Location = new Point(308, 482);
             label5.Name = "label5";
             label5.Size = new Size(160, 25);
             label5.TabIndex = 13;
@@ -272,17 +274,17 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 14.25F);
-            label6.Location = new Point(310, 402);
+            label6.Location = new Point(308, 412);
             label6.Name = "label6";
-            label6.Size = new Size(53, 25);
+            label6.Size = new Size(67, 25);
             label6.TabIndex = 13;
-            label6.Text = "Клуб";
+            label6.Text = "Отбор";
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14.25F);
-            label7.Location = new Point(528, 402);
+            label7.Location = new Point(526, 412);
             label7.Name = "label7";
             label7.Size = new Size(88, 25);
             label7.TabIndex = 13;
@@ -302,7 +304,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 14.25F);
-            label9.Location = new Point(582, 9);
+            label9.Location = new Point(537, 10);
             label9.Name = "label9";
             label9.Size = new Size(108, 25);
             label9.TabIndex = 15;
@@ -312,17 +314,17 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 14.25F);
-            label10.Location = new Point(706, 9);
+            label10.Location = new Point(661, 10);
             label10.Name = "label10";
-            label10.Size = new Size(51, 25);
+            label10.Size = new Size(67, 25);
             label10.TabIndex = 16;
-            label10.Text = "клуб";
+            label10.Text = "Отбор";
             // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 14.25F);
-            label11.Location = new Point(872, 9);
+            label11.Location = new Point(827, 10);
             label11.Name = "label11";
             label11.Size = new Size(85, 25);
             label11.TabIndex = 16;
@@ -332,7 +334,7 @@
             // 
             btnClearFilters.BackColor = Color.LightCoral;
             btnClearFilters.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnClearFilters.Location = new Point(528, 38);
+            btnClearFilters.Location = new Point(483, 39);
             btnClearFilters.Name = "btnClearFilters";
             btnClearFilters.Size = new Size(162, 33);
             btnClearFilters.TabIndex = 17;
@@ -344,7 +346,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1003, 626);
+            ClientSize = new Size(956, 645);
             Controls.Add(btnClearFilters);
             Controls.Add(label11);
             Controls.Add(label10);
@@ -373,6 +375,7 @@
             Controls.Add(cboPosition);
             Controls.Add(cboClub);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "PlayersForm";
             StartPosition = FormStartPosition.CenterScreen;

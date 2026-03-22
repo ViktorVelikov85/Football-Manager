@@ -41,6 +41,8 @@
             label4 = new Label();
             label5 = new Label();
             btnClear = new Button();
+            txtSearchNameTransfer = new TextBox();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvTransfers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numFee).BeginInit();
             SuspendLayout();
@@ -52,12 +54,13 @@
             dgvTransfers.AllowUserToResizeColumns = false;
             dgvTransfers.AllowUserToResizeRows = false;
             dgvTransfers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTransfers.Location = new Point(32, 22);
+            dgvTransfers.Location = new Point(31, 81);
             dgvTransfers.MultiSelect = false;
             dgvTransfers.Name = "dgvTransfers";
             dgvTransfers.ReadOnly = true;
             dgvTransfers.RowHeadersVisible = false;
-            dgvTransfers.Size = new Size(735, 239);
+            dgvTransfers.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgvTransfers.Size = new Size(815, 239);
             dgvTransfers.TabIndex = 0;
             // 
             // cboPlayer
@@ -66,7 +69,7 @@
             cboPlayer.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboPlayer.Font = new Font("Segoe UI", 14.25F);
             cboPlayer.FormattingEnabled = true;
-            cboPlayer.Location = new Point(32, 297);
+            cboPlayer.Location = new Point(31, 369);
             cboPlayer.Name = "cboPlayer";
             cboPlayer.Size = new Size(274, 33);
             cboPlayer.TabIndex = 1;
@@ -77,42 +80,48 @@
             cboToClub.DropDownStyle = ComboBoxStyle.DropDownList;
             cboToClub.Font = new Font("Segoe UI", 14.25F);
             cboToClub.FormattingEnabled = true;
-            cboToClub.Location = new Point(328, 365);
+            cboToClub.Location = new Point(327, 437);
             cboToClub.Name = "cboToClub";
             cboToClub.Size = new Size(259, 33);
             cboToClub.TabIndex = 2;
             // 
             // dtpTransferDate
             // 
+            dtpTransferDate.CustomFormat = "dd MMMM yyyy";
             dtpTransferDate.Font = new Font("Segoe UI", 14.25F);
-            dtpTransferDate.Location = new Point(32, 453);
+            dtpTransferDate.Format = DateTimePickerFormat.Custom;
+            dtpTransferDate.Location = new Point(31, 525);
             dtpTransferDate.Name = "dtpTransferDate";
-            dtpTransferDate.Size = new Size(316, 33);
+            dtpTransferDate.Size = new Size(219, 33);
             dtpTransferDate.TabIndex = 3;
             // 
             // numFee
             // 
+            numFee.DecimalPlaces = 2;
             numFee.Font = new Font("Segoe UI", 14.25F);
-            numFee.Location = new Point(328, 297);
+            numFee.Location = new Point(327, 369);
+            numFee.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
             numFee.Name = "numFee";
-            numFee.Size = new Size(120, 33);
+            numFee.Size = new Size(172, 33);
             numFee.TabIndex = 4;
+            numFee.ThousandsSeparator = true;
             // 
             // btnTransfer
             // 
+            btnTransfer.BackColor = Color.LightGreen;
             btnTransfer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnTransfer.Location = new Point(627, 450);
+            btnTransfer.Location = new Point(704, 354);
             btnTransfer.Name = "btnTransfer";
-            btnTransfer.Size = new Size(119, 43);
+            btnTransfer.Size = new Size(120, 60);
             btnTransfer.TabIndex = 5;
             btnTransfer.Text = "Трансфер";
-            btnTransfer.UseVisualStyleBackColor = true;
+            btnTransfer.UseVisualStyleBackColor = false;
             btnTransfer.Click += btnTransfer_Click;
             // 
             // txtFromClub
             // 
             txtFromClub.Font = new Font("Segoe UI", 14.25F);
-            txtFromClub.Location = new Point(32, 365);
+            txtFromClub.Location = new Point(31, 437);
             txtFromClub.Name = "txtFromClub";
             txtFromClub.ReadOnly = true;
             txtFromClub.Size = new Size(274, 33);
@@ -122,7 +131,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F);
-            label1.Location = new Point(32, 264);
+            label1.Location = new Point(31, 341);
             label1.Name = "label1";
             label1.Size = new Size(130, 25);
             label1.TabIndex = 7;
@@ -132,37 +141,37 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F);
-            label2.Location = new Point(32, 337);
+            label2.Location = new Point(31, 409);
             label2.Name = "label2";
-            label2.Size = new Size(78, 25);
+            label2.Size = new Size(91, 25);
             label2.TabIndex = 7;
-            label2.Text = "От клуб";
+            label2.Text = "От отбор";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F);
-            label3.Location = new Point(328, 337);
+            label3.Location = new Point(327, 409);
             label3.Name = "label3";
-            label3.Size = new Size(91, 25);
+            label3.Size = new Size(104, 25);
             label3.TabIndex = 7;
-            label3.Text = "Към клуб";
+            label3.Text = "Към отбор";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F);
-            label4.Location = new Point(328, 269);
+            label4.Location = new Point(327, 341);
             label4.Name = "label4";
-            label4.Size = new Size(60, 25);
+            label4.Size = new Size(75, 25);
             label4.TabIndex = 7;
-            label4.Text = "Такса";
+            label4.Text = "Такса €";
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 14.25F);
-            label5.Location = new Point(32, 419);
+            label5.Location = new Point(31, 491);
             label5.Name = "label5";
             label5.Size = new Size(167, 25);
             label5.TabIndex = 7;
@@ -171,19 +180,40 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnClear.Location = new Point(493, 450);
+            btnClear.Location = new Point(704, 437);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(119, 43);
+            btnClear.Size = new Size(120, 60);
             btnClear.TabIndex = 5;
             btnClear.Text = "Изчисти";
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click;
             // 
+            // txtSearchNameTransfer
+            // 
+            txtSearchNameTransfer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSearchNameTransfer.Location = new Point(31, 37);
+            txtSearchNameTransfer.Name = "txtSearchNameTransfer";
+            txtSearchNameTransfer.Size = new Size(272, 33);
+            txtSearchNameTransfer.TabIndex = 8;
+            txtSearchNameTransfer.TextChanged += txtSearchNameTransfer_TextChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(31, 9);
+            label6.Name = "label6";
+            label6.Size = new Size(211, 25);
+            label6.TabIndex = 9;
+            label6.Text = "Търси по име на играч";
+            // 
             // TransfersForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(789, 517);
+            ClientSize = new Size(870, 591);
+            Controls.Add(label6);
+            Controls.Add(txtSearchNameTransfer);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -197,7 +227,10 @@
             Controls.Add(cboToClub);
             Controls.Add(cboPlayer);
             Controls.Add(dgvTransfers);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "TransfersForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Трансфери";
             Load += TransfersForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTransfers).EndInit();
@@ -221,5 +254,7 @@
         private Label label4;
         private Label label5;
         private Button btnClear;
+        private TextBox txtSearchNameTransfer;
+        private Label label6;
     }
 }

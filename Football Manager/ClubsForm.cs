@@ -29,6 +29,11 @@ namespace Football_Manager
                 // 1. Създаваме един общ шрифт
                 Font commonFont = new Font("Arial", 12);
 
+                dgvClubs.SelectionMode = DataGridViewSelectionMode.FullRowSelect; // Маркира целия ред
+                dgvClubs.MultiSelect = false;                                   // Позволява избор само на един ред
+                dgvClubs.AllowUserToAddRows = false;                             // Премахва празния ред най-отдолу
+                dgvClubs.ReadOnly = true;
+
                 dgvClubs.DefaultCellStyle.Font = commonFont;
                 dgvClubs.AlternatingRowsDefaultCellStyle.Font = commonFont;
                 dgvClubs.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 11, FontStyle.Bold);

@@ -70,7 +70,7 @@ namespace Football_Manager
             string searchText = txtSearchName.Text.Trim();
 
             dgvPlayers.DataSource = repo.GetFilteredPlayers(selectedClubId, selectedPosition, searchText);
-            SetupGridHeaders(); // Прилагаме настройките отново
+            SetGridStyle();
         }
         private void btnClearFilters_Click(object sender, EventArgs e)
         {
@@ -90,25 +90,30 @@ namespace Football_Manager
             ApplyFilters();
             txtSearchName.Focus();
         }
-        private void SetupGridHeaders()
+        private void SetGridStyle()
         {
-            if (dgvPlayers.Columns.Count == 0) return;
-
-            // --- 1. Настройка на шрифта (за да не се нулира) ---
-            Font commonFont = new Font("Arial", 10);
+            // 1. Шрифтове
+            Font commonFont = new Font("Arial", 12);
             dgvPlayers.DefaultCellStyle.Font = commonFont;
             dgvPlayers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
             dgvPlayers.RowsDefaultCellStyle.Font = commonFont;
             dgvPlayers.AlternatingRowsDefaultCellStyle.Font = commonFont;
 
-            // --- 2. Преименуване на български ---
+            // 2. Общи настройки
+            dgvPlayers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPlayers.AllowUserToAddRows = false;
+            dgvPlayers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPlayers.ReadOnly = true;
+            dgvPlayers.RowHeadersVisible = false;
+
+            // 3. Заглавия
             var headers = new Dictionary<string, string>
             {
                 { "id", "ID" },
                 { "full_name", "Име на играч" },
                 { "club_name", "Отбор" },
                 { "position", "Позиция" },
-                { "shirt_number", "№" },
+                { "shirt_number", "Тениска №" },
                 { "birth_date", "Дата на раждане" },
                 { "status", "Статус" }
             };
@@ -116,25 +121,44 @@ namespace Football_Manager
             foreach (var header in headers)
             {
                 if (dgvPlayers.Columns.Contains(header.Key))
-                {
                     dgvPlayers.Columns[header.Key].HeaderText = header.Value;
-                }
             }
 
-            // --- 3. Настройка на размерите ---
+            // 4. --- Настройка на ширини и видимост ---
+
+            if (dgvPlayers.Columns.Contains("club_id"))
+                dgvPlayers.Columns["club_id"].Visible = false;
+
+            // ID - фиксирана малка ширина
             if (dgvPlayers.Columns.Contains("id"))
             {
-                dgvPlayers.Columns["id"].Width = 45;
-                dgvPlayers.Columns["id"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvPlayers.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvPlayers.Columns["id"].Width = 50;
             }
 
+            // Тениска № - увеличихме я на 110, за да не се реже текстът
             if (dgvPlayers.Columns.Contains("shirt_number"))
             {
-                dgvPlayers.Columns["shirt_number"].Width = 45;
+                dgvPlayers.Columns["shirt_number"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvPlayers.Columns["shirt_number"].Width = 110;
                 dgvPlayers.Columns["shirt_number"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
-            dgvPlayers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            // Име на играч - даваме му най-много място (тежест 200)
+            if (dgvPlayers.Columns.Contains("full_name"))
+                dgvPlayers.Columns["full_name"].FillWeight = 200;
+
+            // Отбор - тежест 150
+            if (dgvPlayers.Columns.Contains("club_name"))
+                dgvPlayers.Columns["club_name"].FillWeight = 150;
+
+            // Статус - намаляваме тежестта му (стандартно е 100, правим го 70)
+            if (dgvPlayers.Columns.Contains("status"))
+                dgvPlayers.Columns["status"].FillWeight = 70;
+
+            // Позиция - също може да е по-тясна
+            if (dgvPlayers.Columns.Contains("position"))
+                dgvPlayers.Columns["position"].FillWeight = 60;
         }
         private void cboFilterClub_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -149,7 +173,7 @@ namespace Football_Manager
         private void LoadPlayers()
         {
             dgvPlayers.DataSource = repo.GetPlayers();
-            SetupGridHeaders(); // Всички заглавия и размери се поемат оттук
+            SetGridStyle();
         }
 
         //  зареждане на данните при клик в таблицата
@@ -157,25 +181,52 @@ namespace Football_Manager
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = dgvPlayers.Rows[e.RowIndex];
-                selectedPlayerId = Convert.ToInt32(row.Cells["id"].Value);
+                try
+                {
+                    DataGridViewRow row = dgvPlayers.Rows[e.RowIndex];
 
-                // Разделяме FullName на First и Last Name за двете полета
-                string fullName = row.Cells["full_name"].Value.ToString();
-                string[] nameParts = fullName.Split(new[] { ' ' }, 2);
+                    // 1. ID
+                    selectedPlayerId = Convert.ToInt32(row.Cells["id"].Value);
 
-                txtFirstName.Text = nameParts[0];
-                txtLastName.Text = nameParts.Length > 1 ? nameParts[1] : "";
+                    // 2. Имена
+                    string fullName = row.Cells["full_name"].Value?.ToString() ?? "";
+                    string[] nameParts = fullName.Split(new[] { ' ' }, 2);
+                    txtFirstName.Text = nameParts[0];
+                    txtLastName.Text = nameParts.Length > 1 ? nameParts[1] : "";
 
-                // Зареждаме останалите данни
-                cboPosition.SelectedItem = row.Cells["position"].Value.ToString();
-                numShirtNumber.Value = Convert.ToInt32(row.Cells["shirt_number"].Value);
-                dtpBirthDate.Value = Convert.ToDateTime(row.Cells["birth_date"].Value);
-                cboClub.Text = row.Cells["club_name"].Value.ToString();
+                    // 3. Позиция
+                    cboPosition.SelectedItem = row.Cells["position"].Value?.ToString();
 
-                // Проверяваме дали колоната status съществува в SELECT-а на репозиторито
-                if (dgvPlayers.Columns.Contains("status"))
-                    cboStatus.SelectedItem = row.Cells["status"].Value.ToString();
+                    // 4. Номер
+                    numShirtNumber.Value = Convert.ToInt32(row.Cells["shirt_number"].Value);
+
+                    // 5. Дата на раждане (ВЕЧЕ ЩЕ РАБОТИ)
+                    if (row.Cells["birth_date"].Value != DBNull.Value)
+                    {
+                        dtpBirthDate.Value = Convert.ToDateTime(row.Cells["birth_date"].Value);
+                    }
+
+                    // 6. КЛУБ (Поправка на избора в ComboBox)
+                    // Първо опитваме да изберем по Value (id), ако го имаме в скритата колона
+                    if (dgvPlayers.Columns.Contains("club_id"))
+                    {
+                        cboClub.SelectedValue = row.Cells["club_id"].Value;
+                    }
+                    else
+                    {
+                        // Ако нямаме id, търсим по име
+                        string clubName = row.Cells["club_name"].Value?.ToString();
+                        cboClub.SelectedIndex = cboClub.FindStringExact(clubName);
+                    }
+
+                    // 7. Статус
+                    if (dgvPlayers.Columns.Contains("status"))
+                        cboStatus.SelectedItem = row.Cells["status"].Value?.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Грешка при избор на играч: " + ex.Message);
+                }
             }
         }
 

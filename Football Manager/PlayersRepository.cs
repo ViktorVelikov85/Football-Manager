@@ -17,8 +17,9 @@ namespace Football_Manager
 
         public DataTable GetFilteredPlayers(int? clubId, string position, string searchTerm)
         {
+            // ДОБАВЕНО: p.birth_date в SELECT заявката
             string query = @"SELECT p.id, p.full_name, c.name as club_name, p.club_id, 
-                            p.position, p.shirt_number, p.status 
+                            p.position, p.shirt_number, p.birth_date, p.status 
                      FROM players p 
                      JOIN clubs c ON p.club_id = c.id WHERE 1=1";
 
