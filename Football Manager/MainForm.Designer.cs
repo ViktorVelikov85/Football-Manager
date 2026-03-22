@@ -31,12 +31,13 @@
             btnOpenPlayers = new Button();
             btnOpenClubs = new Button();
             btnOpenTransfers = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // btnOpenPlayers
             // 
             btnOpenPlayers.Font = new Font("Segoe UI", 14.25F);
-            btnOpenPlayers.Location = new Point(32, 102);
+            btnOpenPlayers.Location = new Point(32, 167);
             btnOpenPlayers.Name = "btnOpenPlayers";
             btnOpenPlayers.Size = new Size(195, 48);
             btnOpenPlayers.TabIndex = 0;
@@ -47,7 +48,7 @@
             // btnOpenClubs
             // 
             btnOpenClubs.Font = new Font("Segoe UI", 14.25F);
-            btnOpenClubs.Location = new Point(32, 156);
+            btnOpenClubs.Location = new Point(32, 113);
             btnOpenClubs.Name = "btnOpenClubs";
             btnOpenClubs.Size = new Size(195, 48);
             btnOpenClubs.TabIndex = 1;
@@ -66,11 +67,22 @@
             btnOpenTransfers.UseVisualStyleBackColor = true;
             btnOpenTransfers.Click += btnOpenTransfers_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(24, 23);
+            label1.Name = "label1";
+            label1.Size = new Size(220, 25);
+            label1.TabIndex = 2;
+            label1.Text = "ФУТБОЛЕН МЕНИДЖЪР";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(279, 373);
+            ClientSize = new Size(276, 328);
+            Controls.Add(label1);
             Controls.Add(btnOpenTransfers);
             Controls.Add(btnOpenClubs);
             Controls.Add(btnOpenPlayers);
@@ -80,6 +92,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Футболен мениджър";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -87,5 +100,6 @@
         private Button btnOpenPlayers;
         private Button btnOpenClubs;
         private Button btnOpenTransfers;
+        private Label label1;
     }
 }

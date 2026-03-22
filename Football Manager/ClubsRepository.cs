@@ -5,41 +5,36 @@ namespace Football_Manager
 {
     public class ClubsRepository
     {
-        public DataTable GetAll() => Db.GetDataTable("SELECT * FROM clubs ORDER BY name");
+        public DataTable GetAll() => Db.GetTable("SELECT * FROM clubs ORDER BY name");
 
         public void Add(string name, string city, string stadium, string year)
         {
             string sql = "INSERT INTO clubs (name, city, stadium, founded_year) VALUES (@name, @city, @stadium, @year)";
-
             Db.Execute(sql, new[] {
-        new MySqlParameter("@name", name),
-        new MySqlParameter("@city", city),
-        new MySqlParameter("@stadium", stadium),
-        new MySqlParameter("@year", year)
-         });
+                new MySqlParameter("@name", name),
+                new MySqlParameter("@city", city),
+                new MySqlParameter("@stadium", stadium),
+                new MySqlParameter("@year", year)
+            });
         }
 
         public void Update(int id, string name, string city, string stadium, string year)
         {
             string sql = "UPDATE clubs SET name=@name, city=@city, stadium=@stadium, founded_year=@year WHERE id=@id";
-
             Db.Execute(sql, new[] {
-        new MySqlParameter("@id", id),
-        new MySqlParameter("@name", name),
-        new MySqlParameter("@city", city),
-        new MySqlParameter("@stadium", stadium),
-        new MySqlParameter("@year", year)
-          });
+                new MySqlParameter("@id", id),
+                new MySqlParameter("@name", name),
+                new MySqlParameter("@city", city),
+                new MySqlParameter("@stadium", stadium),
+                new MySqlParameter("@year", year)
+            });
         }
 
         public void Delete(int id)
         {
-            string sql = "DELETE FROM clubs WHERE id=@id";
-            Db.Execute(sql, new[] { new MySqlParameter("@id", id) });
+            Db.Execute("DELETE FROM clubs WHERE id=@id", new[] { new MySqlParameter("@id", id) });
         }
-        public DataTable GetAllClubs()
-        {
-            return Db.GetTable("SELECT id, name FROM clubs ORDER BY name ASC");
-        }
+
+        public DataTable GetAllClubs() => Db.GetTable("SELECT id, name FROM clubs ORDER BY name ASC");
     }
 }

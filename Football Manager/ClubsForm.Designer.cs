@@ -215,7 +215,7 @@
             Name = "ClubsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Отбори";
-            Load += ClubsForm_Load;
+
             Shown += ClubsForm_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvClubs).EndInit();
             ResumeLayout(false);

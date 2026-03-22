@@ -1,14 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Linq; 
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace Football_Manager
 {
     public partial class ClubsForm : Form
     {
         ClubsRepository repo = new ClubsRepository();
-
         int selectedId = -1;
 
         public ClubsForm()
@@ -17,79 +18,64 @@ namespace Football_Manager
             LoadClubs();
         }
 
-        private void ClubsForm_Shown(object sender, EventArgs e)
-        {
-            ClearInputs();
-        }
+        private void ClubsForm_Shown(object sender, EventArgs e) => ClearInputs();
+
         private void LoadClubs()
         {
             try
             {
                 dgvClubs.DataSource = repo.GetAll();
-                // 1. Създаваме един общ шрифт
-                Font commonFont = new Font("Arial", 12);
-
-                dgvClubs.SelectionMode = DataGridViewSelectionMode.FullRowSelect; // Маркира целия ред
-                dgvClubs.MultiSelect = false;                                   // Позволява избор само на един ред
-                dgvClubs.AllowUserToAddRows = false;                             // Премахва празния ред най-отдолу
-                dgvClubs.ReadOnly = true;
-
-                dgvClubs.DefaultCellStyle.Font = commonFont;
-                dgvClubs.AlternatingRowsDefaultCellStyle.Font = commonFont;
-                dgvClubs.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 11, FontStyle.Bold);
-
-                if (dgvClubs.Columns["id"] != null)
-                {
-                    dgvClubs.Columns["id"].HeaderText = "ID";
-                    dgvClubs.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                    dgvClubs.Columns["id"].Width = 40;
-                    dgvClubs.Columns["id"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
-
-                // Година колона
-                if (dgvClubs.Columns["founded_year"] != null)
-                {
-                    dgvClubs.Columns["founded_year"].HeaderText = "Година на създаване";
-                    dgvClubs.Columns["founded_year"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                    dgvClubs.Columns["founded_year"].Width = 100;
-                    dgvClubs.Columns["founded_year"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
-
-                // Другите колони остават на Fill, за да запълнят останалото място
-                if (dgvClubs.Columns["name"] != null) dgvClubs.Columns["name"].HeaderText = "Име на отбор";
-                if (dgvClubs.Columns["city"] != null) dgvClubs.Columns["city"].HeaderText = "Град";
-                if (dgvClubs.Columns["stadium"] != null) dgvClubs.Columns["stadium"].HeaderText = "Стадион";
-
-                dgvClubs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                SetGridStyle(); // Изнасяме стилизирането в отделен метод (DRY)
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Грешка при зареждане: " + ex.Message);
             }
         }
-        private void btnAdd_Click(object sender, EventArgs e)
+
+        private void SetGridStyle()
         {
-            try
+            // Проверка: ако няма източник на данни, не прави нищо
+            if (dgvClubs.DataSource == null) return;
+
+            // Общи настройки
+            dgvClubs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvClubs.RowHeadersVisible = false;
+            dgvClubs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            Font commonFont = new Font("Arial", 12);
+            dgvClubs.DefaultCellStyle.Font = commonFont;
+            dgvClubs.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 11, FontStyle.Bold);
+
+            // Речник със заглавията
+            var columnNames = new Dictionary<string, string>
             {
-                // Валидация
-                if (string.IsNullOrWhiteSpace(txtName.Text) || string.IsNullOrWhiteSpace(txtCity.Text))
+                { "id", "ID" },
+                { "name", "Име на отбор" },
+                { "city", "Град" },
+                { "stadium", "Стадион" },
+                { "founded_year", "Година на създаване" }
+            };
+
+            foreach (var pair in columnNames)
+            {
+                // Проверяваме дали колоната съществува в Grid-а
+                if (dgvClubs.Columns.Contains(pair.Key))
                 {
-                    MessageBox.Show("Моля, попълнете Име и Град!");
-                    return;
+                    dgvClubs.Columns[pair.Key].HeaderText = pair.Value;
                 }
-
-                repo.Add(txtName.Text.Trim(), txtCity.Text.Trim(), txtStadium.Text.Trim(), txtCreatedIn.Text.Trim());
-
-                MessageBox.Show("Клубът е добавен успешно!");
-                LoadClubs(); // Обновяваме таблицата
-                ClearInputs();
             }
-            catch (Exception ex)
+
+            if (dgvClubs.Columns.Contains("id"))
             {
-                if (ex.Message.Contains("Duplicate entry"))
-                    MessageBox.Show("Вече съществува клуб с това име!");
-                else
-                    MessageBox.Show("Грешка: " + ex.Message);
+                dgvClubs.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvClubs.Columns["id"].Width = 45;
+            }
+
+            if (dgvClubs.Columns.Contains("founded_year"))
+            {
+                dgvClubs.Columns["founded_year"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvClubs.Columns["founded_year"].Width = 100;
             }
         }
 
@@ -102,84 +88,92 @@ namespace Football_Manager
                 selectedId = Convert.ToInt32(row.Cells["id"].Value);
                 txtName.Text = row.Cells["name"].Value.ToString();
                 txtCity.Text = row.Cells["city"].Value.ToString();
-                txtStadium.Text = row.Cells["stadium"].Value?.ToString(); // Използваме ?, в случай че е празно
+
+                // Използваме null-conditional (?.) - ако клетката е празна, връща null
+                txtStadium.Text = row.Cells["stadium"].Value?.ToString();
                 txtCreatedIn.Text = row.Cells["founded_year"].Value?.ToString();
             }
         }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInputs()) return;
+
+            try
+            {
+                repo.Add(txtName.Text.Trim(), txtCity.Text.Trim(), txtStadium.Text.Trim(), txtCreatedIn.Text.Trim());
+                FinishOperation("Клубът е добавен успешно!");
+            }
+            catch (Exception ex)
+            {
+                // Проверка за дублиране на име чрез съобщението от MySQL
+                string msg = ex.Message.Contains("Duplicate entry") ? "Вече съществува такъв клуб!" : ex.Message;
+                MessageBox.Show(msg);
+            }
+        }
+
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (selectedId == -1)
-            {
-                MessageBox.Show("Моля, изберете клуб от таблицата!");
-                return;
-            }
+            if (selectedId == -1) { MessageBox.Show("Изберете клуб!"); return; }
+            if (!ValidateInputs()) return;
 
             try
             {
                 repo.Update(selectedId, txtName.Text.Trim(), txtCity.Text.Trim(), txtStadium.Text.Trim(), txtCreatedIn.Text.Trim());
-
-                MessageBox.Show("Данните бяха обновени!");
-                LoadClubs();
-                ClearInputs();
+                FinishOperation("Данните бяха обновени!");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Грешка при обновяване: " + ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show("Грешка: " + ex.Message); }
         }
-        private void btnDelete_Click(object sender, EventArgs e)                       // DELETE BUTTON
+
+        private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (selectedId == -1)
-            {
-                MessageBox.Show("Изберете клуб за изтриване!", "Внимание");
-                return;
-            }
+            if (selectedId == -1) return;
 
-            DialogResult result = MessageBox.Show($"Сигурни ли сте, че искате да изтриете клуб '{txtName.Text}'?",
-                "Потвърждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
+            if (MessageBox.Show($"Изтриване на '{txtName.Text}'?", "Внимание", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 repo.Delete(selectedId);
-                LoadClubs();
-                ClearInputs();
+                FinishOperation("Изтрито успешно!");
             }
         }
+
+        // --- Помощни методи ---
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text) || string.IsNullOrWhiteSpace(txtCity.Text))
+            {
+                MessageBox.Show("Моля, попълнете Име и Град!");
+                return false;
+            }
+            return true;
+        }
+
+        private void FinishOperation(string message)
+        {
+            MessageBox.Show(message);
+            LoadClubs();   // Обновява таблицата
+            ClearInputs(); // Чисти полетата
+        }
+
         private void ClearInputs()
         {
-            txtName.Clear();
-            txtCity.Clear();
-            txtStadium.Clear();
-            txtCreatedIn.Clear();
-            selectedId = -1; // Нулираме избора
-            dgvClubs.ClearSelection();
+            // LINQ: Намира всички TextBox-ове във формата и ги изчиства
+            this.Controls.OfType<TextBox>().ToList().ForEach(t => t.Clear());
 
-            // Казваме на таблицата, че няма активна клетка
-            if (dgvClubs.CurrentCell != null)
-            {
-                dgvClubs.CurrentCell = null;
-            }
+            selectedId = -1;
+            dgvClubs.ClearSelection();
+            if (dgvClubs.CurrentCell != null) dgvClubs.CurrentCell = null;
             txtName.Focus();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearInputs();
-        }
+        private void btnClear_Click(object sender, EventArgs e) => ClearInputs();
 
         private void btnOpenPlayers_Click(object sender, EventArgs e)
         {
             this.Hide();
-            PlayersForm playersForm = new PlayersForm();
-            playersForm.ShowDialog();
-
+            new PlayersForm().ShowDialog();
             this.Show();
-            ClearInputs();
-        }
-
-        private void ClubsForm_Load(object sender, EventArgs e)
-        {
-
+            LoadClubs(); // Обновяваме в случай на промени
         }
     }
 }
