@@ -12,6 +12,8 @@ namespace Football_Manager
         private readonly PlayersRepository _repo = new PlayersRepository();
         private int _selectedPlayerId = -1;
 
+        private ToolTip _posToolTip = new ToolTip();
+
         public PlayersForm()
         {
             InitializeComponent();
@@ -26,7 +28,7 @@ namespace Football_Manager
 
         private void SetupComboBoxes()
         {
-            // 1. Позиции и Статус (Използваме масиви за по-чист код)
+            // 1. Попълване на позициите
             cboPosition.Items.Clear();
             cboPosition.Items.AddRange(new string[] { "GK", "DF", "MF", "FW" });
 
@@ -34,23 +36,38 @@ namespace Football_Manager
             cboStatus.Items.AddRange(new string[] { "Active", "Injured", "Suspended" });
             cboStatus.SelectedIndex = 0;
 
-            // 2. Филтър Позиции
             cboFilterPosition.Items.Clear();
             cboFilterPosition.Items.AddRange(new string[] { "Всички", "GK", "DF", "MF", "FW" });
             cboFilterPosition.SelectedIndex = 0;
 
-            // 3. Зареждане на клубове (с DRY подход за двете комбо кутии)
+            // 2. Настройка на ToolTip (Изчистен вариант без MouseEnter бъгове)
+            string posInfo = "GK - Вратар\nDF - Защитник\nMF - Полузащитник\nFW - Нападател";
+
+            _posToolTip.ToolTipTitle = "Легенда на позициите";
+            _posToolTip.ToolTipIcon = ToolTipIcon.Info;
+            _posToolTip.IsBalloon = false; // Правоъгълникът е по-стабилен и заема по-малко място
+
+            // ВАЖНО: Настройки за време, за да не пречи на кликането
+            _posToolTip.InitialDelay = 1000; // Появява се след 1 сек. задържане (няма да пречи при бързо минаване)
+            _posToolTip.AutoPopDelay = 5000;  // Стои 5 сек.
+            _posToolTip.ReshowDelay = 500;    // Време между показванията
+
+            // Закачаме го стандартно (Windows сам ще го позиционира правилно до курсора)
+            _posToolTip.SetToolTip(cboPosition, posInfo);
+            _posToolTip.SetToolTip(cboFilterPosition, posInfo);
+
+            // 3. Зареждане на клубове
             try
             {
                 DataTable clubs = Db.GetTable("SELECT id, name FROM clubs");
 
-                // Записване (cboClub)
+                // Записване
                 cboClub.DisplayMember = "name";
                 cboClub.ValueMember = "id";
                 cboClub.DataSource = clubs;
                 cboClub.SelectedIndex = -1;
 
-                // Филтриране (cboFilterClub)
+                // Филтриране
                 DataTable filterClubs = clubs.Copy();
                 DataRow row = filterClubs.NewRow();
                 row["id"] = 0;
@@ -79,7 +96,6 @@ namespace Football_Manager
         {
             if (dgvPlayers.DataSource == null) return;
 
-            // Базови настройки (DRY - същите като в ClubsForm)
             dgvPlayers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPlayers.MultiSelect = false;
             dgvPlayers.AllowUserToAddRows = false;
@@ -91,7 +107,6 @@ namespace Football_Manager
             dgvPlayers.DefaultCellStyle.Font = commonFont;
             dgvPlayers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
 
-            // Именуване на колони чрез Dictionary
             var headers = new Dictionary<string, string>
             {
                 { "id", "ID" },
@@ -109,7 +124,6 @@ namespace Football_Manager
                     dgvPlayers.Columns[header.Key].HeaderText = header.Value;
             }
 
-            // Настройка на ширини и тежести (Weights)
             if (dgvPlayers.Columns.Contains("club_id")) dgvPlayers.Columns["club_id"].Visible = false;
             if (dgvPlayers.Columns.Contains("id")) { dgvPlayers.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None; dgvPlayers.Columns["id"].Width = 45; }
             if (dgvPlayers.Columns.Contains("full_name")) dgvPlayers.Columns["full_name"].FillWeight = 180;
@@ -129,7 +143,8 @@ namespace Football_Manager
         {
             if (!ValidateInputs()) return;
 
-            ExecuteAction(() => {
+            ExecuteAction(() =>
+            {
                 string fullName = $"{txtFirstName.Text.Trim()} {txtLastName.Text.Trim()}";
                 _repo.Add(Convert.ToInt32(cboClub.SelectedValue), fullName, dtpBirthDate.Value.ToString("yyyy-MM-dd"),
                           cboPosition.SelectedItem.ToString(), (int)numShirtNumber.Value, cboStatus.SelectedItem.ToString());
@@ -137,11 +152,35 @@ namespace Football_Manager
             });
         }
 
+        private void btnTransfer_Click(object sender, EventArgs e)
+        {
+            if (dgvPlayers.CurrentRow == null)
+            {
+                MessageBox.Show("Моля, изберете играч от таблицата!");
+                return;
+            }
+
+            var row = dgvPlayers.CurrentRow;
+            int pId = Convert.ToInt32(row.Cells["id"].Value);
+            string pName = row.Cells["full_name"].Value.ToString();
+
+            int? cId = null;
+            if (row.Cells["club_id"].Value != DBNull.Value)
+                cId = Convert.ToInt32(row.Cells["club_id"].Value);
+
+            string cName = row.Cells["club_name"].Value?.ToString() ?? "Свободен агент";
+
+            TransfersForm transferFrm = new TransfersForm(pId, pName, cId, cName);
+            transferFrm.ShowDialog();
+            LoadPlayers();
+        }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (_selectedPlayerId == -1 || !ValidateInputs()) return;
 
-            ExecuteAction(() => {
+            ExecuteAction(() =>
+            {
                 string fullName = $"{txtFirstName.Text.Trim()} {txtLastName.Text.Trim()}";
                 _repo.Update(_selectedPlayerId, Convert.ToInt32(cboClub.SelectedValue), fullName, dtpBirthDate.Value.ToString("yyyy-MM-dd"),
                              cboPosition.SelectedItem.ToString(), (int)numShirtNumber.Value, cboStatus.SelectedItem.ToString());
@@ -166,7 +205,6 @@ namespace Football_Manager
 
             _selectedPlayerId = Convert.ToInt32(row.Cells["id"].Value);
 
-            // Разделяне на имената (Ламбда/LINQ логика за безопасност)
             string fullName = row.Cells["full_name"].Value?.ToString() ?? "";
             var parts = fullName.Split(new[] { ' ' }, 2);
             txtFirstName.Text = parts[0];
@@ -183,11 +221,8 @@ namespace Football_Manager
                 cboClub.SelectedValue = row.Cells["club_id"].Value;
         }
 
-        // --- Помощни методи ---
-
         private bool ValidateInputs()
         {
-            // LINQ проверка за празни полета или цифри в имената
             if (new[] { txtFirstName, txtLastName }.Any(t => string.IsNullOrWhiteSpace(t.Text)))
             {
                 MessageBox.Show("Попълнете имената!");
@@ -207,7 +242,7 @@ namespace Football_Manager
                 return false;
             }
 
-            return cboClub.SelectedValue != null;
+            return cboClub.SelectedValue != null && cboPosition.SelectedIndex != -1;
         }
 
         private void ExecuteAction(Action action)
@@ -223,9 +258,8 @@ namespace Football_Manager
 
         private void ClearInputs()
         {
-            // Изчистване на всички TextBox контроли наведнъж
             this.Controls.OfType<TextBox>().ToList().ForEach(t => t.Clear());
-            txtSearchName.Clear(); // Ако не е в основната колекция
+            if (txtSearchName != null) txtSearchName.Clear();
 
             numShirtNumber.Value = 1;
             dtpBirthDate.Value = DateTime.Now;
@@ -238,7 +272,6 @@ namespace Football_Manager
             if (dgvPlayers.CurrentCell != null) dgvPlayers.CurrentCell = null;
         }
 
-        // Събития за филтри
         private void txtSearchName_TextChanged(object sender, EventArgs e) => ApplyFilters();
         private void cboFilterClub_SelectedIndexChanged(object sender, EventArgs e) => ApplyFilters();
         private void cboFilterPosition_SelectedIndexChanged(object sender, EventArgs e) => ApplyFilters();

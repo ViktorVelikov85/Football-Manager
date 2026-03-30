@@ -55,6 +55,7 @@
             label10 = new Label();
             label11 = new Label();
             btnClearFilters = new Button();
+            btnTransfer = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvPlayers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numShirtNumber).BeginInit();
             SuspendLayout();
@@ -64,7 +65,7 @@
             cboClub.DropDownStyle = ComboBoxStyle.DropDownList;
             cboClub.Font = new Font("Segoe UI", 14.25F);
             cboClub.FormattingEnabled = true;
-            cboClub.Location = new Point(308, 440);
+            cboClub.Location = new Point(290, 439);
             cboClub.Name = "cboClub";
             cboClub.Size = new Size(200, 33);
             cboClub.TabIndex = 0;
@@ -84,7 +85,7 @@
             dtpBirthDate.CustomFormat = "dd MMMM yyyy";
             dtpBirthDate.Font = new Font("Segoe UI", 14.25F);
             dtpBirthDate.Format = DateTimePickerFormat.Custom;
-            dtpBirthDate.Location = new Point(308, 510);
+            dtpBirthDate.Location = new Point(290, 509);
             dtpBirthDate.Name = "dtpBirthDate";
             dtpBirthDate.Size = new Size(215, 33);
             dtpBirthDate.TabIndex = 2;
@@ -160,7 +161,7 @@
             cboStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cboStatus.Font = new Font("Segoe UI", 14.25F);
             cboStatus.FormattingEnabled = true;
-            cboStatus.Location = new Point(308, 583);
+            cboStatus.Location = new Point(290, 582);
             cboStatus.Name = "cboStatus";
             cboStatus.Size = new Size(160, 33);
             cboStatus.TabIndex = 9;
@@ -254,7 +255,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F);
-            label4.Location = new Point(308, 555);
+            label4.Location = new Point(290, 554);
             label4.Name = "label4";
             label4.Size = new Size(68, 25);
             label4.TabIndex = 13;
@@ -264,7 +265,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 14.25F);
-            label5.Location = new Point(308, 482);
+            label5.Location = new Point(290, 481);
             label5.Name = "label5";
             label5.Size = new Size(160, 25);
             label5.TabIndex = 13;
@@ -274,7 +275,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 14.25F);
-            label6.Location = new Point(308, 412);
+            label6.Location = new Point(290, 411);
             label6.Name = "label6";
             label6.Size = new Size(67, 25);
             label6.TabIndex = 13;
@@ -332,7 +333,7 @@
             // 
             // btnClearFilters
             // 
-            btnClearFilters.BackColor = Color.LightCoral;
+            btnClearFilters.BackColor = Color.Coral;
             btnClearFilters.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnClearFilters.Location = new Point(483, 39);
             btnClearFilters.Name = "btnClearFilters";
@@ -342,11 +343,23 @@
             btnClearFilters.UseVisualStyleBackColor = false;
             btnClearFilters.Click += btnClearFilters_Click;
             // 
+            // btnTransfer
+            // 
+            btnTransfer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnTransfer.Location = new Point(537, 554);
+            btnTransfer.Name = "btnTransfer";
+            btnTransfer.Size = new Size(120, 60);
+            btnTransfer.TabIndex = 18;
+            btnTransfer.Text = "Трансфер";
+            btnTransfer.UseVisualStyleBackColor = true;
+            btnTransfer.Click += btnTransfer_Click;
+            // 
             // PlayersForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(956, 645);
+            Controls.Add(btnTransfer);
             Controls.Add(btnClearFilters);
             Controls.Add(label11);
             Controls.Add(label10);
@@ -416,5 +429,6 @@
         private Label label10;
         private Label label11;
         private Button btnClearFilters;
+        private Button btnTransfer;
     }
 }

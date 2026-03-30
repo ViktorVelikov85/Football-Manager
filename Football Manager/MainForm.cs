@@ -28,8 +28,8 @@ namespace Football_Manager
         }
         private void btnOpenTransfers_Click(object sender, EventArgs e)
         {
-            TransfersForm transfersForm = new TransfersForm();
-            transfersForm.ShowDialog();
+            TransfersHistoryForm transfersHistoryForm = new TransfersHistoryForm();
+            transfersHistoryForm.ShowDialog();
         }
     }
 }

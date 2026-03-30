@@ -1,177 +1,144 @@
 ﻿using Football_Manager;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Football_Manager
 {
     public partial class TransfersForm : Form
     {
-        // Инициализиране на репозиторитата
         private TransfersRepository transferRepo = new TransfersRepository();
-        private PlayersRepository playerRepo = new PlayersRepository();
         private ClubsRepository clubRepo = new ClubsRepository();
+        
+        // Това ID се пълни само при отваряне на формата от PlayersForm
+        private int _selectedPlayerId = -1;
 
+        // Празен конструктор (ако се отвори от главното меню за преглед)
         public TransfersForm()
         {
             InitializeComponent();
         }
 
-        private void TransfersForm_Load(object sender, EventArgs e)
+        // Конструктор за иницииране на трансфер от PlayersForm
+        public TransfersForm(int playerId, string playerName, int? currentClubId, string currentClubName)
         {
-            LoadInitialData();
-            SetGridStyle(); 
+            InitializeComponent();
+
+            _selectedPlayerId = playerId;
+            
+            // Задаваме стойностите, които сме получили
+            txtPlayer.Text = playerName;
+            txtFromClub.Text = string.IsNullOrEmpty(currentClubName) ? "Свободен агент" : currentClubName;
+            txtFromClub.Tag = currentClubId;
         }
 
-        private void LoadInitialData()
+        private void TransfersForm_Load(object sender, EventArgs e)
+        {
+            LoadClubs();
+            RefreshGrid();
+            
+            // За по-голяма сигурност: правим полетата за име и стар клуб само за четене
+            txtPlayer.ReadOnly = true;
+            txtFromClub.ReadOnly = true;
+        }
+
+        private void LoadClubs()
         {
             try
             {
-                // 1. Зареждане на играчите
-                DataTable players = playerRepo.GetPlayers();
-                cboPlayer.DataSource = players;
-                cboPlayer.DisplayMember = "full_name";
-                cboPlayer.ValueMember = "id";
-                cboPlayer.SelectedIndex = -1; // Да няма избран по подразбиране
-
-                // 2. Зареждане на клубовете (целеви клуб)
                 DataTable clubs = clubRepo.GetAllClubs();
                 cboToClub.DataSource = clubs;
                 cboToClub.DisplayMember = "name";
                 cboToClub.ValueMember = "id";
                 cboToClub.SelectedIndex = -1;
-
-                // 3. Зареждане на историята в DataGridView
-                RefreshGrid();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Грешка при зареждане на данни: " + ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show("Грешка при клубове: " + ex.Message); }
         }
-        private void SetGridStyle()
+
+        private void btnTransfer_Click(object sender, EventArgs e)
         {
-            // 1. Основни настройки за шрифта (както в PlayersForm)
-            Font commonFont = new Font("Arial", 12);
-            dgvTransfers.DefaultCellStyle.Font = commonFont;
-            dgvTransfers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
-            dgvTransfers.RowsDefaultCellStyle.Font = commonFont;
-            dgvTransfers.AlternatingRowsDefaultCellStyle.Font = commonFont;
-
-            // 2. Общи настройки на таблицата
-            dgvTransfers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvTransfers.AllowUserToAddRows = false;
-            dgvTransfers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTransfers.ReadOnly = true;
-            dgvTransfers.RowHeadersVisible = false;
-
-            // 1. Правим цветовете на селекцията същите като обикновените цветове.
-            // Така дори и потребителят да кликне, той няма да види промяна (няма да "светне").
-            dgvTransfers.DefaultCellStyle.SelectionBackColor = dgvTransfers.DefaultCellStyle.BackColor;
-            dgvTransfers.DefaultCellStyle.SelectionForeColor = dgvTransfers.DefaultCellStyle.ForeColor;
-
-            if (dgvTransfers.Columns["Такса"] != null)
+            // Проверка дали изобщо е зареден играч от PlayersForm
+            if (_selectedPlayerId == -1)
             {
-                dgvTransfers.Columns["Такса"].HeaderText = "Такса €";
-
-                // Подравняваме вдясно за по-добра четимост
-                dgvTransfers.Columns["Такса"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                dgvTransfers.Columns["Такса"].DefaultCellStyle.Format = "N2";
-            }
-            if (dgvTransfers.Columns["Дата"] != null)
-            {
-                dgvTransfers.Columns["Дата"].DefaultCellStyle.Format = "dd.MM.yyyy";
+                MessageBox.Show("Моля, отворете тази форма през списъка с играчи, за да изберете кой да бъде трансфериран.", "Инфо");
+                return;
             }
 
-            dgvTransfers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            if (cboToClub.SelectedValue == null)
+            {
+                MessageBox.Show("Изберете нов клуб!");
+                return;
+            }
+
+            int toClubId = (int)cboToClub.SelectedValue;
+            int? fromClubId = txtFromClub.Tag as int?;
+
+            if (fromClubId.HasValue && fromClubId.Value == toClubId)
+            {
+                MessageBox.Show("Играчът вече е в този клуб!");
+                return;
+            }
+
+            try
+            {
+                transferRepo.AddTransfer(_selectedPlayerId, fromClubId, toClubId, dtpTransferDate.Value, numFee.Value);
+                MessageBox.Show("Трансферът е успешен!");
+                
+                RefreshGrid();
+                
+                // След трансфера "новият" клуб става "стар"
+                txtFromClub.Text = cboToClub.Text;
+                txtFromClub.Tag = toClubId;
+                
+                // Нулираме избора за следващ запис
+                cboToClub.SelectedIndex = -1;
+                numFee.Value = 0;
+            }
+            catch (Exception ex) { MessageBox.Show("Грешка: " + ex.Message); }
         }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            // Изчистваме само входните полета, които потребителят попълва тук
+            cboToClub.SelectedIndex = -1;
+            numFee.Value = 0;
+            dtpTransferDate.Value = DateTime.Now;
+            txtSearchNameTransfer.Clear();
+            
+            // Важно: НЕ изчистваме _selectedPlayerId и txtPlayer, 
+            // защото те идват от предната форма и не трябва да се губят.
+        }
+
         private void RefreshGrid()
         {
             dgvTransfers.DataSource = transferRepo.GetTransfers(txtSearchNameTransfer.Text);
-            SetGridStyle(); 
-        }
-        private void txtSearchNameTransfer_TextChanged(object sender, EventArgs e)
-        {
-            string search = txtSearchNameTransfer.Text;
-            dgvTransfers.DataSource = transferRepo.GetTransfers(search);
-        }
-        private void cboPlayer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboPlayer.SelectedValue != null && cboPlayer.SelectedItem is DataRowView row)
-            {
-                // Проверяваме дали колоната съществува в DataTable
-                if (row.DataView.Table.Columns.Contains("club_id"))
-                {
-                    txtFromClub.Tag = row["club_id"];
-
-                    // Проверяваме и за името на клуба
-                    if (row.DataView.Table.Columns.Contains("club_name"))
-                    {
-                        txtFromClub.Text = row["club_name"].ToString();
-                    }
-                }
-                else
-                {
-                    // Ако влезеш тук, значи SQL заявката ти в Repository-то не връща club_id
-                    MessageBox.Show("Грешка: Колоната 'club_id' липсва в заредените данни!");
-                }
-            }
+            SetGridStyle();
         }
 
-        private void ClearFields()
+        private void SetGridStyle()
         {
-            cboPlayer.SelectedIndex = -1;      // Връща комбобокса в начално (празно) състояние
-            txtFromClub.Clear();               // Изчиства текстовото поле за текущия клуб
-            txtFromClub.Tag = null;            // Изчиства и скритото ID в Tag-а
-            cboToClub.SelectedIndex = -1;      // Изчиства избора на нов клуб
-            numFee.Value = 0;                  // Нулира сумата
-            txtSearchNameTransfer.Clear();     // Изчиства търсачката
-            dtpTransferDate.Value = DateTime.Now;
+            if (dgvTransfers.DataSource == null) return;
 
+            dgvTransfers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTransfers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTransfers.AllowUserToAddRows = false;
+            dgvTransfers.ReadOnly = true;
+            dgvTransfers.RowHeadersVisible = false;
+
+            Font commonFont = new Font("Arial", 12);
+            dgvTransfers.DefaultCellStyle.Font = commonFont;
+            dgvTransfers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+            // Спираме автоматичното избиране на първия ред, за да е по-чисто
             dgvTransfers.ClearSelection();
+
+            if (dgvTransfers.Columns["Такса"] != null)
+                dgvTransfers.Columns["Такса"].DefaultCellStyle.Format = "N2";
+            
+            if (dgvTransfers.Columns["Дата"] != null)
+                dgvTransfers.Columns["Дата"].DefaultCellStyle.Format = "dd.MM.yyyy";
         }
-        private void btnTransfer_Click(object sender, EventArgs e)
-        {
-            // 1. Валидация за селекция
-            if (cboPlayer.SelectedValue == null || cboToClub.SelectedValue == null)
-            {
-                MessageBox.Show("Моля, изберете играч и нов клуб!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
-            int playerId = (int)cboPlayer.SelectedValue;
-            int toClubId = (int)cboToClub.SelectedValue;
-
-            // Вземаме ID-то на текущия клуб от Tag-а (който запълнихме в SelectedIndexChanged)
-            int currentClubId = txtFromClub.Tag != DBNull.Value ? Convert.ToInt32(txtFromClub.Tag) : -1;
-
-            if (currentClubId == toClubId)
-            {
-                MessageBox.Show($"Играчът вече е в отбора на {cboToClub.Text}! Изберете друг клуб.",
-                                "Невалиден трансфер", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // 3. Изпълнение на трансфера
-            try
-            {
-                transferRepo.AddTransfer(playerId, currentClubId == -1 ? (int?)null : currentClubId, toClubId, dtpTransferDate.Value, numFee.Value);
-                MessageBox.Show("Трансферът е извършен успешно!");
-                RefreshGrid();
-                ClearFields();
-
-                // Опресняваме txtFromClub, защото играчът вече е в новия клуб
-                txtFromClub.Text = cboToClub.Text;
-                txtFromClub.Tag = toClubId;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Грешка: " + ex.Message);
-            }
-        }
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearFields();
-        }
+        private void txtSearchNameTransfer_TextChanged(object sender, EventArgs e) => RefreshGrid();
     }
 }

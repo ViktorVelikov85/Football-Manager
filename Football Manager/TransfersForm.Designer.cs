@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             dgvTransfers = new DataGridView();
-            cboPlayer = new ComboBox();
             cboToClub = new ComboBox();
             dtpTransferDate = new DateTimePicker();
             numFee = new NumericUpDown();
@@ -43,6 +42,7 @@
             btnClear = new Button();
             txtSearchNameTransfer = new TextBox();
             label6 = new Label();
+            txtPlayer = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvTransfers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numFee).BeginInit();
             SuspendLayout();
@@ -62,18 +62,6 @@
             dgvTransfers.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dgvTransfers.Size = new Size(815, 239);
             dgvTransfers.TabIndex = 0;
-            // 
-            // cboPlayer
-            // 
-            cboPlayer.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cboPlayer.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cboPlayer.Font = new Font("Segoe UI", 14.25F);
-            cboPlayer.FormattingEnabled = true;
-            cboPlayer.Location = new Point(31, 369);
-            cboPlayer.Name = "cboPlayer";
-            cboPlayer.Size = new Size(274, 33);
-            cboPlayer.TabIndex = 1;
-            cboPlayer.SelectedIndexChanged += cboPlayer_SelectedIndexChanged;
             // 
             // cboToClub
             // 
@@ -207,11 +195,21 @@
             label6.TabIndex = 9;
             label6.Text = "Търси по име на играч";
             // 
+            // txtPlayer
+            // 
+            txtPlayer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPlayer.Location = new Point(33, 368);
+            txtPlayer.Name = "txtPlayer";
+            txtPlayer.ReadOnly = true;
+            txtPlayer.Size = new Size(272, 33);
+            txtPlayer.TabIndex = 10;
+            // 
             // TransfersForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(870, 591);
+            Controls.Add(txtPlayer);
             Controls.Add(label6);
             Controls.Add(txtSearchNameTransfer);
             Controls.Add(label5);
@@ -225,13 +223,12 @@
             Controls.Add(numFee);
             Controls.Add(dtpTransferDate);
             Controls.Add(cboToClub);
-            Controls.Add(cboPlayer);
             Controls.Add(dgvTransfers);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "TransfersForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Трансфери";
+            Text = "Трансфер на играч";
             Load += TransfersForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTransfers).EndInit();
             ((System.ComponentModel.ISupportInitialize)numFee).EndInit();
@@ -242,7 +239,6 @@
         #endregion
 
         private DataGridView dgvTransfers;
-        private ComboBox cboPlayer;
         private ComboBox cboToClub;
         private DateTimePicker dtpTransferDate;
         private NumericUpDown numFee;
@@ -256,5 +252,6 @@
         private Button btnClear;
         private TextBox txtSearchNameTransfer;
         private Label label6;
+        private TextBox txtPlayer;
     }
 }

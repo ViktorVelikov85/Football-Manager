@@ -37,7 +37,7 @@
             // btnOpenPlayers
             // 
             btnOpenPlayers.Font = new Font("Segoe UI", 14.25F);
-            btnOpenPlayers.Location = new Point(32, 167);
+            btnOpenPlayers.Location = new Point(32, 153);
             btnOpenPlayers.Name = "btnOpenPlayers";
             btnOpenPlayers.Size = new Size(195, 48);
             btnOpenPlayers.TabIndex = 0;
@@ -48,7 +48,7 @@
             // btnOpenClubs
             // 
             btnOpenClubs.Font = new Font("Segoe UI", 14.25F);
-            btnOpenClubs.Location = new Point(32, 113);
+            btnOpenClubs.Location = new Point(32, 85);
             btnOpenClubs.Name = "btnOpenClubs";
             btnOpenClubs.Size = new Size(195, 48);
             btnOpenClubs.TabIndex = 1;
@@ -61,9 +61,9 @@
             btnOpenTransfers.Font = new Font("Segoe UI", 14.25F);
             btnOpenTransfers.Location = new Point(32, 221);
             btnOpenTransfers.Name = "btnOpenTransfers";
-            btnOpenTransfers.Size = new Size(195, 48);
+            btnOpenTransfers.Size = new Size(195, 58);
             btnOpenTransfers.TabIndex = 1;
-            btnOpenTransfers.Text = "Трансфери";
+            btnOpenTransfers.Text = "История на трансферите";
             btnOpenTransfers.UseVisualStyleBackColor = true;
             btnOpenTransfers.Click += btnOpenTransfers_Click;
             // 
