@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
 
-namespace Football_Manager
+namespace Football_Manager.DAL
 {
     public class ClubsRepository
     {
@@ -35,6 +35,5 @@ namespace Football_Manager
             Db.Execute("DELETE FROM clubs WHERE id=@id", new[] { new MySqlParameter("@id", id) });
         }
 
-        public DataTable GetAllClubs() => Db.GetTable("SELECT id, name FROM clubs ORDER BY name ASC");
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Football_Manager
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+namespace Football_Manager.UI
 {
     partial class ClubsForm
     {
@@ -54,6 +57,7 @@
             dgvClubs.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dgvClubs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvClubs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
             dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -68,6 +72,8 @@
             dgvClubs.Name = "dgvClubs";
             dgvClubs.ReadOnly = true;
             dgvClubs.RowHeadersVisible = false;
+            dgvClubs.RowTemplate.Height = 30;
+            dgvClubs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvClubs.Size = new Size(693, 242);
             dgvClubs.TabIndex = 0;
             dgvClubs.CellClick += dgvClubs_CellClick;
@@ -215,7 +221,7 @@
             Name = "ClubsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Отбори";
-
+            Load += ClubsForm_Load;
             Shown += ClubsForm_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvClubs).EndInit();
             ResumeLayout(false);

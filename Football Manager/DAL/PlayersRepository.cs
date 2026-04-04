@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 
-namespace Football_Manager
+namespace Football_Manager.DAL
 {
-    internal class PlayersRepository
+    public class PlayersRepository
     {
-        public DataTable GetPlayers() => GetFilteredPlayers(null, "Всички", "");
-
-        public DataTable GetFilteredPlayers(int? clubId, string position, string searchTerm)
+        public DataTable GetFiltered(int? clubId, string position, string searchTerm)
         {
             string query = @"SELECT p.id, p.full_name, c.name as club_name, p.club_id, 
                                     p.position, p.shirt_number, p.birth_date, p.status 
@@ -39,34 +37,21 @@ namespace Football_Manager
             return Db.GetTable(query, parameters.ToArray());
         }
 
-        public void Add(int clubId, string fullName, string birthDate, string position, int shirtNumber, string status)
+        public void Add(Models.Player p)
         {
             string sql = @"INSERT INTO players (club_id, full_name, birth_date, position, shirt_number, status) 
                            VALUES (@clubId, @fullName, @birthDate, @position, @shirtNumber, @status)";
-            Db.Execute(sql, new[] {
-                new MySqlParameter("@clubId", clubId),
-                new MySqlParameter("@fullName", fullName),
-                new MySqlParameter("@birthDate", birthDate),
-                new MySqlParameter("@position", position),
-                new MySqlParameter("@shirtNumber", shirtNumber),
-                new MySqlParameter("@status", status)
-            });
+            Db.Execute(sql, GetParams(p));
         }
 
-        public void Update(int id, int clubId, string fullName, string birthDate, string position, int shirtNumber, string status)
+        public void Update(Models.Player p)
         {
             string sql = @"UPDATE players SET club_id=@clubId, full_name=@fullName, 
                            birth_date=@birthDate, position=@position, shirt_number=@shirtNumber, status=@status 
                            WHERE id=@id";
-            Db.Execute(sql, new[] {
-                new MySqlParameter("@id", id),
-                new MySqlParameter("@clubId", clubId),
-                new MySqlParameter("@fullName", fullName),
-                new MySqlParameter("@birthDate", birthDate),
-                new MySqlParameter("@position", position),
-                new MySqlParameter("@shirtNumber", shirtNumber),
-                new MySqlParameter("@status", status)
-            });
+            var parameters = new List<MySqlParameter>(GetParams(p));
+            parameters.Add(new MySqlParameter("@id", p.Id));
+            Db.Execute(sql, parameters.ToArray());
         }
 
         public void Delete(int id)
@@ -74,12 +59,16 @@ namespace Football_Manager
             Db.Execute("DELETE FROM players WHERE id = @id", new[] { new MySqlParameter("@id", id) });
         }
 
-        public void UpdatePlayerClub(int playerId, int newClubId)
+        private MySqlParameter[] GetParams(Models.Player p)
         {
-            Db.Execute("UPDATE players SET club_id = @newClubId WHERE id = @playerId", new[] {
-                new MySqlParameter("@newClubId", newClubId),
-                new MySqlParameter("@playerId", playerId)
-            });
+            return new[] {
+                new MySqlParameter("@clubId", p.ClubId),
+                new MySqlParameter("@fullName", p.FullName),
+                new MySqlParameter("@birthDate", p.BirthDate.ToString("yyyy-MM-dd")),
+                new MySqlParameter("@position", p.Position),
+                new MySqlParameter("@shirtNumber", p.ShirtNumber),
+                new MySqlParameter("@status", p.Status)
+            };
         }
     }
 }

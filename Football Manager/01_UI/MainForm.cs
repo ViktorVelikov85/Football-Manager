@@ -5,8 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Football_Manager.BLL;    
+using Football_Manager.Models; 
 
-namespace Football_Manager
+namespace Football_Manager.UI
 {
     public partial class MainForm : Form
     {

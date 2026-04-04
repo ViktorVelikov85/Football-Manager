@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace Football_Manager
+namespace Football_Manager.DAL
 {
     public static class Db
     {

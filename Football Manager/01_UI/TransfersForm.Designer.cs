@@ -1,4 +1,7 @@
-﻿namespace Football_Manager
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+namespace Football_Manager.UI
 {
     partial class TransfersForm
     {
@@ -98,7 +101,7 @@
             // 
             btnTransfer.BackColor = Color.LightGreen;
             btnTransfer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnTransfer.Location = new Point(704, 354);
+            btnTransfer.Location = new Point(714, 410);
             btnTransfer.Name = "btnTransfer";
             btnTransfer.Size = new Size(120, 60);
             btnTransfer.TabIndex = 5;
@@ -168,7 +171,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnClear.Location = new Point(704, 437);
+            btnClear.Location = new Point(714, 493);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(120, 60);
             btnClear.TabIndex = 5;
@@ -208,7 +211,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(870, 591);
+            ClientSize = new Size(866, 591);
             Controls.Add(txtPlayer);
             Controls.Add(label6);
             Controls.Add(txtSearchNameTransfer);

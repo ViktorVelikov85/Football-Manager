@@ -1,4 +1,7 @@
-﻿namespace Football_Manager
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+namespace Football_Manager.UI
 {
     partial class TransfersHistoryForm
     {
@@ -37,9 +40,14 @@
             // 
             // dgvTransfers
             // 
+            dgvTransfers.AllowUserToAddRows = false;
+            dgvTransfers.AllowUserToDeleteRows = false;
+            dgvTransfers.AllowUserToResizeColumns = false;
+            dgvTransfers.AllowUserToResizeRows = false;
             dgvTransfers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTransfers.Location = new Point(33, 122);
             dgvTransfers.Name = "dgvTransfers";
+            dgvTransfers.RowHeadersVisible = false;
             dgvTransfers.Size = new Size(738, 316);
             dgvTransfers.TabIndex = 0;
             // 
@@ -50,7 +58,7 @@
             txtSearchNameTransfer.Name = "txtSearchNameTransfer";
             txtSearchNameTransfer.Size = new Size(254, 33);
             txtSearchNameTransfer.TabIndex = 1;
-            txtSearchNameTransfer.TextChanged += txtSearchNameTransfers_TextChanged;
+            txtSearchNameTransfer.TextChanged += txtSearchNameTransfer_TextChanged;
             // 
             // label1
             // 
