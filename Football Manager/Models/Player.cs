@@ -6,11 +6,10 @@ namespace Football_Manager.Models
     {
         public int Id { get; set; }
         public int ClubId { get; set; }
-        public string ClubName { get; set; }
         public string FullName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Position { get; set; }
         public int ShirtNumber { get; set; }
-        public string Status { get; set; } // Добавено
+        public string Status { get; set; } 
     }
 }

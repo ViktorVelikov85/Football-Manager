@@ -9,7 +9,6 @@ namespace Football_Manager.BLL
     {
         private readonly ClubsRepository _repo = new ClubsRepository();
 
-        // Имената на методите тук трябва да съвпадат с тези, които викаш в ClubsForm
         public DataTable GetAllClubs() => _repo.GetAll();
 
         public bool SaveClub(Club club, bool isNew, out string msg)

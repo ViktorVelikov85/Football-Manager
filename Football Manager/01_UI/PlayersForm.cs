@@ -81,19 +81,16 @@ namespace Football_Manager.UI
         {
             if (dgvPlayers.DataSource == null) return;
 
-            // 1. Шрифт Arial 12 навсякъде
             Font mainFont = new Font("Arial", 12);
             dgvPlayers.DefaultCellStyle.Font = mainFont;
             dgvPlayers.AlternatingRowsDefaultCellStyle.Font = mainFont;
             dgvPlayers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
 
-            // 2. Режим на запълване - ТОВА ОПРАВЯ МАЛКАТА ТАБЛИЦА
             dgvPlayers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvPlayers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPlayers.RowHeadersVisible = false;
             dgvPlayers.RowTemplate.Height = 30;
 
-            // 3. Заглавия
             var headers = new Dictionary<string, string>
             {
                 { "id", "ID" }, { "full_name", "Име на играч" }, { "club_name", "Отбор" },
@@ -109,11 +106,16 @@ namespace Football_Manager.UI
 
             if (dgvPlayers.Columns.Contains("club_id")) dgvPlayers.Columns["club_id"].Visible = false;
 
-            // 4. Фиксирани широчини за малките колони
             if (dgvPlayers.Columns.Contains("id"))
             {
                 dgvPlayers.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvPlayers.Columns["id"].Width = 60;
+            }
+
+            if (dgvPlayers.Columns.Contains("full_name"))
+            {
+                dgvPlayers.Columns["full_name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvPlayers.Columns["full_name"].Width = 200;
             }
 
             if (dgvPlayers.Columns.Contains("shirt_number"))
@@ -122,7 +124,6 @@ namespace Football_Manager.UI
                 dgvPlayers.Columns["shirt_number"].Width = 50;
             }
 
-            // Формат за датата
             if (dgvPlayers.Columns.Contains("birth_date"))
                 dgvPlayers.Columns["birth_date"].DefaultCellStyle.Format = "dd.MM.yyyy";
         }
@@ -139,7 +140,6 @@ namespace Football_Manager.UI
             if (cboFilterClub.Items.Count > 0) cboFilterClub.SelectedIndex = 0;
             if (cboFilterPosition.Items.Count > 0) cboFilterPosition.SelectedIndex = 0;
 
-            // Викаме филтрирането, за да зареди "Всички"
             ApplyFilters();
         }
         private void btnAdd_Click(object sender, EventArgs e)
@@ -214,12 +214,12 @@ namespace Football_Manager.UI
 
         private bool ValidateInputs()
         {
-            if (string.IsNullOrWhiteSpace(txtFirstName.Text) || cboClub.SelectedValue == null)
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text)|| string.IsNullOrWhiteSpace(txtLastName.Text) || cboPosition.SelectedValue == null || cboClub.SelectedValue == null || cboStatus.SelectedValue == null)
             {
                 MessageBox.Show("Попълнете задължителните полета!");
                 return false;
             }
-            return true;
+            return true; 
         }
 
         private void ClearInputs()

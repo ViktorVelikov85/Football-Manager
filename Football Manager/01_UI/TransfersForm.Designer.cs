@@ -46,6 +46,7 @@ namespace Football_Manager.UI
             txtSearchNameTransfer = new TextBox();
             label6 = new Label();
             txtPlayer = new TextBox();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvTransfers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numFee).BeginInit();
             SuspendLayout();
@@ -57,7 +58,7 @@ namespace Football_Manager.UI
             dgvTransfers.AllowUserToResizeColumns = false;
             dgvTransfers.AllowUserToResizeRows = false;
             dgvTransfers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTransfers.Location = new Point(31, 81);
+            dgvTransfers.Location = new Point(31, 99);
             dgvTransfers.MultiSelect = false;
             dgvTransfers.Name = "dgvTransfers";
             dgvTransfers.ReadOnly = true;
@@ -207,11 +208,22 @@ namespace Football_Manager.UI
             txtPlayer.Size = new Size(272, 33);
             txtPlayer.TabIndex = 10;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(327, 71);
+            label7.Name = "label7";
+            label7.Size = new Size(204, 25);
+            label7.TabIndex = 11;
+            label7.Text = "Предишни трансфери";
+            // 
             // TransfersForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(866, 591);
+            Controls.Add(label7);
             Controls.Add(txtPlayer);
             Controls.Add(label6);
             Controls.Add(txtSearchNameTransfer);
@@ -256,5 +268,6 @@ namespace Football_Manager.UI
         private TextBox txtSearchNameTransfer;
         private Label label6;
         private TextBox txtPlayer;
+        private Label label7;
     }
 }
