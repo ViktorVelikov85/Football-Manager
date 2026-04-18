@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using Football_Manager.BLL;
 using Football_Manager.Models;
+using System.Data;
 
 namespace Football_Manager.UI
 {

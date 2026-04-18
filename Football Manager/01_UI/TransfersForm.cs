@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Drawing;
-using System.Windows.Forms;
-using Football_Manager.BLL;
+﻿using Football_Manager.BLL;
 
 namespace Football_Manager.UI
 {

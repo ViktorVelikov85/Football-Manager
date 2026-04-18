@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Windows.Forms;
-using Football_Manager.BLL;
+﻿using Football_Manager.BLL;
 using Football_Manager.Models;
+using System.Data;
 
 namespace Football_Manager.UI
 {
@@ -214,19 +210,19 @@ namespace Football_Manager.UI
 
         private bool ValidateInputs()
         {
-            if (string.IsNullOrWhiteSpace(txtFirstName.Text)|| string.IsNullOrWhiteSpace(txtLastName.Text) || cboPosition.SelectedValue == null || cboClub.SelectedValue == null || cboStatus.SelectedValue == null)
+            if (cboPosition.SelectedItem == null || cboClub.SelectedValue == null || cboStatus.SelectedItem == null)
             {
-                MessageBox.Show("Попълнете задължителните полета!");
+                MessageBox.Show("Моля, направете избор от падащите менюта!");
                 return false;
             }
-            return true; 
+            return true;
         }
 
         private void ClearInputs()
         {
             txtFirstName.Clear(); txtLastName.Clear();
             numShirtNumber.Value = 1;
-            dtpBirthDate.Value = DateTime.Now.AddYears(-20);
+            dtpBirthDate.Value = DateTime.Now;
             cboPosition.SelectedIndex = -1;
             cboClub.SelectedIndex = -1;
             _selectedPlayerId = -1;

@@ -16,9 +16,27 @@ namespace Football_Manager.BLL
 
         public bool SavePlayer(Player player, bool isNew, out string msg)
         {
-            if (string.IsNullOrWhiteSpace(player.FullName))
+            if (string.IsNullOrWhiteSpace(player.FullName) || player.FullName.Split(' ').Length < 2)
             {
-                msg = "Името е задължително!";
+                msg = "Моля, въведете и двете имена на играча!";
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(player.Position) || player.Position == "Всички")
+            {
+                msg = "Моля, изберете валидна позиция!";
+                return false;
+            }
+
+            if (player.ClubId <= 0)
+            {
+                msg = "Моля, изберете клуб!";
+                return false;
+            }
+
+            if (player.BirthDate > DateTime.Now.AddYears(-14))
+            {
+                msg = "Играчът трябва да е поне на 14 години!";
                 return false;
             }
 
@@ -26,12 +44,13 @@ namespace Football_Manager.BLL
             {
                 if (isNew) _repo.Add(player);
                 else _repo.Update(player);
+
                 msg = "Операцията е успешна!";
                 return true;
             }
             catch (Exception ex)
             {
-                msg = "Грешка: " + ex.Message;
+                msg = "Грешка в базата данни: " + ex.Message;
                 return false;
             }
         }
