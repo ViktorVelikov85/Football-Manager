@@ -23,5 +23,11 @@
             TransfersHistoryForm transfersHistoryForm = new TransfersHistoryForm();
             transfersHistoryForm.ShowDialog();
         }
+
+        private void btnOpenLeagues_Click(object sender, EventArgs e)
+        {
+            LeaguesForm leaguesFom = new LeaguesForm();
+            leaguesFom.ShowDialog();
+        }
     }
 }

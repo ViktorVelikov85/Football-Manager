@@ -8,27 +8,9 @@ namespace Football_Manager.DAL
 {
     public static class Db
     {
-        // При XAMPP потребителят е root, а паролата е празна
         public static string connString = "server=localhost;database=football_manager;uid=root;pwd=;charset=utf8;";
 
         public static MySqlConnection GetConnection() => new MySqlConnection(connString);
-
-        public static DataTable GetDataTable(string sql, MySqlParameter[] parameters = null)
-        {
-            DataTable dt = new DataTable();
-            using (var conn = GetConnection())
-            {
-                using (var cmd = new MySqlCommand(sql, conn))
-                {
-                    if (parameters != null) cmd.Parameters.AddRange(parameters);
-                    using (var adapter = new MySqlDataAdapter(cmd))
-                    {
-                        adapter.Fill(dt);
-                    }
-                }
-            }
-            return dt;
-        }
 
         public static void Execute(string sql, MySqlParameter[] parameters = null)
         {

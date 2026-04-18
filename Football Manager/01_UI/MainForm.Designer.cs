@@ -35,6 +35,7 @@ namespace Football_Manager.UI
             btnOpenClubs = new Button();
             btnOpenTransfers = new Button();
             label1 = new Label();
+            btnOpenLeagues = new Button();
             SuspendLayout();
             // 
             // btnOpenPlayers
@@ -62,7 +63,7 @@ namespace Football_Manager.UI
             // btnOpenTransfers
             // 
             btnOpenTransfers.Font = new Font("Segoe UI", 14.25F);
-            btnOpenTransfers.Location = new Point(32, 221);
+            btnOpenTransfers.Location = new Point(32, 302);
             btnOpenTransfers.Name = "btnOpenTransfers";
             btnOpenTransfers.Size = new Size(195, 58);
             btnOpenTransfers.TabIndex = 1;
@@ -80,14 +81,26 @@ namespace Football_Manager.UI
             label1.TabIndex = 2;
             label1.Text = "ФУТБОЛЕН МЕНИДЖЪР";
             // 
+            // btnOpenLeagues
+            // 
+            btnOpenLeagues.Font = new Font("Segoe UI", 14.25F);
+            btnOpenLeagues.Location = new Point(32, 230);
+            btnOpenLeagues.Name = "btnOpenLeagues";
+            btnOpenLeagues.Size = new Size(195, 48);
+            btnOpenLeagues.TabIndex = 0;
+            btnOpenLeagues.Text = "Лиги";
+            btnOpenLeagues.UseVisualStyleBackColor = true;
+            btnOpenLeagues.Click += btnOpenLeagues_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(276, 328);
+            ClientSize = new Size(276, 402);
             Controls.Add(label1);
             Controls.Add(btnOpenTransfers);
             Controls.Add(btnOpenClubs);
+            Controls.Add(btnOpenLeagues);
             Controls.Add(btnOpenPlayers);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -104,5 +117,6 @@ namespace Football_Manager.UI
         private Button btnOpenClubs;
         private Button btnOpenTransfers;
         private Label label1;
+        private Button btnOpenLeagues;
     }
 }

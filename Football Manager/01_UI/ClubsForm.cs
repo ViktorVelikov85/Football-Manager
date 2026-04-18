@@ -161,10 +161,10 @@ namespace Football_Manager.UI
         {
             if (dgvClubs == null || dgvClubs.DataSource == null) return;
 
+            // 1. Основни стилове
             Font customFont = new Font("Arial", 12);
             dgvClubs.DefaultCellStyle.Font = customFont;
             dgvClubs.AlternatingRowsDefaultCellStyle.Font = customFont;
-
             dgvClubs.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
 
             dgvClubs.RowHeadersVisible = false;
@@ -172,10 +172,15 @@ namespace Football_Manager.UI
             dgvClubs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvClubs.RowTemplate.Height = 30;
 
+            // 2. Скриваме ID
+            if (dgvClubs.Columns.Contains("id"))
+            {
+                dgvClubs.Columns["id"].Visible = false;
+            }
 
+            // 3. Превод на заглавията
             var columnNames = new Dictionary<string, string>
             {
-                { "id", "ID" },
                 { "name", "Име на отбор" },
                 { "city", "Град" },
                 { "stadium", "Стадион" },
@@ -190,10 +195,12 @@ namespace Football_Manager.UI
                 }
             }
 
-            if (dgvClubs.Columns.Contains("id"))
+            if (dgvClubs.Columns.Contains("founded_year"))
             {
-                dgvClubs.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvClubs.Columns["id"].Width = 60; 
+                dgvClubs.Columns["founded_year"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvClubs.Columns["founded_year"].Width = 80;
+                // центрираме текста в тази колона
+                dgvClubs.Columns["founded_year"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
         private void btnClear_Click(object sender, EventArgs e) => ClearInputs();
