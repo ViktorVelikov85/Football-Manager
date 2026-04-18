@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2026 at 12:27 PM
+-- Generation Time: Apr 18, 2026 at 04:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,6 +48,51 @@ INSERT INTO `clubs` (`id`, `name`, `city`, `stadium`, `founded_year`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `leagues`
+--
+
+CREATE TABLE `leagues` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `season` varchar(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leagues`
+--
+
+INSERT INTO `leagues` (`id`, `name`, `season`) VALUES
+(5, 'тест', '1234/5678'),
+(6, 'тест2', '1234/5678'),
+(7, 'тест3', '1234/5678'),
+(8, 'тест4', '1234/5678');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `league_teams`
+--
+
+CREATE TABLE `league_teams` (
+  `league_id` int(11) NOT NULL,
+  `club_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `league_teams`
+--
+
+INSERT INTO `league_teams` (`league_id`, `club_id`) VALUES
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 4),
+(7, 1),
+(7, 4);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `players`
 --
 
@@ -70,7 +115,7 @@ INSERT INTO `players` (`id`, `club_id`, `full_name`, `birth_date`, `position`, `
 (2, 1, 'Майкон', '1999-02-10', 'DF', 3, 'Active'),
 (3, 1, 'Кристиан Макун', '2000-03-05', 'DF', 4, 'Active'),
 (4, 3, 'Стипе Вуликич', '2001-01-01', 'DF', 6, 'Active'),
-(5, 1, 'Алдаир Невеш', '1999-05-10', 'DF', 21, 'Active'),
+(5, 2, 'Алдаир Невеш', '1999-05-10', 'DF', 21, 'Active'),
 (6, 3, 'Карлос Охене', '1992-07-21', 'MF', 8, 'Active'),
 (7, 1, 'Асен Митков', '2004-02-16', 'MF', 10, 'Active'),
 (8, 1, 'Патрик Мислович', '2001-05-28', 'MF', 23, 'Injured'),
@@ -135,7 +180,8 @@ INSERT INTO `transfers` (`TransferId`, `PlayerId`, `FromClubId`, `ToClubId`, `Tr
 (3, 4, 1, 3, '2026-03-22 11:19:31', 100.00),
 (4, 29, 3, 1, '2026-03-22 11:21:41', 12345678.00),
 (5, 33, 3, 4, '2026-03-22 12:27:25', 123456.21),
-(6, 6, 1, 3, '2026-03-22 13:12:48', 35000.00);
+(6, 6, 1, 3, '2026-03-22 13:12:48', 35000.00),
+(7, 5, 1, 2, '2026-03-30 19:30:16', 50.00);
 
 --
 -- Indexes for dumped tables
@@ -147,6 +193,20 @@ INSERT INTO `transfers` (`TransferId`, `PlayerId`, `FromClubId`, `ToClubId`, `Tr
 ALTER TABLE `clubs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `leagues`
+--
+ALTER TABLE `leagues`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UQ_LeagueName_Season` (`name`,`season`);
+
+--
+-- Indexes for table `league_teams`
+--
+ALTER TABLE `league_teams`
+  ADD PRIMARY KEY (`league_id`,`club_id`),
+  ADD KEY `FK_Club` (`club_id`);
 
 --
 -- Indexes for table `players`
@@ -175,20 +235,33 @@ ALTER TABLE `clubs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `leagues`
+--
+ALTER TABLE `leagues`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `transfers`
 --
 ALTER TABLE `transfers`
-  MODIFY `TransferId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `TransferId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `league_teams`
+--
+ALTER TABLE `league_teams`
+  ADD CONSTRAINT `FK_Club` FOREIGN KEY (`club_id`) REFERENCES `clubs` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_League` FOREIGN KEY (`league_id`) REFERENCES `leagues` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `players`
