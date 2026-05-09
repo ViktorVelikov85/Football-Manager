@@ -41,7 +41,7 @@ namespace Football_Manager.UI
             // btnOpenPlayers
             // 
             btnOpenPlayers.Font = new Font("Segoe UI", 14.25F);
-            btnOpenPlayers.Location = new Point(32, 153);
+            btnOpenPlayers.Location = new Point(32, 132);
             btnOpenPlayers.Name = "btnOpenPlayers";
             btnOpenPlayers.Size = new Size(195, 48);
             btnOpenPlayers.TabIndex = 0;
@@ -52,7 +52,7 @@ namespace Football_Manager.UI
             // btnOpenClubs
             // 
             btnOpenClubs.Font = new Font("Segoe UI", 14.25F);
-            btnOpenClubs.Location = new Point(32, 85);
+            btnOpenClubs.Location = new Point(32, 64);
             btnOpenClubs.Name = "btnOpenClubs";
             btnOpenClubs.Size = new Size(195, 48);
             btnOpenClubs.TabIndex = 1;
@@ -63,7 +63,7 @@ namespace Football_Manager.UI
             // btnOpenTransfers
             // 
             btnOpenTransfers.Font = new Font("Segoe UI", 14.25F);
-            btnOpenTransfers.Location = new Point(32, 302);
+            btnOpenTransfers.Location = new Point(32, 205);
             btnOpenTransfers.Name = "btnOpenTransfers";
             btnOpenTransfers.Size = new Size(195, 58);
             btnOpenTransfers.TabIndex = 1;
@@ -74,17 +74,17 @@ namespace Football_Manager.UI
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(24, 23);
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(94, 21);
             label1.Name = "label1";
-            label1.Size = new Size(220, 25);
+            label1.Size = new Size(75, 25);
             label1.TabIndex = 2;
-            label1.Text = "ФУТБОЛЕН МЕНИДЖЪР";
+            label1.Text = "МЕНЮ";
             // 
             // btnOpenLeagues
             // 
             btnOpenLeagues.Font = new Font("Segoe UI", 14.25F);
-            btnOpenLeagues.Location = new Point(32, 230);
+            btnOpenLeagues.Location = new Point(32, 285);
             btnOpenLeagues.Name = "btnOpenLeagues";
             btnOpenLeagues.Size = new Size(195, 48);
             btnOpenLeagues.TabIndex = 0;
@@ -96,7 +96,7 @@ namespace Football_Manager.UI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(276, 402);
+            ClientSize = new Size(267, 383);
             Controls.Add(label1);
             Controls.Add(btnOpenTransfers);
             Controls.Add(btnOpenClubs);

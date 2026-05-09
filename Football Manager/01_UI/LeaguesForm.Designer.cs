@@ -48,6 +48,7 @@
             label6 = new Label();
             dgvSchedule = new DataGridView();
             btnGenerateSchedule = new Button();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvLeagues).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvParticipants).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvSchedule).BeginInit();
@@ -115,24 +116,26 @@
             // 
             // btnAddClub
             // 
+            btnAddClub.BackColor = Color.LightGreen;
             btnAddClub.Font = new Font("Segoe UI", 14.25F);
             btnAddClub.Location = new Point(442, 614);
             btnAddClub.Name = "btnAddClub";
             btnAddClub.Size = new Size(144, 50);
             btnAddClub.TabIndex = 3;
             btnAddClub.Text = "Добави клуб";
-            btnAddClub.UseVisualStyleBackColor = true;
+            btnAddClub.UseVisualStyleBackColor = false;
             btnAddClub.Click += btnAddClub_Click;
             // 
             // btnRemoveClub
             // 
+            btnRemoveClub.BackColor = Color.Coral;
             btnRemoveClub.Font = new Font("Segoe UI", 14.25F);
             btnRemoveClub.Location = new Point(624, 614);
             btnRemoveClub.Name = "btnRemoveClub";
             btnRemoveClub.Size = new Size(144, 50);
             btnRemoveClub.TabIndex = 3;
             btnRemoveClub.Text = "Махни клуб";
-            btnRemoveClub.UseVisualStyleBackColor = true;
+            btnRemoveClub.UseVisualStyleBackColor = false;
             btnRemoveClub.Click += btnRemoveClub_Click;
             // 
             // btnAddLeague
@@ -223,30 +226,30 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 14.25F);
+            label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             label4.Location = new Point(157, 4);
             label4.Name = "label4";
-            label4.Size = new Size(54, 25);
+            label4.Size = new Size(58, 25);
             label4.TabIndex = 7;
             label4.Text = "Лиги";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 14.25F);
-            label5.Location = new Point(584, 4);
+            label5.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            label5.Location = new Point(546, 4);
             label5.Name = "label5";
-            label5.Size = new Size(105, 25);
+            label5.Size = new Size(111, 25);
             label5.TabIndex = 7;
             label5.Text = "Участници";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 14.25F);
-            label6.Location = new Point(1067, 4);
+            label6.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            label6.Location = new Point(1138, 4);
             label6.Name = "label6";
-            label6.Size = new Size(75, 25);
+            label6.Size = new Size(81, 25);
             label6.TabIndex = 7;
             label6.Text = "График";
             // 
@@ -269,14 +272,23 @@
             // 
             // btnGenerateSchedule
             // 
+            btnGenerateSchedule.BackColor = Color.LightGreen;
             btnGenerateSchedule.Font = new Font("Segoe UI", 14.25F);
             btnGenerateSchedule.Location = new Point(1058, 538);
             btnGenerateSchedule.Name = "btnGenerateSchedule";
             btnGenerateSchedule.Size = new Size(195, 50);
             btnGenerateSchedule.TabIndex = 8;
             btnGenerateSchedule.Text = "Генерирай график";
-            btnGenerateSchedule.UseVisualStyleBackColor = true;
+            btnGenerateSchedule.UseVisualStyleBackColor = false;
             btnGenerateSchedule.Click += btnGenerateSchedule_Click;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.LightGray;
+            panel1.Location = new Point(789, 44);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1, 700);
+            panel1.TabIndex = 6;
             // 
             // LeaguesForm
             // 
@@ -287,6 +299,7 @@
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
+            Controls.Add(panel1);
             Controls.Add(lineSeparator);
             Controls.Add(dgvLeagues);
             Controls.Add(dgvSchedule);
@@ -307,7 +320,7 @@
             MaximizeBox = false;
             Name = "LeaguesForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Лиги";
+            Text = "Управление на лиги";
             Load += LeaguesForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvLeagues).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvParticipants).EndInit();
@@ -338,5 +351,6 @@
         private Label label6;
         private DataGridView dgvSchedule;
         private Button btnGenerateSchedule;
+        private Panel panel1;
     }
 }
