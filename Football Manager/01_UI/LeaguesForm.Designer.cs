@@ -43,8 +43,14 @@
             label3 = new Label();
             btnDeleteLeague = new Button();
             lineSeparator = new Panel();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            dgvSchedule = new DataGridView();
+            btnGenerateSchedule = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvLeagues).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvParticipants).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSchedule).BeginInit();
             SuspendLayout();
             // 
             // dgvLeagues
@@ -53,20 +59,22 @@
             dgvLeagues.AllowUserToDeleteRows = false;
             dgvLeagues.AllowUserToResizeColumns = false;
             dgvLeagues.AllowUserToResizeRows = false;
+            dgvLeagues.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvLeagues.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLeagues.Location = new Point(26, 12);
+            dgvLeagues.Location = new Point(26, 32);
             dgvLeagues.MultiSelect = false;
             dgvLeagues.Name = "dgvLeagues";
             dgvLeagues.ReadOnly = true;
             dgvLeagues.RowHeadersVisible = false;
-            dgvLeagues.Size = new Size(388, 459);
+            dgvLeagues.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvLeagues.Size = new Size(348, 459);
             dgvLeagues.TabIndex = 0;
             dgvLeagues.CellClick += dgvLeagues_CellClick;
             // 
             // txtName
             // 
             txtName.Font = new Font("Segoe UI", 14.25F);
-            txtName.Location = new Point(26, 504);
+            txtName.Location = new Point(26, 524);
             txtName.Name = "txtName";
             txtName.Size = new Size(261, 33);
             txtName.TabIndex = 1;
@@ -74,7 +82,7 @@
             // txtSeason
             // 
             txtSeason.Font = new Font("Segoe UI", 14.25F);
-            txtSeason.Location = new Point(26, 578);
+            txtSeason.Location = new Point(26, 593);
             txtSeason.Name = "txtSeason";
             txtSeason.Size = new Size(137, 33);
             txtSeason.TabIndex = 1;
@@ -85,20 +93,22 @@
             dgvParticipants.AllowUserToDeleteRows = false;
             dgvParticipants.AllowUserToResizeColumns = false;
             dgvParticipants.AllowUserToResizeRows = false;
+            dgvParticipants.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvParticipants.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvParticipants.Location = new Point(466, 12);
+            dgvParticipants.Location = new Point(427, 32);
             dgvParticipants.MultiSelect = false;
             dgvParticipants.Name = "dgvParticipants";
             dgvParticipants.ReadOnly = true;
             dgvParticipants.RowHeadersVisible = false;
-            dgvParticipants.Size = new Size(381, 459);
+            dgvParticipants.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvParticipants.Size = new Size(341, 459);
             dgvParticipants.TabIndex = 0;
             // 
             // cboAvailableClubs
             // 
             cboAvailableClubs.Font = new Font("Segoe UI", 14.25F);
             cboAvailableClubs.FormattingEnabled = true;
-            cboAvailableClubs.Location = new Point(536, 549);
+            cboAvailableClubs.Location = new Point(468, 538);
             cboAvailableClubs.Name = "cboAvailableClubs";
             cboAvailableClubs.Size = new Size(251, 33);
             cboAvailableClubs.TabIndex = 2;
@@ -106,7 +116,7 @@
             // btnAddClub
             // 
             btnAddClub.Font = new Font("Segoe UI", 14.25F);
-            btnAddClub.Location = new Point(506, 627);
+            btnAddClub.Location = new Point(442, 614);
             btnAddClub.Name = "btnAddClub";
             btnAddClub.Size = new Size(144, 50);
             btnAddClub.TabIndex = 3;
@@ -117,7 +127,7 @@
             // btnRemoveClub
             // 
             btnRemoveClub.Font = new Font("Segoe UI", 14.25F);
-            btnRemoveClub.Location = new Point(688, 627);
+            btnRemoveClub.Location = new Point(624, 614);
             btnRemoveClub.Name = "btnRemoveClub";
             btnRemoveClub.Size = new Size(144, 50);
             btnRemoveClub.TabIndex = 3;
@@ -129,7 +139,7 @@
             // 
             btnAddLeague.BackColor = Color.LightGreen;
             btnAddLeague.Font = new Font("Segoe UI", 14.25F);
-            btnAddLeague.Location = new Point(26, 627);
+            btnAddLeague.Location = new Point(24, 637);
             btnAddLeague.Name = "btnAddLeague";
             btnAddLeague.Size = new Size(144, 50);
             btnAddLeague.TabIndex = 4;
@@ -141,7 +151,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F);
-            label1.Location = new Point(26, 476);
+            label1.Location = new Point(26, 496);
             label1.Name = "label1";
             label1.Size = new Size(118, 25);
             label1.TabIndex = 5;
@@ -151,7 +161,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F);
-            label2.Location = new Point(26, 550);
+            label2.Location = new Point(26, 565);
             label2.Name = "label2";
             label2.Size = new Size(231, 25);
             label2.TabIndex = 5;
@@ -161,7 +171,7 @@
             // 
             btnUpdateLeague.BackColor = Color.LightBlue;
             btnUpdateLeague.Font = new Font("Segoe UI", 14.25F);
-            btnUpdateLeague.Location = new Point(223, 627);
+            btnUpdateLeague.Location = new Point(221, 637);
             btnUpdateLeague.Name = "btnUpdateLeague";
             btnUpdateLeague.Size = new Size(144, 50);
             btnUpdateLeague.TabIndex = 4;
@@ -172,7 +182,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 14.25F);
-            btnClear.Location = new Point(223, 693);
+            btnClear.Location = new Point(221, 703);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(144, 50);
             btnClear.TabIndex = 4;
@@ -184,7 +194,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F);
-            label3.Location = new Point(539, 521);
+            label3.Location = new Point(471, 510);
             label3.Name = "label3";
             label3.Size = new Size(248, 25);
             label3.TabIndex = 5;
@@ -194,7 +204,7 @@
             // 
             btnDeleteLeague.BackColor = Color.Coral;
             btnDeleteLeague.Font = new Font("Segoe UI", 14.25F);
-            btnDeleteLeague.Location = new Point(26, 693);
+            btnDeleteLeague.Location = new Point(24, 703);
             btnDeleteLeague.Name = "btnDeleteLeague";
             btnDeleteLeague.Size = new Size(144, 50);
             btnDeleteLeague.TabIndex = 4;
@@ -205,18 +215,81 @@
             // lineSeparator
             // 
             lineSeparator.BackColor = Color.LightGray;
-            lineSeparator.Location = new Point(441, 24);
+            lineSeparator.Location = new Point(402, 44);
             lineSeparator.Name = "lineSeparator";
             lineSeparator.Size = new Size(1, 700);
             lineSeparator.TabIndex = 6;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 14.25F);
+            label4.Location = new Point(157, 4);
+            label4.Name = "label4";
+            label4.Size = new Size(54, 25);
+            label4.TabIndex = 7;
+            label4.Text = "Лиги";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 14.25F);
+            label5.Location = new Point(584, 4);
+            label5.Name = "label5";
+            label5.Size = new Size(105, 25);
+            label5.TabIndex = 7;
+            label5.Text = "Участници";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 14.25F);
+            label6.Location = new Point(1067, 4);
+            label6.Name = "label6";
+            label6.Size = new Size(75, 25);
+            label6.TabIndex = 7;
+            label6.Text = "График";
+            // 
+            // dgvSchedule
+            // 
+            dgvSchedule.AllowUserToAddRows = false;
+            dgvSchedule.AllowUserToDeleteRows = false;
+            dgvSchedule.AllowUserToResizeColumns = false;
+            dgvSchedule.AllowUserToResizeRows = false;
+            dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSchedule.Location = new Point(807, 32);
+            dgvSchedule.MultiSelect = false;
+            dgvSchedule.Name = "dgvSchedule";
+            dgvSchedule.ReadOnly = true;
+            dgvSchedule.RowHeadersVisible = false;
+            dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSchedule.Size = new Size(691, 459);
+            dgvSchedule.TabIndex = 0;
+            // 
+            // btnGenerateSchedule
+            // 
+            btnGenerateSchedule.Font = new Font("Segoe UI", 14.25F);
+            btnGenerateSchedule.Location = new Point(1058, 538);
+            btnGenerateSchedule.Name = "btnGenerateSchedule";
+            btnGenerateSchedule.Size = new Size(195, 50);
+            btnGenerateSchedule.TabIndex = 8;
+            btnGenerateSchedule.Text = "Генерирай график";
+            btnGenerateSchedule.UseVisualStyleBackColor = true;
+            btnGenerateSchedule.Click += btnGenerateSchedule_Click;
             // 
             // LeaguesForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(873, 762);
+            ClientSize = new Size(1527, 770);
+            Controls.Add(btnGenerateSchedule);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(lineSeparator);
             Controls.Add(dgvLeagues);
+            Controls.Add(dgvSchedule);
             Controls.Add(dgvParticipants);
             Controls.Add(txtName);
             Controls.Add(cboAvailableClubs);
@@ -238,6 +311,7 @@
             Load += LeaguesForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvLeagues).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvParticipants).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSchedule).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -259,5 +333,10 @@
         private Label label3;
         private Button btnDeleteLeague;
         private Panel lineSeparator;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private DataGridView dgvSchedule;
+        private Button btnGenerateSchedule;
     }
 }
