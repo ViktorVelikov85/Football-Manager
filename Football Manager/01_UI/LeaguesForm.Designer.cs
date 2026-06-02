@@ -49,6 +49,7 @@
             dgvSchedule = new DataGridView();
             btnGenerateSchedule = new Button();
             panel1 = new Panel();
+            btnManageMatch = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvLeagues).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvParticipants).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvSchedule).BeginInit();
@@ -269,6 +270,7 @@
             dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSchedule.Size = new Size(691, 459);
             dgvSchedule.TabIndex = 0;
+            dgvSchedule.CellDoubleClick += dgvSchedule_CellDoubleClick;
             // 
             // btnGenerateSchedule
             // 
@@ -290,11 +292,22 @@
             panel1.Size = new Size(1, 700);
             panel1.TabIndex = 6;
             // 
+            // btnManageMatch
+            // 
+            btnManageMatch.Location = new Point(1020, 637);
+            btnManageMatch.Name = "btnManageMatch";
+            btnManageMatch.Size = new Size(233, 43);
+            btnManageMatch.TabIndex = 9;
+            btnManageMatch.Text = "button1";
+            btnManageMatch.UseVisualStyleBackColor = true;
+            btnManageMatch.Click += btnManageMatch_Click;
+            // 
             // LeaguesForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1527, 770);
+            Controls.Add(btnManageMatch);
             Controls.Add(btnGenerateSchedule);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -352,5 +365,6 @@
         private DataGridView dgvSchedule;
         private Button btnGenerateSchedule;
         private Panel panel1;
+        private Button btnManageMatch;
     }
 }

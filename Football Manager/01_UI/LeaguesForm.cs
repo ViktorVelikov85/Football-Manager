@@ -1,4 +1,5 @@
-﻿using Football_Manager.BLL;
+﻿using Football_Manager.UI;
+using Football_Manager.BLL;
 using Football_Manager.Models;
 using System.Data;
 
@@ -238,6 +239,49 @@ namespace Football_Manager.UI
                     RefreshSchedule();
                 }
                 else MessageBox.Show(msg, "Грешка");
+            }
+        }
+        // Събитие при двойно кликване върху мач в програмата
+        private void dgvSchedule_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                OpenMatchManagement();
+            }
+        }
+
+        // Събитие за бутона "Управление на мач", който ще добавиш на екрана
+        private void btnManageMatch_Click(object sender, EventArgs e)
+        {
+            OpenMatchManagement();
+        }
+
+        // Общ помощен метод за извличане на данните и отваряне на прозореца
+        private void OpenMatchManagement()
+        {
+            if (dgvSchedule.CurrentRow == null)
+            {
+                MessageBox.Show("Моля, първо изберете мач от програмата!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Извличаме скритите ID-та и имената на отборите директно от селектирания ред на dgvSchedule
+            int matchId = Convert.ToInt32(dgvSchedule.CurrentRow.Cells["id"].Value);
+            int homeTeamId = Convert.ToInt32(dgvSchedule.CurrentRow.Cells["home_team_id"].Value);
+            int awayTeamId = Convert.ToInt32(dgvSchedule.CurrentRow.Cells["away_team_id"].Value);
+            string homeTeamName = dgvSchedule.CurrentRow.Cells["home_team"].Value.ToString();
+            string awayTeamName = dgvSchedule.CurrentRow.Cells["away_team"].Value.ToString();
+
+            DateTime matchDate = dgvSchedule.CurrentRow.Cells["match_date"].Value != DBNull.Value
+                ? Convert.ToDateTime(dgvSchedule.CurrentRow.Cells["match_date"].Value)
+                : DateTime.Today;
+
+            // Отваряме новата форма като модален диалог
+            using (MatchManagementForm frm = new MatchManagementForm(matchId, homeTeamId, awayTeamId, homeTeamName, awayTeamName, matchDate))
+            {
+                frm.ShowDialog();
+                // След затваряне на формата за управление автоматично презареждаме програмата, за да се види новия резултат!
+                RefreshSchedule();
             }
         }
     }
