@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2026 at 10:57 AM
+-- Generation Time: Jun 04, 2026 at 11:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -111,12 +111,12 @@ CREATE TABLE `matches` (
 --
 
 INSERT INTO `matches` (`id`, `league_id`, `round_no`, `home_team_id`, `away_team_id`, `home_score`, `away_score`, `match_date`, `is_played`) VALUES
-(83, 5, 1, 2, 4, NULL, NULL, '2026-05-09 00:00:00', 0),
-(84, 5, 1, 5, 3, NULL, NULL, '2026-05-09 00:00:00', 0),
-(85, 5, 2, 1, 4, NULL, NULL, '2026-05-16 00:00:00', 0),
-(86, 5, 2, 2, 5, NULL, NULL, '2026-05-16 00:00:00', 0),
+(83, 5, 1, 2, 4, 2, 0, '2026-05-09 00:00:00', 1),
+(84, 5, 1, 5, 3, 0, 0, '2026-05-09 00:00:00', 1),
+(85, 5, 2, 1, 4, 0, 0, '2026-05-16 00:00:00', 1),
+(86, 5, 2, 2, 5, 0, 0, '2026-05-16 00:00:00', 1),
 (87, 5, 3, 1, 3, NULL, NULL, '2026-05-23 00:00:00', 0),
-(88, 5, 3, 4, 5, NULL, NULL, '2026-05-23 00:00:00', 0),
+(88, 5, 3, 4, 5, 0, 0, '2026-05-23 00:00:00', 1),
 (89, 5, 4, 1, 5, NULL, NULL, '2026-05-30 00:00:00', 0),
 (90, 5, 4, 3, 2, NULL, NULL, '2026-05-30 00:00:00', 0),
 (91, 5, 5, 1, 2, NULL, NULL, '2026-06-06 00:00:00', 0),
@@ -131,6 +131,70 @@ INSERT INTO `matches` (`id`, `league_id`, `round_no`, `home_team_id`, `away_team
 (100, 5, 9, 2, 3, NULL, NULL, '2026-07-04 00:00:00', 0),
 (101, 5, 10, 2, 1, NULL, NULL, '2026-07-11 00:00:00', 0),
 (102, 5, 10, 4, 3, NULL, NULL, '2026-07-11 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `match_cards`
+--
+
+CREATE TABLE `match_cards` (
+  `id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `card_type` varchar(20) NOT NULL,
+  `minute` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `match_cards`
+--
+
+INSERT INTO `match_cards` (`id`, `match_id`, `player_id`, `card_type`, `minute`) VALUES
+(1, 83, 40, 'Жълт картон', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `match_fouls`
+--
+
+CREATE TABLE `match_fouls` (
+  `id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `minute` int(11) NOT NULL,
+  `foul_type` varchar(50) DEFAULT 'Обикновено'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `match_fouls`
+--
+
+INSERT INTO `match_fouls` (`id`, `match_id`, `player_id`, `minute`, `foul_type`) VALUES
+(2, 83, 34, 46, 'Обикновено');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `match_goals`
+--
+
+CREATE TABLE `match_goals` (
+  `id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `club_id` int(11) NOT NULL,
+  `minute` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `match_goals`
+--
+
+INSERT INTO `match_goals` (`id`, `match_id`, `player_id`, `club_id`, `minute`) VALUES
+(1, 83, 5, 2, 1),
+(2, 83, 5, 2, 33);
 
 -- --------------------------------------------------------
 
@@ -262,6 +326,31 @@ ALTER TABLE `matches`
   ADD KEY `fk_match_away` (`away_team_id`);
 
 --
+-- Indexes for table `match_cards`
+--
+ALTER TABLE `match_cards`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cards_match` (`match_id`),
+  ADD KEY `fk_cards_player` (`player_id`);
+
+--
+-- Indexes for table `match_fouls`
+--
+ALTER TABLE `match_fouls`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_fouls_match` (`match_id`),
+  ADD KEY `fk_fouls_player` (`player_id`);
+
+--
+-- Indexes for table `match_goals`
+--
+ALTER TABLE `match_goals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_goals_match` (`match_id`),
+  ADD KEY `fk_goals_player` (`player_id`),
+  ADD KEY `fk_goals_club` (`club_id`);
+
+--
 -- Indexes for table `players`
 --
 ALTER TABLE `players`
@@ -300,6 +389,24 @@ ALTER TABLE `matches`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
+-- AUTO_INCREMENT for table `match_cards`
+--
+ALTER TABLE `match_cards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `match_fouls`
+--
+ALTER TABLE `match_fouls`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `match_goals`
+--
+ALTER TABLE `match_goals`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
@@ -329,6 +436,28 @@ ALTER TABLE `matches`
   ADD CONSTRAINT `fk_match_away` FOREIGN KEY (`away_team_id`) REFERENCES `clubs` (`id`),
   ADD CONSTRAINT `fk_match_home` FOREIGN KEY (`home_team_id`) REFERENCES `clubs` (`id`),
   ADD CONSTRAINT `fk_match_league` FOREIGN KEY (`league_id`) REFERENCES `leagues` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `match_cards`
+--
+ALTER TABLE `match_cards`
+  ADD CONSTRAINT `fk_cards_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_cards_player` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `match_fouls`
+--
+ALTER TABLE `match_fouls`
+  ADD CONSTRAINT `fk_fouls_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_fouls_player` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `match_goals`
+--
+ALTER TABLE `match_goals`
+  ADD CONSTRAINT `fk_goals_club` FOREIGN KEY (`club_id`) REFERENCES `clubs` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_goals_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_goals_player` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `players`
