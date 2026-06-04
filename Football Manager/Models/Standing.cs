@@ -15,7 +15,5 @@
         public int GoalDifference => GoalsFor - GoalsAgainst;
         public int Points => (Wins * 3) + Draws;
 
-        // Помощно свойство за визуализация във формата "Вкарани:Допуснати"
-        public string GoalsDisplay => $"{GoalsFor} : {GoalsAgainst}";
     }
 }

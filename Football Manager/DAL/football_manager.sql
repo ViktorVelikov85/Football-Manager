@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2026 at 11:24 AM
+-- Generation Time: Jun 04, 2026 at 08:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,7 +44,8 @@ INSERT INTO `clubs` (`id`, `name`, `city`, `stadium`, `founded_year`) VALUES
 (2, 'Лудогорец', 'Разград', 'Хювефарма Арена', 2001),
 (3, 'ЦСКА София', 'София', 'Българска армия', 1948),
 (4, 'Черно море', 'Варна', 'Тича', 1913),
-(5, 'Тест', 'Варна', 'банан', 1999);
+(5, 'Тест', 'Варна', 'банан', 1999),
+(6, 'ВикторОтбор', 'Барселона', 'Барселона', 1999);
 
 -- --------------------------------------------------------
 
@@ -111,26 +112,26 @@ CREATE TABLE `matches` (
 --
 
 INSERT INTO `matches` (`id`, `league_id`, `round_no`, `home_team_id`, `away_team_id`, `home_score`, `away_score`, `match_date`, `is_played`) VALUES
-(83, 5, 1, 2, 4, 2, 0, '2026-05-09 00:00:00', 1),
-(84, 5, 1, 5, 3, 0, 0, '2026-05-09 00:00:00', 1),
-(85, 5, 2, 1, 4, 0, 0, '2026-05-16 00:00:00', 1),
-(86, 5, 2, 2, 5, 0, 0, '2026-05-16 00:00:00', 1),
-(87, 5, 3, 1, 3, NULL, NULL, '2026-05-23 00:00:00', 0),
-(88, 5, 3, 4, 5, 0, 0, '2026-05-23 00:00:00', 1),
-(89, 5, 4, 1, 5, NULL, NULL, '2026-05-30 00:00:00', 0),
-(90, 5, 4, 3, 2, NULL, NULL, '2026-05-30 00:00:00', 0),
-(91, 5, 5, 1, 2, NULL, NULL, '2026-06-06 00:00:00', 0),
-(92, 5, 5, 3, 4, NULL, NULL, '2026-06-06 00:00:00', 0),
-(93, 5, 6, 4, 2, NULL, NULL, '2026-06-13 00:00:00', 0),
-(94, 5, 6, 3, 5, NULL, NULL, '2026-06-13 00:00:00', 0),
-(95, 5, 7, 4, 1, NULL, NULL, '2026-06-20 00:00:00', 0),
-(96, 5, 7, 5, 2, NULL, NULL, '2026-06-20 00:00:00', 0),
-(97, 5, 8, 3, 1, NULL, NULL, '2026-06-27 00:00:00', 0),
-(98, 5, 8, 5, 4, NULL, NULL, '2026-06-27 00:00:00', 0),
-(99, 5, 9, 5, 1, NULL, NULL, '2026-07-04 00:00:00', 0),
-(100, 5, 9, 2, 3, NULL, NULL, '2026-07-04 00:00:00', 0),
-(101, 5, 10, 2, 1, NULL, NULL, '2026-07-11 00:00:00', 0),
-(102, 5, 10, 4, 3, NULL, NULL, '2026-07-11 00:00:00', 0);
+(153, 5, 1, 2, 4, 0, 6, '2026-06-06 00:00:00', 1),
+(154, 5, 1, 5, 3, NULL, NULL, '2026-06-06 00:00:00', 0),
+(155, 5, 2, 1, 4, 0, 2, '2026-06-13 00:00:00', 1),
+(156, 5, 2, 2, 5, NULL, NULL, '2026-06-13 00:00:00', 0),
+(157, 5, 3, 1, 3, 2, 0, '2026-06-20 00:00:00', 1),
+(158, 5, 3, 4, 5, NULL, NULL, '2026-06-20 00:00:00', 0),
+(159, 5, 4, 1, 5, NULL, NULL, '2026-06-27 00:00:00', 0),
+(160, 5, 4, 3, 2, 1, 0, '2026-06-27 00:00:00', 1),
+(161, 5, 5, 1, 2, NULL, NULL, '2026-07-04 00:00:00', 0),
+(162, 5, 5, 3, 4, NULL, NULL, '2026-07-04 00:00:00', 0),
+(163, 5, 6, 4, 2, NULL, NULL, '2026-07-11 00:00:00', 0),
+(164, 5, 6, 3, 5, NULL, NULL, '2026-07-11 00:00:00', 0),
+(165, 5, 7, 4, 1, NULL, NULL, '2026-07-18 00:00:00', 0),
+(166, 5, 7, 5, 2, NULL, NULL, '2026-07-18 00:00:00', 0),
+(167, 5, 8, 3, 1, NULL, NULL, '2026-07-25 00:00:00', 0),
+(168, 5, 8, 5, 4, NULL, NULL, '2026-07-25 00:00:00', 0),
+(169, 5, 9, 5, 1, NULL, NULL, '2026-08-01 00:00:00', 0),
+(170, 5, 9, 2, 3, NULL, NULL, '2026-08-01 00:00:00', 0),
+(171, 5, 10, 2, 1, NULL, NULL, '2026-08-08 00:00:00', 0),
+(172, 5, 10, 4, 3, NULL, NULL, '2026-08-08 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -146,13 +147,6 @@ CREATE TABLE `match_cards` (
   `minute` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `match_cards`
---
-
-INSERT INTO `match_cards` (`id`, `match_id`, `player_id`, `card_type`, `minute`) VALUES
-(1, 83, 40, 'Жълт картон', 8);
-
 -- --------------------------------------------------------
 
 --
@@ -166,13 +160,6 @@ CREATE TABLE `match_fouls` (
   `minute` int(11) NOT NULL,
   `foul_type` varchar(50) DEFAULT 'Обикновено'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `match_fouls`
---
-
-INSERT INTO `match_fouls` (`id`, `match_id`, `player_id`, `minute`, `foul_type`) VALUES
-(2, 83, 34, 46, 'Обикновено');
 
 -- --------------------------------------------------------
 
@@ -193,8 +180,17 @@ CREATE TABLE `match_goals` (
 --
 
 INSERT INTO `match_goals` (`id`, `match_id`, `player_id`, `club_id`, `minute`) VALUES
-(1, 83, 5, 2, 1),
-(2, 83, 5, 2, 33);
+(9, 153, 44, 4, 0),
+(10, 153, 44, 4, 1),
+(11, 153, 44, 4, 2),
+(12, 153, 44, 4, 3),
+(13, 153, 44, 4, 4),
+(14, 153, 44, 4, 5),
+(15, 155, 41, 4, 3),
+(16, 155, 41, 4, 8),
+(17, 157, 20, 1, 0),
+(18, 157, 20, 1, 1),
+(19, 160, 30, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -374,7 +370,7 @@ ALTER TABLE `transfers`
 -- AUTO_INCREMENT for table `clubs`
 --
 ALTER TABLE `clubs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `leagues`
@@ -386,25 +382,25 @@ ALTER TABLE `leagues`
 -- AUTO_INCREMENT for table `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT for table `match_cards`
 --
 ALTER TABLE `match_cards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `match_fouls`
 --
 ALTER TABLE `match_fouls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `match_goals`
 --
 ALTER TABLE `match_goals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `players`

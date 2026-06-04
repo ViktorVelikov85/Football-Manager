@@ -146,13 +146,14 @@ namespace Football_Manager.UI
             dgvPlayers.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Arial Narrow", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dgvPlayers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvPlayers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPlayers.ColumnHeadersHeight = 35;
+            dgvPlayers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvPlayers.Columns.AddRange(new DataGridViewColumn[] { colFullName, colClubName, colPosition, colShirtNumber, colBirthDate, colStatus });
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = SystemColors.Window;
@@ -255,6 +256,7 @@ namespace Football_Manager.UI
             cboStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cboStatus.Font = new Font("Segoe UI", 14.25F);
             cboStatus.FormattingEnabled = true;
+            cboStatus.Items.AddRange(new object[] { "Активен", "Контузен", "Наказан" });
             cboStatus.Location = new Point(290, 695);
             cboStatus.Name = "cboStatus";
             cboStatus.Size = new Size(160, 33);

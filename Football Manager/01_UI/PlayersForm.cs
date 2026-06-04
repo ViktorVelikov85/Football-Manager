@@ -38,6 +38,7 @@ namespace Football_Manager.UI
                 cboFilterPosition.SelectedIndex = 0;
             }
 
+            // Добавяне на подсказки за позициите
             string positionLegend = "GK - Вратар (Goalkeeper)\n" +
                                     "DF - Защитник (Defender)\n" +
                                     "MF - Полузащитник (Midfielder)\n" +
@@ -55,7 +56,7 @@ namespace Football_Manager.UI
             {
                 DataTable clubs = _clubService.GetAllClubs();
 
-                // Зареждане на клубове в основното меню
+                // Зареждане на клубове в основното падащо меню
                 cboClub.DisplayMember = "name";
                 cboClub.ValueMember = "id";
                 cboClub.DataSource = clubs;
@@ -89,7 +90,7 @@ namespace Football_Manager.UI
             }
         }
 
-        // Автоматичен превод и оцветяване в реално време (Закачено към Events -> CellFormatting)
+        // Автоматичен превод и оцветяване на редовете според статуса в реално време
         private void dgvPlayers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dgvPlayers.Columns[e.ColumnIndex].DataPropertyName == "status" && e.Value != null)
@@ -97,7 +98,6 @@ namespace Football_Manager.UI
                 string statusInDb = e.Value.ToString();
                 DataGridViewRow row = dgvPlayers.Rows[e.RowIndex];
 
-                // 1. Превеждаме думата визуално за потребителя
                 if (statusInDb == "Active" || statusInDb == "Активен")
                 {
                     e.Value = "Активен";
@@ -114,7 +114,7 @@ namespace Football_Manager.UI
                     row.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 200); // Меко пастелно жълто
                 }
 
-                e.FormattingApplied = true; // Казваме на Windows Forms, че сме форматирали клетката
+                e.FormattingApplied = true;
             }
         }
 
@@ -214,12 +214,12 @@ namespace Football_Manager.UI
             numShirtNumber.Value = Convert.ToDecimal(dataRow["shirt_number"]);
             dtpBirthDate.Value = Convert.ToDateTime(dataRow["birth_date"]);
 
-            // Мапваме английския статус от базата към българския избор в твоя ComboBox
+            // Мапваме английския статус от базата към българския избор в твоя ComboBox Items
             string dbStatus = dataRow["status"]?.ToString();
             if (dbStatus == "Active") cboStatus.SelectedItem = "Активен";
             else if (dbStatus == "Injured") cboStatus.SelectedItem = "Контузен";
             else if (dbStatus == "Suspended") cboStatus.SelectedItem = "Наказан";
-            else cboStatus.SelectedItem = dbStatus; // За всеки случай, ако вече има български записи
+            else cboStatus.SelectedItem = dbStatus;
 
             if (dataRow["club_id"] != DBNull.Value)
                 cboClub.SelectedValue = dataRow["club_id"];
@@ -227,6 +227,7 @@ namespace Football_Manager.UI
                 cboClub.SelectedIndex = -1;
         }
 
+        // Филтрация и търсене
         private void ApplyFilters()
         {
             int? clubId = (cboFilterClub.SelectedValue is int cid && cid > 0) ? cid : (int?)null;
@@ -236,9 +237,7 @@ namespace Football_Manager.UI
         }
 
         private void txtSearchName_TextChanged(object sender, EventArgs e) => ApplyFilters();
-
         private void cboFilterClub_SelectedIndexChanged(object sender, EventArgs e) => ApplyFilters();
-
         private void cboFilterPosition_SelectedIndexChanged(object sender, EventArgs e) => ApplyFilters();
 
         private void btnClearFilters_Click(object sender, EventArgs e)
@@ -255,7 +254,7 @@ namespace Football_Manager.UI
         private Player MapInputsToModel()
         {
             string uiStatus = cboStatus.SelectedItem?.ToString() ?? "Активен";
-            string dbStatus = "Active"; // стойност по подразбиране
+            string dbStatus = "Active";
 
             if (uiStatus == "Контузен") dbStatus = "Injured";
             else if (uiStatus == "Наказан") dbStatus = "Suspended";
@@ -295,7 +294,10 @@ namespace Football_Manager.UI
             dtpBirthDate.Value = DateTime.Now;
             cboPosition.SelectedIndex = -1;
             cboClub.SelectedIndex = -1;
-            cboStatus.SelectedIndex = -1;
+
+            // По подразбиране автоматично маркира "Активен" (индекс 0 в Items)
+            cboStatus.SelectedIndex = 0;
+
             _selectedPlayerId = -1;
             dgvPlayers.ClearSelection();
         }

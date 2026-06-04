@@ -31,7 +31,10 @@ namespace Football_Manager.UI
         /// </summary>
         private void InitializeComponent()
         {
-            dgvTransfers = new DataGridView();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             cboToClub = new ComboBox();
             dtpTransferDate = new DateTimePicker();
             numFee = new NumericUpDown();
@@ -47,32 +50,22 @@ namespace Football_Manager.UI
             label6 = new Label();
             txtPlayer = new TextBox();
             label7 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dgvTransfers).BeginInit();
+            dgvTransfers = new DataGridView();
+            colPlayerName = new DataGridViewTextBoxColumn();
+            colOldClub = new DataGridViewTextBoxColumn();
+            colNewClub = new DataGridViewTextBoxColumn();
+            colAmount = new DataGridViewTextBoxColumn();
+            colDate = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)numFee).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvTransfers).BeginInit();
             SuspendLayout();
-            // 
-            // dgvTransfers
-            // 
-            dgvTransfers.AllowUserToAddRows = false;
-            dgvTransfers.AllowUserToDeleteRows = false;
-            dgvTransfers.AllowUserToResizeColumns = false;
-            dgvTransfers.AllowUserToResizeRows = false;
-            dgvTransfers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTransfers.Location = new Point(31, 99);
-            dgvTransfers.MultiSelect = false;
-            dgvTransfers.Name = "dgvTransfers";
-            dgvTransfers.ReadOnly = true;
-            dgvTransfers.RowHeadersVisible = false;
-            dgvTransfers.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvTransfers.Size = new Size(815, 239);
-            dgvTransfers.TabIndex = 0;
             // 
             // cboToClub
             // 
             cboToClub.DropDownStyle = ComboBoxStyle.DropDownList;
             cboToClub.Font = new Font("Segoe UI", 14.25F);
             cboToClub.FormattingEnabled = true;
-            cboToClub.Location = new Point(327, 437);
+            cboToClub.Location = new Point(312, 437);
             cboToClub.Name = "cboToClub";
             cboToClub.Size = new Size(259, 33);
             cboToClub.TabIndex = 2;
@@ -82,7 +75,7 @@ namespace Football_Manager.UI
             dtpTransferDate.CustomFormat = "dd MMMM yyyy";
             dtpTransferDate.Font = new Font("Segoe UI", 14.25F);
             dtpTransferDate.Format = DateTimePickerFormat.Custom;
-            dtpTransferDate.Location = new Point(31, 525);
+            dtpTransferDate.Location = new Point(12, 505);
             dtpTransferDate.Name = "dtpTransferDate";
             dtpTransferDate.Size = new Size(219, 33);
             dtpTransferDate.TabIndex = 3;
@@ -91,7 +84,7 @@ namespace Football_Manager.UI
             // 
             numFee.DecimalPlaces = 2;
             numFee.Font = new Font("Segoe UI", 14.25F);
-            numFee.Location = new Point(327, 369);
+            numFee.Location = new Point(312, 369);
             numFee.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
             numFee.Name = "numFee";
             numFee.Size = new Size(172, 33);
@@ -102,7 +95,7 @@ namespace Football_Manager.UI
             // 
             btnTransfer.BackColor = Color.LightGreen;
             btnTransfer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnTransfer.Location = new Point(714, 410);
+            btnTransfer.Location = new Point(734, 409);
             btnTransfer.Name = "btnTransfer";
             btnTransfer.Size = new Size(120, 60);
             btnTransfer.TabIndex = 5;
@@ -113,7 +106,7 @@ namespace Football_Manager.UI
             // txtFromClub
             // 
             txtFromClub.Font = new Font("Segoe UI", 14.25F);
-            txtFromClub.Location = new Point(31, 437);
+            txtFromClub.Location = new Point(12, 437);
             txtFromClub.Name = "txtFromClub";
             txtFromClub.ReadOnly = true;
             txtFromClub.Size = new Size(274, 33);
@@ -123,7 +116,7 @@ namespace Football_Manager.UI
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F);
-            label1.Location = new Point(31, 341);
+            label1.Location = new Point(12, 341);
             label1.Name = "label1";
             label1.Size = new Size(130, 25);
             label1.TabIndex = 7;
@@ -133,7 +126,7 @@ namespace Football_Manager.UI
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F);
-            label2.Location = new Point(31, 409);
+            label2.Location = new Point(12, 409);
             label2.Name = "label2";
             label2.Size = new Size(91, 25);
             label2.TabIndex = 7;
@@ -143,7 +136,7 @@ namespace Football_Manager.UI
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F);
-            label3.Location = new Point(327, 409);
+            label3.Location = new Point(312, 409);
             label3.Name = "label3";
             label3.Size = new Size(104, 25);
             label3.TabIndex = 7;
@@ -153,7 +146,7 @@ namespace Football_Manager.UI
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F);
-            label4.Location = new Point(327, 341);
+            label4.Location = new Point(312, 341);
             label4.Name = "label4";
             label4.Size = new Size(75, 25);
             label4.TabIndex = 7;
@@ -163,7 +156,7 @@ namespace Football_Manager.UI
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 14.25F);
-            label5.Location = new Point(31, 491);
+            label5.Location = new Point(12, 477);
             label5.Name = "label5";
             label5.Size = new Size(167, 25);
             label5.TabIndex = 7;
@@ -172,7 +165,7 @@ namespace Football_Manager.UI
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnClear.Location = new Point(714, 493);
+            btnClear.Location = new Point(734, 493);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(120, 60);
             btnClear.TabIndex = 5;
@@ -202,7 +195,7 @@ namespace Football_Manager.UI
             // txtPlayer
             // 
             txtPlayer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPlayer.Location = new Point(33, 368);
+            txtPlayer.Location = new Point(12, 368);
             txtPlayer.Name = "txtPlayer";
             txtPlayer.ReadOnly = true;
             txtPlayer.Size = new Size(272, 33);
@@ -212,17 +205,101 @@ namespace Football_Manager.UI
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(327, 71);
+            label7.Location = new Point(326, 62);
             label7.Name = "label7";
             label7.Size = new Size(204, 25);
             label7.TabIndex = 11;
             label7.Text = "Предишни трансфери";
             // 
+            // dgvTransfers
+            // 
+            dgvTransfers.AllowUserToAddRows = false;
+            dgvTransfers.AllowUserToDeleteRows = false;
+            dgvTransfers.AllowUserToResizeColumns = false;
+            dgvTransfers.AllowUserToResizeRows = false;
+            dgvTransfers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvTransfers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvTransfers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTransfers.Columns.AddRange(new DataGridViewColumn[] { colPlayerName, colOldClub, colNewClub, colAmount, colDate });
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dgvTransfers.DefaultCellStyle = dataGridViewCellStyle4;
+            dgvTransfers.Location = new Point(12, 90);
+            dgvTransfers.MultiSelect = false;
+            dgvTransfers.Name = "dgvTransfers";
+            dgvTransfers.ReadOnly = true;
+            dgvTransfers.RowHeadersVisible = false;
+            dgvTransfers.RowTemplate.Height = 30;
+            dgvTransfers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTransfers.Size = new Size(842, 248);
+            dgvTransfers.TabIndex = 12;
+            // 
+            // colPlayerName
+            // 
+            colPlayerName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colPlayerName.DataPropertyName = "player_name";
+            colPlayerName.HeaderText = "Играч";
+            colPlayerName.Name = "colPlayerName";
+            colPlayerName.ReadOnly = true;
+            // 
+            // colOldClub
+            // 
+            colOldClub.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colOldClub.DataPropertyName = "old_club_name";
+            colOldClub.HeaderText = "Стар отбор";
+            colOldClub.Name = "colOldClub";
+            colOldClub.ReadOnly = true;
+            // 
+            // colNewClub
+            // 
+            colNewClub.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colNewClub.DataPropertyName = "new_club_name";
+            colNewClub.HeaderText = "Нов отбор";
+            colNewClub.Name = "colNewClub";
+            colNewClub.ReadOnly = true;
+            // 
+            // colAmount
+            // 
+            colAmount.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colAmount.DataPropertyName = "transfer_fee";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "#,##0\" €\"";
+            colAmount.DefaultCellStyle = dataGridViewCellStyle2;
+            colAmount.HeaderText = "Сума (€)";
+            colAmount.Name = "colAmount";
+            colAmount.ReadOnly = true;
+            colAmount.Width = 120;
+            // 
+            // colDate
+            // 
+            colDate.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colDate.DataPropertyName = "transfer_date";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Format = "dd.MM.yyyy";
+            colDate.DefaultCellStyle = dataGridViewCellStyle3;
+            colDate.HeaderText = "Дата";
+            colDate.Name = "colDate";
+            colDate.ReadOnly = true;
+            colDate.Width = 120;
+            // 
             // TransfersForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(866, 591);
+            ClientSize = new Size(866, 568);
+            Controls.Add(dgvTransfers);
             Controls.Add(label7);
             Controls.Add(txtPlayer);
             Controls.Add(label6);
@@ -238,22 +315,19 @@ namespace Football_Manager.UI
             Controls.Add(numFee);
             Controls.Add(dtpTransferDate);
             Controls.Add(cboToClub);
-            Controls.Add(dgvTransfers);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "TransfersForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Трансфер на играч";
             Load += TransfersForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvTransfers).EndInit();
             ((System.ComponentModel.ISupportInitialize)numFee).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvTransfers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private DataGridView dgvTransfers;
         private ComboBox cboToClub;
         private DateTimePicker dtpTransferDate;
         private NumericUpDown numFee;
@@ -269,5 +343,11 @@ namespace Football_Manager.UI
         private Label label6;
         private TextBox txtPlayer;
         private Label label7;
+        private DataGridView dgvTransfers;
+        private DataGridViewTextBoxColumn colPlayerName;
+        private DataGridViewTextBoxColumn colOldClub;
+        private DataGridViewTextBoxColumn colNewClub;
+        private DataGridViewTextBoxColumn colAmount;
+        private DataGridViewTextBoxColumn colDate;
     }
 }

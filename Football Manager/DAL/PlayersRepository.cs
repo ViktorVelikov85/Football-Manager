@@ -70,5 +70,18 @@ namespace Football_Manager.DAL
                 new MySqlParameter("@status", p.Status)
             };
         }
+        public DataTable GetTopScorers()
+        {
+            // Използваме LEFT JOIN и филтрираме празни играчи, подреждаме правилно
+            string query = @"
+                SELECT p.full_name, COUNT(g.id) AS goals_count
+                FROM match_goals g
+                JOIN players p ON g.player_id = p.id
+                GROUP BY p.id, p.full_name
+                ORDER BY goals_count DESC
+                LIMIT 3";
+
+            return Db.GetTable(query);
+        }
     }
 }

@@ -138,7 +138,6 @@ namespace Football_Manager.UI
                 FoundedYear = txtCreatedIn.Text.Trim()
             };
         }
-
         private void FinishOperation(string message)
         {
             // Общ метод за опресняване след успешна трансакция

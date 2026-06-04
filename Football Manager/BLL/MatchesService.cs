@@ -63,12 +63,11 @@ namespace Football_Manager.BLL
             }
         }
 
-        // ТОЗИ МЕТОД ТРЯБВА ДА Е ТУК!
         public void UpdateMatchResultFromEvents(int matchId, DateTime matchDate)
         {
             try
             {
-                // 1. Намираме ID-тата на двата отбора за този мач през DAL слой
+                // Намираме ID-тата на двата отбора за този мач
                 string sqlTeams = "SELECT home_team_id, away_team_id FROM matches WHERE id = @id";
                 DataTable dt = Db.GetTable(sqlTeams, new[] { new MySqlParameter("@id", matchId) });
                 if (dt.Rows.Count == 0) return;
@@ -76,32 +75,17 @@ namespace Football_Manager.BLL
                 int homeClubId = Convert.ToInt32(dt.Rows[0]["home_team_id"]);
                 int awayClubId = Convert.ToInt32(dt.Rows[0]["away_team_id"]);
 
-                // 2. Броим колко гола има записани в събитията за всеки отбор
+                // Броим головете от събитията за всеки отбор
                 int homeScore = _eventRepo.GetGoalCountForTeam(matchId, homeClubId);
                 int awayScore = _eventRepo.GetGoalCountForTeam(matchId, awayClubId);
 
-                // 3. Записваме новия резултат обратно в базата
+                // Записваме обновения резултат обратно в базата
                 UpdateMatchResult(matchId, homeScore, awayScore, matchDate);
             }
             catch (Exception ex)
             {
                 throw new Exception("Грешка при автоматичното обновяване на резултата: " + ex.Message);
             }
-        }
-
-        public bool ValidateScoreParity(int matchId, int inputHomeScore, int inputAwayScore)
-        {
-            string sql = "SELECT home_team_id, away_team_id FROM matches WHERE id = @id";
-            DataTable dt = Db.GetTable(sql, new[] { new MySqlParameter("@id", matchId) });
-            if (dt.Rows.Count == 0) return true;
-
-            int homeClubId = Convert.ToInt32(dt.Rows[0]["home_team_id"]);
-            int awayClubId = Convert.ToInt32(dt.Rows[0]["away_team_id"]);
-
-            int eventsHomeGoals = _eventRepo.GetGoalCountForTeam(matchId, homeClubId);
-            int eventsAwayGoals = _eventRepo.GetGoalCountForTeam(matchId, awayClubId);
-
-            return (inputHomeScore == eventsHomeGoals && inputAwayScore == eventsAwayGoals);
         }
     }
 }

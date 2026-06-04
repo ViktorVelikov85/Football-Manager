@@ -14,7 +14,7 @@ namespace Football_Manager.BLL
 
         public List<Standing> GetStandings(int leagueId)
         {
-            // 1. Вземаме всички отбори в тази лига, за да присъстват в класирането (дори с 0 мача)
+            // Вземаме всички отбори в тази лига, за да присъстват в класирането (дори с 0 мача)
             DataTable dtClubs = _leaguesService.GetParticipants(leagueId);
             var standingsDict = new Dictionary<int, Standing>();
 
@@ -28,7 +28,7 @@ namespace Football_Manager.BLL
                 };
             }
 
-            // 2. Вземаме всички мачове за лигата от твоя MatchesRepository
+            // Зареждаме всички мачове за лигата от базата данни
             DataTable dtMatches = _matchesRepo.GetMatchesByLeague(leagueId);
             List<DataRow> playedMatches = new List<DataRow>();
 
@@ -37,20 +37,20 @@ namespace Football_Manager.BLL
             {
                 if (Convert.ToBoolean(row["is_played"]))
                 {
-                    playedMatches.Add(row); // Запазваме ги за допълнителния критерий по-долу
+                    playedMatches.Add(row); // Запазваме ги за изчисляване на директните срещи
 
                     int homeId = Convert.ToInt32(row["home_team_id"]);
                     int awayId = Convert.ToInt32(row["away_team_id"]);
                     int homeScore = Convert.ToInt32(row["home_score"]);
                     int awayScore = Convert.ToInt32(row["away_score"]);
 
-                    // Проверка дали отборите съществуват в речника (за сигурност)
+                    // Проверка за сигурност дали отборите съществуват в речника
                     if (!standingsDict.ContainsKey(homeId) || !standingsDict.ContainsKey(awayId)) continue;
 
                     var homeTeam = standingsDict[homeId];
                     var awayTeam = standingsDict[awayId];
 
-                    // Добавяме изигран мач и голове
+                    // Добавяме изигран мач и голове в статистиката
                     homeTeam.MatchesPlayed++;
                     awayTeam.MatchesPlayed++;
 
@@ -60,11 +60,11 @@ namespace Football_Manager.BLL
                     awayTeam.GoalsFor += awayScore;
                     awayTeam.GoalsAgainst += homeScore;
 
-                    // Изчисляване на изхода (Победи, Равни, Загуби)
+                    // Изчисляване на изхода от мача (Победи, Равни, Загуби)
                     if (homeScore > awayScore)
                     {
                         homeTeam.Wins++;
-                        awayTeam.Wins++;
+                        awayTeam.Losses++;
                     }
                     else if (homeScore == awayScore)
                     {
@@ -74,42 +74,43 @@ namespace Football_Manager.BLL
                     else
                     {
                         homeTeam.Losses++;
-                        homeTeam.Wins++;
+                        awayTeam.Wins++;
                     }
                 }
             }
 
-            // 3. СОРТИРАНЕ НА КЛАСИРАНЕТО (Включително Директни Срещи за Отлична Оценка)
+            // Преобразуваме речника в списък за сортиране
             List<Standing> standingsList = standingsDict.Values.ToList();
 
+            // Сортиране на класирането по официалните критерии
             standingsList.Sort((teamA, teamB) =>
             {
                 // Критерий 1: Точки (низходящ ред)
                 int compare = teamB.Points.CompareTo(teamA.Points);
                 if (compare != 0) return compare;
 
-                // ДОПЪЛНИТЕЛЕН КРИТЕРИЙ: Директни срещи (само ако точките са равни)
+                // Критерий 2: Директни срещи (при равенство в точките)
                 int h2hCompare = GetHeadToHeadResult(teamA.ClubId, teamB.ClubId, playedMatches);
-                if (h2hCompare != 0) return h2hCompare; // Връща предимство на победителя от директния мач
+                if (h2hCompare != 0) return h2hCompare;
 
-                // Критерий 2: Голова разлика (низходящ ред)
+                // Критерий 3: Голова разлика (низходящ ред)
                 compare = teamB.GoalDifference.CompareTo(teamA.GoalDifference);
                 if (compare != 0) return compare;
 
-                // Критерий 3: Отбелязани голове (низходящ ред)
+                // Критерий 4: Отбелязани голове (низходящ ред)
                 return teamB.GoalsFor.CompareTo(teamA.GoalsFor);
             });
 
             return standingsList;
         }
 
-        // Помощен метод за изчисляване на директните срещи между два отбора
+        // Помощен метод за изчисляване на баланса от директните срещи между два отбора
         private int GetHeadToHeadResult(int teamAId, int teamBId, List<DataRow> playedMatches)
         {
             int teamAPoints = 0;
             int teamBPoints = 0;
 
-            // Търсим мачове между тези два конкретни отбора
+            // Търсим мачове в изиграните срещи само между тези два конкретни отбора
             foreach (var match in playedMatches)
             {
                 int hId = Convert.ToInt32(match["home_team_id"]);

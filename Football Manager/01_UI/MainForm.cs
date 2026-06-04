@@ -35,5 +35,11 @@
             StandingsForm form = new StandingsForm();
             form.ShowDialog();
         }
+
+        private void btnOpenStatistics_Click(object sender, EventArgs e)
+        {
+            PlayersStatisticsForm form = new PlayersStatisticsForm();
+            form.ShowDialog();
+        }
     }
 }

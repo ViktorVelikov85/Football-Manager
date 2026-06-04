@@ -71,5 +71,9 @@ namespace Football_Manager.BLL
         {
             return _transferRepo.GetTransfers(searchTerm);
         }
+        public DataTable GetTop3Scorers()
+        {
+            return _repo.GetTopScorers();
+        }
     }
 }

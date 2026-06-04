@@ -6,7 +6,6 @@ namespace Football_Manager.DAL
 {
     public class EventsRepository
     {
-        // Изискване 5.1 и 8: Взема играчите САМО на двата участващи отбора
         public DataTable GetPlayersByClubs(int homeClubId, int awayClubId)
         {
             string sql = @"
@@ -80,7 +79,7 @@ namespace Football_Manager.DAL
             });
         }
 
-        // Изискване 5.3: Връща броя голове от събитията за даден отбор с цел валидация
+        // Връща броя голове от събитията за даден отбор с цел валидация
         public int GetGoalCountForTeam(int matchId, int clubId)
         {
             string sql = "SELECT COUNT(*) FROM match_goals WHERE match_id = @mId AND club_id = @cId";

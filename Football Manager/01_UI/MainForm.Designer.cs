@@ -37,6 +37,7 @@ namespace Football_Manager.UI
             label1 = new Label();
             btnOpenLeagues = new Button();
             btnOpenStandings = new Button();
+            btnOpenStatistics = new Button();
             SuspendLayout();
             // 
             // btnOpenPlayers
@@ -104,14 +105,26 @@ namespace Football_Manager.UI
             btnOpenStandings.UseVisualStyleBackColor = true;
             btnOpenStandings.Click += btnOpenStandings_Click;
             // 
+            // btnOpenStatistics
+            // 
+            btnOpenStatistics.Font = new Font("Segoe UI", 14.25F);
+            btnOpenStatistics.Location = new Point(32, 423);
+            btnOpenStatistics.Name = "btnOpenStatistics";
+            btnOpenStatistics.Size = new Size(195, 48);
+            btnOpenStatistics.TabIndex = 0;
+            btnOpenStatistics.Text = "Класиране";
+            btnOpenStatistics.UseVisualStyleBackColor = true;
+            btnOpenStatistics.Click += btnOpenStatistics_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(267, 448);
+            ClientSize = new Size(267, 499);
             Controls.Add(label1);
             Controls.Add(btnOpenTransfers);
             Controls.Add(btnOpenClubs);
+            Controls.Add(btnOpenStatistics);
             Controls.Add(btnOpenStandings);
             Controls.Add(btnOpenLeagues);
             Controls.Add(btnOpenPlayers);
@@ -132,5 +145,6 @@ namespace Football_Manager.UI
         private Label label1;
         private Button btnOpenLeagues;
         private Button btnOpenStandings;
+        private Button btnOpenStatistics;
     }
 }

@@ -29,38 +29,36 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            dgvMostGoals = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dgvMostGoals).BeginInit();
+            panelPodium = new Panel();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(71, 31);
+            label1.Location = new Point(217, 9);
             label1.Name = "label1";
             label1.Size = new Size(171, 25);
             label1.TabIndex = 0;
             label1.Text = "Най-много голове";
             // 
-            // dgvMostGoals
+            // panelPodium
             // 
-            dgvMostGoals.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMostGoals.Location = new Point(12, 74);
-            dgvMostGoals.Name = "dgvMostGoals";
-            dgvMostGoals.Size = new Size(311, 181);
-            dgvMostGoals.TabIndex = 1;
+            panelPodium.Location = new Point(37, 61);
+            panelPodium.Name = "panelPodium";
+            panelPodium.Size = new Size(536, 281);
+            panelPodium.TabIndex = 1;
+            panelPodium.Paint += panelPodium_Paint;
             // 
             // PlayersStatisticsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1345, 568);
-            Controls.Add(dgvMostGoals);
+            Controls.Add(panelPodium);
             Controls.Add(label1);
             Name = "PlayersStatisticsForm";
             Text = "Статистика";
-            ((System.ComponentModel.ISupportInitialize)dgvMostGoals).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -68,6 +66,6 @@
         #endregion
 
         private Label label1;
-        private DataGridView dgvMostGoals;
+        private Panel panelPodium;
     }
 }

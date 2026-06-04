@@ -1,4 +1,6 @@
 ﻿using Football_Manager.BLL;
+using System;
+using System.Windows.Forms;
 
 namespace Football_Manager.UI
 {
@@ -18,12 +20,14 @@ namespace Football_Manager.UI
             InitializeComponent();
             _selectedPlayerId = playerId;
             txtPlayer.Text = playerName;
-            txtFromClub.Text = string.IsNullOrEmpty(currentClubName) ? "Свободен агент" : currentClubName;
+            txtFromClub.Text = string.IsNullOrEmpty(currentClubName) ? "Free Agent" : currentClubName;
             txtFromClub.Tag = currentClubId;
         }
 
         private void TransfersForm_Load(object sender, EventArgs e)
         {
+            // Казваме на грида да ползва САМО колоните от Properties Дизайнера
+            dgvTransfers.AutoGenerateColumns = false;
 
             LoadClubs();
             RefreshGrid();
@@ -41,94 +45,80 @@ namespace Football_Manager.UI
                 cboToClub.ValueMember = "id";
                 cboToClub.SelectedIndex = -1;
             }
-            catch (Exception ex) { MessageBox.Show("Грешка при зареждане на клубове: " + ex.Message); }
-        }
-
-        private void btnTransfer_Click(object sender, EventArgs e)
-        {
-            if (_selectedPlayerId == -1)
+            catch (Exception ex)
             {
-                MessageBox.Show("Изберете играч от списъка с играчи първо!");
-                return;
+                MessageBox.Show("Грешка при зареждане на клубове: " + ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            if (cboToClub.SelectedValue == null)
-            {
-                MessageBox.Show("Изберете нов клуб!");
-                return;
-            }
-
-            int toClubId = Convert.ToInt32(cboToClub.SelectedValue);
-            int? fromClubId = txtFromClub.Tag as int?;
-
-            if (fromClubId != null && fromClubId == toClubId)
-            {
-                MessageBox.Show("Играчът вече е в този клуб!");
-                return;
-            }
-
-            try
-            {
-                _playerService.ExecuteTransfer(_selectedPlayerId, fromClubId, toClubId, dtpTransferDate.Value, numFee.Value);
-                MessageBox.Show("Трансферът е извършен успешно!");
-
-                txtFromClub.Text = cboToClub.Text;
-                txtFromClub.Tag = toClubId;
-                RefreshGrid();
-
-                cboToClub.SelectedIndex = -1;
-                numFee.Value = 0;
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void RefreshGrid()
         {
-            dgvTransfers.DataSource = _playerService.GetTransferHistory(txtSearchNameTransfer.Text);
-            SetGridStyle();
+            try
+            {
+                string search = txtSearchNameTransfer.Text.Trim();
+
+                // Директно пълним таблицата, Properties се грижи за визията
+                dgvTransfers.DataSource = _playerService.GetTransferHistory(search);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Грешка при зареждане на трансферите: " + ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void SetGridStyle()
+        private void txtSearchNameTransfer_TextChanged(object sender, EventArgs e)
         {
-            if (dgvTransfers.DataSource == null) return;
-
-            // 1. Само шрифт за таблицата - Arial 12
-            Font gridFont = new Font("Arial", 12);
-            dgvTransfers.DefaultCellStyle.Font = gridFont;
-            dgvTransfers.AlternatingRowsDefaultCellStyle.Font = gridFont;
-            dgvTransfers.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
-
-            // 2. Настройки за разположението
-            dgvTransfers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvTransfers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTransfers.RowHeadersVisible = false;
-            dgvTransfers.RowTemplate.Height = 30;
-
-            // 3. Форматиране на колоните (ако съществуват в твоя SQL изглед)
-            if (dgvTransfers.Columns.Contains("Такса"))
-            {
-                dgvTransfers.Columns["Такса"].DefaultCellStyle.Format = "N0";
-                dgvTransfers.Columns["Такса"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-
-            if (dgvTransfers.Columns.Contains("Дата"))
-            {
-                dgvTransfers.Columns["Дата"].DefaultCellStyle.Format = "dd.MM.yyyy";
-            }
-
-            // Принудително опресняване на подредбата
-            dgvTransfers.Refresh();
+            RefreshGrid();
         }
-
-        private void txtSearchNameTransfer_TextChanged(object sender, EventArgs e) => RefreshGrid();
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             cboToClub.SelectedIndex = -1;
             numFee.Value = 0;
             dtpTransferDate.Value = DateTime.Now;
-            txtSearchNameTransfer.Clear();
-            RefreshGrid();
+        }
+
+        private void btnTransfer_Click(object sender, EventArgs e)
+        {
+            if (_selectedPlayerId == -1)
+            {
+                MessageBox.Show("Моля, първо изберете играч от мениджмънта на играчи!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (cboToClub.SelectedIndex == -1)
+            {
+                MessageBox.Show("Моля, изберете нов клуб!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int toClubId = Convert.ToInt32(cboToClub.SelectedValue);
+            int? fromClubId = txtFromClub.Tag as int?;
+
+            if (fromClubId.HasValue && fromClubId.Value == toClubId)
+            {
+                MessageBox.Show("Играчът вече е в този клуб! Изберете различен отбор.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            decimal fee = numFee.Value;
+            DateTime transferDate = dtpTransferDate.Value;
+
+            try
+            {
+                // Изпълняваме трансфера
+                _playerService.ExecuteTransfer(_selectedPlayerId, fromClubId, toClubId, transferDate, fee);
+
+                MessageBox.Show("Трансферът беше извършен успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Опресняваме долната таблица веднага
+                RefreshGrid();
+                btnClear_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Грешка при изпълнение на трансфера: " + ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
