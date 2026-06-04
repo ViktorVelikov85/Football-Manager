@@ -1,6 +1,10 @@
 ﻿using Football_Manager.BLL;
 using Football_Manager.Models;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Football_Manager.UI
 {
@@ -100,18 +104,14 @@ namespace Football_Manager.UI
                     dgvPlayers.Columns[header.Key].HeaderText = header.Value;
             }
 
+            // --- КРИТИЧНИ ПРОМЕНИ ЗА СКРИВАНЕ НА ID ---
             if (dgvPlayers.Columns.Contains("club_id")) dgvPlayers.Columns["club_id"].Visible = false;
+            if (dgvPlayers.Columns.Contains("id")) dgvPlayers.Columns["id"].Visible = false; // СКРИВАМЕ ID колоната
 
-            if (dgvPlayers.Columns.Contains("id"))
-            {
-                dgvPlayers.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvPlayers.Columns["id"].Width = 60;
-            }
-
+            // Даваме малко по-голяма тежест на името, тъй като ID вече не заема място
             if (dgvPlayers.Columns.Contains("full_name"))
             {
-                dgvPlayers.Columns["full_name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvPlayers.Columns["full_name"].Width = 200;
+                dgvPlayers.Columns["full_name"].FillWeight = 180;
             }
 
             if (dgvPlayers.Columns.Contains("shirt_number"))
@@ -130,6 +130,7 @@ namespace Football_Manager.UI
             string pos = cboFilterPosition.SelectedItem?.ToString() ?? "Всички";
             dgvPlayers.DataSource = _playerService.GetPlayers(clubId, pos, txtSearchName.Text.Trim());
         }
+
         private void btnClearFilters_Click(object sender, EventArgs e)
         {
             txtSearchName.Clear();
@@ -138,6 +139,7 @@ namespace Football_Manager.UI
 
             ApplyFilters();
         }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (!ValidateInputs()) return;
@@ -185,6 +187,7 @@ namespace Football_Manager.UI
             if (e.RowIndex < 0) return;
             DataGridViewRow row = dgvPlayers.Rows[e.RowIndex];
 
+            // Идентификацията на реда продължава да работи перфектно, въпреки че колоната е невидима
             _selectedPlayerId = Convert.ToInt32(row.Cells["id"].Value);
             string fullName = row.Cells["full_name"].Value?.ToString() ?? "";
             var names = fullName.Split(new[] { ' ' }, 2);

@@ -96,7 +96,7 @@
             // 
             nudMinute.Font = new Font("Arial", 14.25F);
             nudMinute.Location = new Point(74, 512);
-            nudMinute.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
+            nudMinute.Maximum = new decimal(new int[] { 120, 0, 0, 0 });
             nudMinute.Name = "nudMinute";
             nudMinute.Size = new Size(74, 29);
             nudMinute.TabIndex = 5;
@@ -186,7 +186,6 @@
             lblAwayTeam.TabIndex = 3;
             lblAwayTeam.Text = "Гост";
             lblAwayTeam.TextAlign = ContentAlignment.MiddleLeft;
-            lblAwayTeam.Click += lblAwayTeam_Click;
             // 
             // MatchManagementForm
             // 

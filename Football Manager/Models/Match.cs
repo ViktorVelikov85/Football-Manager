@@ -19,8 +19,5 @@ namespace Football_Manager.Models
         public DateTime? MatchDate { get; set; }
         public bool IsPlayed { get; set; }
 
-        // Помощни свойства за показване на имената в таблицата
-        public string HomeTeamName { get; set; }
-        public string AwayTeamName { get; set; }
     }
 }

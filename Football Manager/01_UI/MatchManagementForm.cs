@@ -120,10 +120,5 @@ namespace Football_Manager.UI
                 RefreshEventsAndScore();
             }
         }
-
-        private void lblAwayTeam_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

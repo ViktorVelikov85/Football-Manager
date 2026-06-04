@@ -294,12 +294,14 @@
             // 
             // btnManageMatch
             // 
-            btnManageMatch.Location = new Point(1020, 637);
+            btnManageMatch.BackColor = Color.LightGreen;
+            btnManageMatch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnManageMatch.Location = new Point(1020, 628);
             btnManageMatch.Name = "btnManageMatch";
-            btnManageMatch.Size = new Size(233, 43);
+            btnManageMatch.Size = new Size(251, 52);
             btnManageMatch.TabIndex = 9;
-            btnManageMatch.Text = "button1";
-            btnManageMatch.UseVisualStyleBackColor = true;
+            btnManageMatch.Text = "Управление на мач";
+            btnManageMatch.UseVisualStyleBackColor = false;
             btnManageMatch.Click += btnManageMatch_Click;
             // 
             // LeaguesForm

@@ -9,7 +9,7 @@ namespace Football_Manager.UI
     {
         private readonly LeaguesService _leagueService = new LeaguesService();
         private int _selectedLeagueId = -1;
-
+        private readonly ToolTip _toolTip = new ToolTip(); 
         public LeaguesForm()
         {
             InitializeComponent();
@@ -19,6 +19,10 @@ namespace Football_Manager.UI
         {
             SetGlobalStyles();
             LoadLeagues();
+            _toolTip.SetToolTip(btnManageMatch, "Може също така да щракнете два пъти върху мач в таблицата, за да го отворите директно.");
+
+            _toolTip.IsBalloon = true;
+ 
         }
 
         // --- ФОРМАТИРАНЕ И СТИЛ ---

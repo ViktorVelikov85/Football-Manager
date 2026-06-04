@@ -69,7 +69,7 @@ namespace Football_Manager.UI
             cboClub.DropDownStyle = ComboBoxStyle.DropDownList;
             cboClub.Font = new Font("Segoe UI", 14.25F);
             cboClub.FormattingEnabled = true;
-            cboClub.Location = new Point(290, 508);
+            cboClub.Location = new Point(290, 552);
             cboClub.Name = "cboClub";
             cboClub.Size = new Size(200, 33);
             cboClub.TabIndex = 0;
@@ -79,7 +79,7 @@ namespace Football_Manager.UI
             cboPosition.DropDownStyle = ComboBoxStyle.DropDownList;
             cboPosition.Font = new Font("Segoe UI", 14.25F);
             cboPosition.FormattingEnabled = true;
-            cboPosition.Location = new Point(526, 509);
+            cboPosition.Location = new Point(526, 553);
             cboPosition.Name = "cboPosition";
             cboPosition.Size = new Size(121, 33);
             cboPosition.TabIndex = 1;
@@ -89,7 +89,7 @@ namespace Football_Manager.UI
             dtpBirthDate.CustomFormat = "dd MMMM yyyy";
             dtpBirthDate.Font = new Font("Segoe UI", 14.25F);
             dtpBirthDate.Format = DateTimePickerFormat.Custom;
-            dtpBirthDate.Location = new Point(290, 578);
+            dtpBirthDate.Location = new Point(290, 622);
             dtpBirthDate.Name = "dtpBirthDate";
             dtpBirthDate.Size = new Size(215, 33);
             dtpBirthDate.TabIndex = 2;
@@ -137,14 +137,14 @@ namespace Football_Manager.UI
             dgvPlayers.Name = "dgvPlayers";
             dgvPlayers.ReadOnly = true;
             dgvPlayers.RowHeadersVisible = false;
-            dgvPlayers.Size = new Size(901, 390);
+            dgvPlayers.Size = new Size(901, 434);
             dgvPlayers.TabIndex = 6;
             dgvPlayers.CellClick += dgvPlayers_CellClick;
             // 
             // txtFirstName
             // 
             txtFirstName.Font = new Font("Segoe UI", 14.25F);
-            txtFirstName.Location = new Point(28, 509);
+            txtFirstName.Location = new Point(28, 553);
             txtFirstName.Name = "txtFirstName";
             txtFirstName.Size = new Size(209, 33);
             txtFirstName.TabIndex = 7;
@@ -152,7 +152,7 @@ namespace Football_Manager.UI
             // numShirtNumber
             // 
             numShirtNumber.Font = new Font("Segoe UI", 14.25F);
-            numShirtNumber.Location = new Point(28, 651);
+            numShirtNumber.Location = new Point(28, 695);
             numShirtNumber.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
             numShirtNumber.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numShirtNumber.Name = "numShirtNumber";
@@ -165,7 +165,7 @@ namespace Football_Manager.UI
             cboStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cboStatus.Font = new Font("Segoe UI", 14.25F);
             cboStatus.FormattingEnabled = true;
-            cboStatus.Location = new Point(290, 651);
+            cboStatus.Location = new Point(290, 695);
             cboStatus.Name = "cboStatus";
             cboStatus.Size = new Size(160, 33);
             cboStatus.TabIndex = 9;
@@ -173,7 +173,7 @@ namespace Football_Manager.UI
             // txtLastName
             // 
             txtLastName.Font = new Font("Segoe UI", 14.25F);
-            txtLastName.Location = new Point(28, 579);
+            txtLastName.Location = new Point(28, 623);
             txtLastName.Name = "txtLastName";
             txtLastName.Size = new Size(209, 33);
             txtLastName.TabIndex = 10;
@@ -182,7 +182,7 @@ namespace Football_Manager.UI
             // 
             btnAdd.BackColor = Color.LightGreen;
             btnAdd.Font = new Font("Segoe UI", 14.25F);
-            btnAdd.Location = new Point(674, 508);
+            btnAdd.Location = new Point(674, 552);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(120, 60);
             btnAdd.TabIndex = 11;
@@ -194,7 +194,7 @@ namespace Football_Manager.UI
             // 
             btnUpdate.BackColor = Color.LightBlue;
             btnUpdate.Font = new Font("Segoe UI", 14.25F);
-            btnUpdate.Location = new Point(811, 508);
+            btnUpdate.Location = new Point(811, 552);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(120, 60);
             btnUpdate.TabIndex = 11;
@@ -206,7 +206,7 @@ namespace Football_Manager.UI
             // 
             btnDelete.BackColor = Color.Coral;
             btnDelete.Font = new Font("Segoe UI", 14.25F);
-            btnDelete.Location = new Point(811, 623);
+            btnDelete.Location = new Point(811, 667);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(120, 60);
             btnDelete.TabIndex = 11;
@@ -217,7 +217,7 @@ namespace Football_Manager.UI
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 14.25F);
-            btnClear.Location = new Point(674, 623);
+            btnClear.Location = new Point(674, 667);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(120, 60);
             btnClear.TabIndex = 11;
@@ -229,7 +229,7 @@ namespace Football_Manager.UI
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F);
-            label1.Location = new Point(30, 481);
+            label1.Location = new Point(30, 525);
             label1.Name = "label1";
             label1.Size = new Size(49, 25);
             label1.TabIndex = 13;
@@ -239,7 +239,7 @@ namespace Football_Manager.UI
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F);
-            label2.Location = new Point(28, 551);
+            label2.Location = new Point(28, 595);
             label2.Name = "label2";
             label2.Size = new Size(91, 25);
             label2.TabIndex = 13;
@@ -249,7 +249,7 @@ namespace Football_Manager.UI
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14.25F);
-            label3.Location = new Point(28, 623);
+            label3.Location = new Point(28, 667);
             label3.Name = "label3";
             label3.Size = new Size(187, 25);
             label3.TabIndex = 13;
@@ -259,7 +259,7 @@ namespace Football_Manager.UI
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F);
-            label4.Location = new Point(290, 623);
+            label4.Location = new Point(290, 667);
             label4.Name = "label4";
             label4.Size = new Size(68, 25);
             label4.TabIndex = 13;
@@ -269,7 +269,7 @@ namespace Football_Manager.UI
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 14.25F);
-            label5.Location = new Point(290, 550);
+            label5.Location = new Point(290, 594);
             label5.Name = "label5";
             label5.Size = new Size(160, 25);
             label5.TabIndex = 13;
@@ -279,7 +279,7 @@ namespace Football_Manager.UI
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 14.25F);
-            label6.Location = new Point(290, 480);
+            label6.Location = new Point(290, 524);
             label6.Name = "label6";
             label6.Size = new Size(67, 25);
             label6.TabIndex = 13;
@@ -289,7 +289,7 @@ namespace Football_Manager.UI
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 14.25F);
-            label7.Location = new Point(526, 481);
+            label7.Location = new Point(526, 525);
             label7.Name = "label7";
             label7.Size = new Size(88, 25);
             label7.TabIndex = 13;
@@ -350,7 +350,7 @@ namespace Football_Manager.UI
             // btnTransfer
             // 
             btnTransfer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnTransfer.Location = new Point(537, 623);
+            btnTransfer.Location = new Point(537, 667);
             btnTransfer.Name = "btnTransfer";
             btnTransfer.Size = new Size(120, 60);
             btnTransfer.TabIndex = 18;
@@ -362,7 +362,7 @@ namespace Football_Manager.UI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(955, 705);
+            ClientSize = new Size(955, 746);
             Controls.Add(btnTransfer);
             Controls.Add(btnClearFilters);
             Controls.Add(label11);

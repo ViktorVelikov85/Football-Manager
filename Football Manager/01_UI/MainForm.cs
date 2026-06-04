@@ -29,5 +29,11 @@
             LeaguesForm leaguesFom = new LeaguesForm();
             leaguesFom.ShowDialog();
         }
+
+        private void btnOpenStandings_Click(object sender, EventArgs e)
+        {
+            StandingsForm form = new StandingsForm();
+            form.ShowDialog();
+        }
     }
 }
