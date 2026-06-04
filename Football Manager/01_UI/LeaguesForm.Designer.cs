@@ -28,10 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             dgvLeagues = new DataGridView();
+            colLeagueName = new DataGridViewTextBoxColumn();
+            colLeagueSeason = new DataGridViewTextBoxColumn();
             txtName = new TextBox();
             txtSeason = new TextBox();
             dgvParticipants = new DataGridView();
+            colPartName = new DataGridViewTextBoxColumn();
+            colPartCity = new DataGridViewTextBoxColumn();
             cboAvailableClubs = new ComboBox();
             btnAddClub = new Button();
             btnRemoveClub = new Button();
@@ -47,6 +58,13 @@
             label5 = new Label();
             label6 = new Label();
             dgvSchedule = new DataGridView();
+            colMatchRound = new DataGridViewTextBoxColumn();
+            colHomeTeam = new DataGridViewTextBoxColumn();
+            colAwayTeam = new DataGridViewTextBoxColumn();
+            colHomeScore = new DataGridViewTextBoxColumn();
+            colAwayScore = new DataGridViewTextBoxColumn();
+            colMatchDate = new DataGridViewTextBoxColumn();
+            colIsPlayed = new DataGridViewCheckBoxColumn();
             btnGenerateSchedule = new Button();
             panel1 = new Panel();
             btnManageMatch = new Button();
@@ -62,16 +80,52 @@
             dgvLeagues.AllowUserToResizeColumns = false;
             dgvLeagues.AllowUserToResizeRows = false;
             dgvLeagues.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvLeagues.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvLeagues.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvLeagues.Columns.AddRange(new DataGridViewColumn[] { colLeagueName, colLeagueSeason });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvLeagues.DefaultCellStyle = dataGridViewCellStyle2;
             dgvLeagues.Location = new Point(26, 32);
             dgvLeagues.MultiSelect = false;
             dgvLeagues.Name = "dgvLeagues";
             dgvLeagues.ReadOnly = true;
             dgvLeagues.RowHeadersVisible = false;
+            dgvLeagues.RowTemplate.Height = 30;
             dgvLeagues.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLeagues.Size = new Size(348, 459);
+            dgvLeagues.Size = new Size(339, 459);
             dgvLeagues.TabIndex = 0;
             dgvLeagues.CellClick += dgvLeagues_CellClick;
+            // 
+            // colLeagueName
+            // 
+            colLeagueName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colLeagueName.DataPropertyName = "name";
+            colLeagueName.FillWeight = 98.47716F;
+            colLeagueName.HeaderText = "Лига";
+            colLeagueName.Name = "colLeagueName";
+            colLeagueName.ReadOnly = true;
+            // 
+            // colLeagueSeason
+            // 
+            colLeagueSeason.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colLeagueSeason.DataPropertyName = "season";
+            colLeagueSeason.HeaderText = "Сезон";
+            colLeagueSeason.Name = "colLeagueSeason";
+            colLeagueSeason.ReadOnly = true;
+            colLeagueSeason.Width = 150;
             // 
             // txtName
             // 
@@ -96,15 +150,34 @@
             dgvParticipants.AllowUserToResizeColumns = false;
             dgvParticipants.AllowUserToResizeRows = false;
             dgvParticipants.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvParticipants.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvParticipants.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvParticipants.Columns.AddRange(new DataGridViewColumn[] { colPartName, colPartCity });
+            dgvParticipants.DefaultCellStyle = dataGridViewCellStyle2;
             dgvParticipants.Location = new Point(427, 32);
             dgvParticipants.MultiSelect = false;
             dgvParticipants.Name = "dgvParticipants";
             dgvParticipants.ReadOnly = true;
             dgvParticipants.RowHeadersVisible = false;
+            dgvParticipants.RowTemplate.Height = 30;
             dgvParticipants.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvParticipants.Size = new Size(341, 459);
             dgvParticipants.TabIndex = 0;
+            // 
+            // colPartName
+            // 
+            colPartName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colPartName.DataPropertyName = "name";
+            colPartName.HeaderText = "Отбор";
+            colPartName.Name = "colPartName";
+            colPartName.ReadOnly = true;
+            // 
+            // colPartCity
+            // 
+            colPartCity.DataPropertyName = "city";
+            colPartCity.HeaderText = "Град";
+            colPartCity.Name = "colPartCity";
+            colPartCity.ReadOnly = true;
             // 
             // cboAvailableClubs
             // 
@@ -261,16 +334,95 @@
             dgvSchedule.AllowUserToResizeColumns = false;
             dgvSchedule.AllowUserToResizeRows = false;
             dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvSchedule.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSchedule.Columns.AddRange(new DataGridViewColumn[] { colMatchRound, colHomeTeam, colAwayTeam, colHomeScore, colAwayScore, colMatchDate, colIsPlayed });
+            dgvSchedule.DefaultCellStyle = dataGridViewCellStyle2;
             dgvSchedule.Location = new Point(807, 32);
             dgvSchedule.MultiSelect = false;
             dgvSchedule.Name = "dgvSchedule";
             dgvSchedule.ReadOnly = true;
             dgvSchedule.RowHeadersVisible = false;
+            dgvSchedule.RowTemplate.Height = 30;
             dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSchedule.Size = new Size(691, 459);
+            dgvSchedule.Size = new Size(708, 459);
             dgvSchedule.TabIndex = 0;
             dgvSchedule.CellDoubleClick += dgvSchedule_CellDoubleClick;
+            // 
+            // colMatchRound
+            // 
+            colMatchRound.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colMatchRound.DataPropertyName = "round_no";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colMatchRound.DefaultCellStyle = dataGridViewCellStyle4;
+            colMatchRound.HeaderText = "Кръг";
+            colMatchRound.Name = "colMatchRound";
+            colMatchRound.ReadOnly = true;
+            colMatchRound.Width = 50;
+            // 
+            // colHomeTeam
+            // 
+            colHomeTeam.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colHomeTeam.DataPropertyName = "home_team";
+            colHomeTeam.HeaderText = "Домакин";
+            colHomeTeam.Name = "colHomeTeam";
+            colHomeTeam.ReadOnly = true;
+            // 
+            // colAwayTeam
+            // 
+            colAwayTeam.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colAwayTeam.DataPropertyName = "away_team";
+            colAwayTeam.HeaderText = "Гост";
+            colAwayTeam.Name = "colAwayTeam";
+            colAwayTeam.ReadOnly = true;
+            // 
+            // colHomeScore
+            // 
+            colHomeScore.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colHomeScore.DataPropertyName = "home_score";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colHomeScore.DefaultCellStyle = dataGridViewCellStyle5;
+            colHomeScore.HeaderText = "ГД";
+            colHomeScore.Name = "colHomeScore";
+            colHomeScore.ReadOnly = true;
+            colHomeScore.Width = 40;
+            // 
+            // colAwayScore
+            // 
+            colAwayScore.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colAwayScore.DataPropertyName = "away_score";
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colAwayScore.DefaultCellStyle = dataGridViewCellStyle6;
+            colAwayScore.HeaderText = "ГГ";
+            colAwayScore.Name = "colAwayScore";
+            colAwayScore.ReadOnly = true;
+            colAwayScore.Width = 40;
+            // 
+            // colMatchDate
+            // 
+            colMatchDate.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colMatchDate.DataPropertyName = "match_date";
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colMatchDate.DefaultCellStyle = dataGridViewCellStyle7;
+            colMatchDate.HeaderText = "Дата";
+            colMatchDate.Name = "colMatchDate";
+            colMatchDate.ReadOnly = true;
+            // 
+            // colIsPlayed
+            // 
+            colIsPlayed.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colIsPlayed.DataPropertyName = "is_played";
+            colIsPlayed.HeaderText = "Изигран";
+            colIsPlayed.Name = "colIsPlayed";
+            colIsPlayed.ReadOnly = true;
+            colIsPlayed.Width = 80;
             // 
             // btnGenerateSchedule
             // 
@@ -296,7 +448,7 @@
             // 
             btnManageMatch.BackColor = Color.LightGreen;
             btnManageMatch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnManageMatch.Location = new Point(1020, 628);
+            btnManageMatch.Location = new Point(1028, 635);
             btnManageMatch.Name = "btnManageMatch";
             btnManageMatch.Size = new Size(251, 52);
             btnManageMatch.TabIndex = 9;
@@ -368,5 +520,16 @@
         private Button btnGenerateSchedule;
         private Panel panel1;
         private Button btnManageMatch;
+        private DataGridViewTextBoxColumn colLeagueName;
+        private DataGridViewTextBoxColumn colLeagueSeason;
+        private DataGridViewTextBoxColumn colPartName;
+        private DataGridViewTextBoxColumn colPartCity;
+        private DataGridViewTextBoxColumn colMatchRound;
+        private DataGridViewTextBoxColumn colHomeTeam;
+        private DataGridViewTextBoxColumn colAwayTeam;
+        private DataGridViewTextBoxColumn colHomeScore;
+        private DataGridViewTextBoxColumn colAwayScore;
+        private DataGridViewTextBoxColumn colMatchDate;
+        private DataGridViewCheckBoxColumn colIsPlayed;
     }
 }

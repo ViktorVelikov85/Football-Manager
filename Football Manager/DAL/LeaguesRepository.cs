@@ -33,17 +33,6 @@ namespace Football_Manager.DAL
             Db.Execute("DELETE FROM leagues WHERE id = @id", new[] { new MySqlParameter("@id", id) });
         }
 
-        public bool Exists(string name, string season)
-        {
-            string query = "SELECT id FROM leagues WHERE name = @name AND season = @season";
-            DataTable dt = Db.GetTable(query, new[] {
-                new MySqlParameter("@name", name),
-                new MySqlParameter("@season", season)
-            });
-
-            return dt.Rows.Count > 0;
-        }
-
         private MySqlParameter[] GetParams(League league)
         {
             return new[] {

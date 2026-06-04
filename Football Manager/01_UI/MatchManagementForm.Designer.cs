@@ -28,7 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvEvents = new DataGridView();
+            colMinute = new DataGridViewTextBoxColumn();
+            colEventType = new DataGridViewTextBoxColumn();
+            colPlayerName = new DataGridViewTextBoxColumn();
+            colClubName = new DataGridViewTextBoxColumn();
             lblResult = new Label();
             cboEventType = new ComboBox();
             cboPlayers = new ComboBox();
@@ -52,15 +58,66 @@
             dgvEvents.AllowUserToResizeColumns = false;
             dgvEvents.AllowUserToResizeRows = false;
             dgvEvents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEvents.Columns.AddRange(new DataGridViewColumn[] { colMinute, colEventType, colPlayerName, colClubName });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvEvents.DefaultCellStyle = dataGridViewCellStyle2;
             dgvEvents.Location = new Point(12, 84);
             dgvEvents.MultiSelect = false;
             dgvEvents.Name = "dgvEvents";
             dgvEvents.ReadOnly = true;
             dgvEvents.RowHeadersVisible = false;
+            dgvEvents.RowTemplate.Height = 30;
             dgvEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEvents.Size = new Size(723, 363);
             dgvEvents.TabIndex = 2;
+            // 
+            // colMinute
+            // 
+            colMinute.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colMinute.DataPropertyName = "minute";
+            colMinute.HeaderText = "Мин";
+            colMinute.Name = "colMinute";
+            colMinute.ReadOnly = true;
+            colMinute.Width = 50;
+            // 
+            // colEventType
+            // 
+            colEventType.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colEventType.DataPropertyName = "event_type";
+            colEventType.HeaderText = "Събитие";
+            colEventType.Name = "colEventType";
+            colEventType.ReadOnly = true;
+            // 
+            // colPlayerName
+            // 
+            colPlayerName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colPlayerName.DataPropertyName = "player_name";
+            colPlayerName.HeaderText = "Играч";
+            colPlayerName.Name = "colPlayerName";
+            colPlayerName.ReadOnly = true;
+            // 
+            // colClubName
+            // 
+            colClubName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colClubName.DataPropertyName = "club_name";
+            colClubName.HeaderText = "Отбор";
+            colClubName.Name = "colClubName";
+            colClubName.ReadOnly = true;
             // 
             // lblResult
             // 
@@ -230,5 +287,9 @@
         private Label lblHomeTeam;
         private Label lblVs;
         private Label lblAwayTeam;
+        private DataGridViewTextBoxColumn colMinute;
+        private DataGridViewTextBoxColumn colEventType;
+        private DataGridViewTextBoxColumn colPlayerName;
+        private DataGridViewTextBoxColumn colClubName;
     }
 }

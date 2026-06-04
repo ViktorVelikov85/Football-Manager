@@ -32,6 +32,11 @@ namespace Football_Manager.UI
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             cboClub = new ComboBox();
             cboPosition = new ComboBox();
             dtpBirthDate = new DateTimePicker();
@@ -39,6 +44,12 @@ namespace Football_Manager.UI
             cboFilterPosition = new ComboBox();
             txtSearchName = new TextBox();
             dgvPlayers = new DataGridView();
+            colFullName = new DataGridViewTextBoxColumn();
+            colClubName = new DataGridViewTextBoxColumn();
+            colPosition = new DataGridViewTextBoxColumn();
+            colShirtNumber = new DataGridViewTextBoxColumn();
+            colBirthDate = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewTextBoxColumn();
             txtFirstName = new TextBox();
             numShirtNumber = new NumericUpDown();
             cboStatus = new ComboBox();
@@ -79,6 +90,7 @@ namespace Football_Manager.UI
             cboPosition.DropDownStyle = ComboBoxStyle.DropDownList;
             cboPosition.Font = new Font("Segoe UI", 14.25F);
             cboPosition.FormattingEnabled = true;
+            cboPosition.Items.AddRange(new object[] { "GK", "DF", "MF", "FW" });
             cboPosition.Location = new Point(526, 553);
             cboPosition.Name = "cboPosition";
             cboPosition.Size = new Size(121, 33);
@@ -110,6 +122,7 @@ namespace Football_Manager.UI
             cboFilterPosition.DropDownStyle = ComboBoxStyle.DropDownList;
             cboFilterPosition.Font = new Font("Segoe UI", 14.25F);
             cboFilterPosition.FormattingEnabled = true;
+            cboFilterPosition.Items.AddRange(new object[] { "Всички", "GK", "DF", "MF", "FW" });
             cboFilterPosition.Location = new Point(827, 39);
             cboFilterPosition.Name = "cboFilterPosition";
             cboFilterPosition.Size = new Size(103, 33);
@@ -131,15 +144,92 @@ namespace Football_Manager.UI
             dgvPlayers.AllowUserToDeleteRows = false;
             dgvPlayers.AllowUserToResizeColumns = false;
             dgvPlayers.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Arial Narrow", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvPlayers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvPlayers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPlayers.Columns.AddRange(new DataGridViewColumn[] { colFullName, colClubName, colPosition, colShirtNumber, colBirthDate, colStatus });
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvPlayers.DefaultCellStyle = dataGridViewCellStyle5;
             dgvPlayers.Location = new Point(29, 87);
             dgvPlayers.MultiSelect = false;
             dgvPlayers.Name = "dgvPlayers";
             dgvPlayers.ReadOnly = true;
             dgvPlayers.RowHeadersVisible = false;
-            dgvPlayers.Size = new Size(901, 434);
+            dgvPlayers.RowTemplate.Height = 30;
+            dgvPlayers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPlayers.Size = new Size(914, 434);
             dgvPlayers.TabIndex = 6;
             dgvPlayers.CellClick += dgvPlayers_CellClick;
+            dgvPlayers.CellFormatting += dgvPlayers_CellFormatting;
+            // 
+            // colFullName
+            // 
+            colFullName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colFullName.DataPropertyName = "full_name";
+            colFullName.HeaderText = "Име";
+            colFullName.Name = "colFullName";
+            colFullName.ReadOnly = true;
+            // 
+            // colClubName
+            // 
+            colClubName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colClubName.DataPropertyName = "club_name";
+            colClubName.HeaderText = "Отбор";
+            colClubName.Name = "colClubName";
+            colClubName.ReadOnly = true;
+            // 
+            // colPosition
+            // 
+            colPosition.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colPosition.DataPropertyName = "position";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colPosition.DefaultCellStyle = dataGridViewCellStyle2;
+            colPosition.HeaderText = "Позиция";
+            colPosition.Name = "colPosition";
+            colPosition.ReadOnly = true;
+            colPosition.Width = 90;
+            // 
+            // colShirtNumber
+            // 
+            colShirtNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colShirtNumber.DataPropertyName = "shirt_number";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colShirtNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            colShirtNumber.HeaderText = "№";
+            colShirtNumber.Name = "colShirtNumber";
+            colShirtNumber.ReadOnly = true;
+            colShirtNumber.Width = 50;
+            // 
+            // colBirthDate
+            // 
+            colBirthDate.DataPropertyName = "birth_date";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Format = "dd.MM.yyyy";
+            dataGridViewCellStyle4.NullValue = null;
+            colBirthDate.DefaultCellStyle = dataGridViewCellStyle4;
+            colBirthDate.HeaderText = "Роден на";
+            colBirthDate.Name = "colBirthDate";
+            colBirthDate.ReadOnly = true;
+            colBirthDate.Width = 120;
+            // 
+            // colStatus
+            // 
+            colStatus.DataPropertyName = "status";
+            colStatus.HeaderText = "Статус";
+            colStatus.Name = "colStatus";
+            colStatus.ReadOnly = true;
             // 
             // txtFirstName
             // 
@@ -434,5 +524,11 @@ namespace Football_Manager.UI
         private Label label11;
         private Button btnClearFilters;
         private Button btnTransfer;
+        private DataGridViewTextBoxColumn colFullName;
+        private DataGridViewTextBoxColumn colClubName;
+        private DataGridViewTextBoxColumn colPosition;
+        private DataGridViewTextBoxColumn colShirtNumber;
+        private DataGridViewTextBoxColumn colBirthDate;
+        private DataGridViewTextBoxColumn colStatus;
     }
 }

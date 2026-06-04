@@ -1,7 +1,6 @@
 ﻿using Football_Manager.BLL;
 using System;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Football_Manager.UI
@@ -13,97 +12,135 @@ namespace Football_Manager.UI
         private readonly string _homeTeamName, _awayTeamName;
         private readonly DateTime _matchDate;
 
+        // Пазим таблицата с играчите в паметта на формата, за да можем 
+        // лесно да вземем id и club_id при клик на бутона
+        private DataTable _playersTable;
+
         public MatchManagementForm(int matchId, int homeTeamId, int awayTeamId, string homeTeamName, string awayTeamName, DateTime matchDate)
         {
             InitializeComponent();
-            _matchId = matchId; _homeTeamId = homeTeamId; _awayTeamId = awayTeamId;
-            _homeTeamName = homeTeamName; _awayTeamName = awayTeamName; _matchDate = matchDate;
+            _matchId = matchId;
+            _homeTeamId = homeTeamId;
+            _awayTeamId = awayTeamId;
+            _homeTeamName = homeTeamName;
+            _awayTeamName = awayTeamName;
+            _matchDate = matchDate;
         }
 
         private void MatchManagementForm_Load(object sender, EventArgs e)
         {
-            // Попълваме отборите в двата отделни етикета
+            // Използваме само колоните от Properties дизайнера
+            dgvEvents.AutoGenerateColumns = false;
+
+            // Попълваме визуалните компоненти
             lblHomeTeam.Text = _homeTeamName;
             lblAwayTeam.Text = _awayTeamName;
-
             this.Text = $"Управление на мач: {_homeTeamName} - {_awayTeamName}";
 
-            // --- УЕДНАКВЯВАНЕ НА СТИЛА С ОСТАНАЛИТЕ ТАБЛИЦИ ---
-            Font arial12 = new Font("Arial", 12);
-            Font arial12Bold = new Font("Arial", 12, FontStyle.Bold);
+            // Селектираме първото събитие ("Гол") от въведените в Properties -> Items
+            if (cboEventType.Items.Count > 0) cboEventType.SelectedIndex = 0;
 
-            dgvEvents.DefaultCellStyle.Font = arial12;
-            dgvEvents.ColumnHeadersDefaultCellStyle.Font = arial12Bold;
-            dgvEvents.RowTemplate.Height = 35;
-
-            // Зареждане на играчи
-            cboPlayers.DataSource = _matchesService.GetPlayersForMatch(_homeTeamId, _awayTeamId);
-            cboPlayers.DisplayMember = "player_info";
-            cboPlayers.ValueMember = "id";
-
+            // Зареждаме данните
+            LoadMatchPlayers();
             RefreshEventsAndScore();
+        }
+
+        private void LoadMatchPlayers()
+        {
+            try
+            {
+                // 1. Взимаме данните от базата
+                _playersTable = _matchesService.GetPlayersForMatch(_homeTeamId, _awayTeamId);
+
+                // 2. Напълно изчистваме ComboBox-а
+                cboPlayers.DataSource = null;
+                cboPlayers.Items.Clear();
+
+                // 3. Пълним менюто, като проверяваме как се казват колоните за име на играча
+                foreach (DataRow row in _playersTable.Rows)
+                {
+                    string fullName = "";
+
+                    // Проверка вариант 1: Ако в заявката ти колоната наистина се казва "full_name"
+                    if (_playersTable.Columns.Contains("full_name"))
+                    {
+                        fullName = row["full_name"].ToString();
+                    }
+                    // Проверка вариант 2: Ако колоните са разделени на Име и Фамилия (най-често срещаното)
+                    else if (_playersTable.Columns.Contains("first_name") && _playersTable.Columns.Contains("last_name"))
+                    {
+                        fullName = $"{row["first_name"]} {row["last_name"]}";
+                    }
+                    // Проверка вариант 3: Ако колоните са на български език в базата
+                    else if (_playersTable.Columns.Contains("first_name_bg") || _playersTable.Columns.Contains("last_name_bg")) // или подобно
+                    {
+                        fullName = $"{row[1]} {row[2]}"; // Взема стойностите по пореден номер на колоната безопасно
+                    }
+                    else
+                    {
+                        // Защитен вариант: Ако не открие горните имена, взема първата текстова колона, която намери
+                        fullName = row[1].ToString();
+                    }
+
+                    cboPlayers.Items.Add(fullName);
+                }
+
+                // 4. Започваме без избран играч по подразбиране
+                cboPlayers.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Грешка при зареждане на футболисти: " + ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void RefreshEventsAndScore()
         {
-            DataTable dtEvents = _matchesService.GetMatchEvents(_matchId);
-            dgvEvents.DataSource = dtEvents;
-
-            // Настройка на колоните (Абсолютно същия подход като в твоя LeaguesForm)
-            if (dgvEvents.Columns.Contains("id")) dgvEvents.Columns["id"].Visible = false;
-
-            var cols = dgvEvents.Columns;
-
-            if (cols.Contains("minute"))
+            try
             {
-                cols["minute"].HeaderText = "Минута";
-                cols["minute"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
-            if (cols.Contains("player_name"))
-            {
-                cols["player_name"].HeaderText = "Играч";
-                cols["player_name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
-            if (cols.Contains("event_type"))
-            {
-                cols["event_type"].HeaderText = "Събитие";
-                cols["event_type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
-            if (cols.Contains("club_name"))
-            {
-                cols["club_name"].HeaderText = "Отбор";
-                cols["club_name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
+                // 1. Презареждаме хронологията на събитията на екрана
+                dgvEvents.DataSource = _matchesService.GetMatchEvents(_matchId);
 
-            // Автоматично преброяване на головете
-            int homeGoals = 0, awayGoals = 0;
-            foreach (DataRow row in dtEvents.Rows)
-            {
-                if (row["event_type"].ToString() == "Gol" || row["event_type"].ToString() == "Гол")
-                {
-                    if (row["club_name"].ToString() == _homeTeamName) homeGoals++;
-                    else if (row["club_name"].ToString() == _awayTeamName) awayGoals++;
-                }
-            }
+                // 2. Обновяваме текстовия етикет на екрана (напр. "2 - 1")
+                lblResult.Text = _matchesService.GetMatchScore(_matchId);
 
-            lblResult.Text = $"{homeGoals} - {awayGoals}";
-            _matchesService.UpdateMatchResult(_matchId, homeGoals, awayGoals, _matchDate);
+                // 3. КРИТИЧНОТО ДОПЪЛНЕНИЕ: Автоматично записваме този резултат в базата данни за таблицата matches!
+                _matchesService.UpdateMatchResultFromEvents(_matchId, _matchDate);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Грешка при обновяване на хронологията и резултата: " + ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-            if (cboPlayers.SelectedValue == null) return;
+            // 1. Проверяваме дали потребителят е избрал играч от списъка
+            if (cboPlayers.SelectedIndex == -1 || cboEventType.SelectedItem == null)
+            {
+                MessageBox.Show("Моля, изберете събитие и футболист!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Тъй като ComboBox съдържа само текст, намираме съответния ред от 
+            // таблицата в паметта чрез индекса на избрания елемент (SelectedIndex)
+            if (_playersTable == null || cboPlayers.SelectedIndex >= _playersTable.Rows.Count) return;
+
+            DataRow selectedPlayerRow = _playersTable.Rows[cboPlayers.SelectedIndex];
 
             string selectedEvent = cboEventType.SelectedItem.ToString();
-            int playerId = Convert.ToInt32(cboPlayers.SelectedValue);
+            int playerId = Convert.ToInt32(selectedPlayerRow["id"]);
+            int playerClubId = Convert.ToInt32(selectedPlayerRow["club_id"]);
             int minute = (int)nudMinute.Value;
-            int playerClubId = Convert.ToInt32(((DataRowView)cboPlayers.SelectedItem)["club_id"]);
 
+            // Извикване на съответния метод от твоя MatchesService
             if (selectedEvent == "Гол") _matchesService.AddGoal(_matchId, playerId, playerClubId, minute);
             else if (selectedEvent == "Жълт картон" || selectedEvent == "Червен картон") _matchesService.AddCard(_matchId, playerId, selectedEvent, minute);
             else if (selectedEvent == "Фаул") _matchesService.AddFoul(_matchId, playerId, minute);
 
             RefreshEventsAndScore();
+
+            // Автоматично вдигаме минутата с 1 на екрана за удобство
             nudMinute.Value = Math.Min(minute + 1, 120);
         }
 
@@ -113,10 +150,11 @@ namespace Football_Manager.UI
 
             if (MessageBox.Show("Сигурни ли сте, че искате да изтриете избраното събитие?", "Потвърждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                int id = Convert.ToInt32(dgvEvents.CurrentRow.Cells["id"].Value);
-                string eventType = dgvEvents.CurrentRow.Cells["event_type"].Value.ToString();
+                var dataRow = (DataRowView)dgvEvents.CurrentRow.DataBoundItem;
+                int id = Convert.ToInt32(dataRow["id"]);
+                string eventType = dataRow["event_type"].ToString();
 
-                _matchesService.DeleteMatchEvent(eventType, id);
+                _matchesService.DeleteEvent(id, eventType, _matchId);
                 RefreshEventsAndScore();
             }
         }
