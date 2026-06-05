@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2026 at 08:09 PM
+-- Generation Time: Jun 05, 2026 at 01:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -146,6 +146,27 @@ CREATE TABLE `match_cards` (
   `card_type` varchar(20) NOT NULL,
   `minute` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `match_cards`
+--
+
+INSERT INTO `match_cards` (`id`, `match_id`, `player_id`, `card_type`, `minute`) VALUES
+(5, 155, 34, 'Жълт картон', 3),
+(6, 155, 29, 'Червен картон', 4),
+(7, 160, 6, 'Червен картон', 0),
+(8, 153, 39, 'Червен картон', 0),
+(9, 153, 39, 'Червен картон', 1),
+(10, 153, 39, 'Червен картон', 2),
+(11, 153, 39, 'Червен картон', 3),
+(12, 153, 39, 'Червен картон', 4),
+(13, 153, 39, 'Червен картон', 5),
+(14, 153, 43, 'Жълт картон', 6),
+(15, 153, 43, 'Жълт картон', 7),
+(16, 153, 43, 'Червен картон', 8),
+(17, 153, 43, 'Червен картон', 9),
+(18, 153, 43, 'Жълт картон', 10),
+(19, 153, 43, 'Жълт картон', 11);
 
 -- --------------------------------------------------------
 
@@ -388,7 +409,7 @@ ALTER TABLE `matches`
 -- AUTO_INCREMENT for table `match_cards`
 --
 ALTER TABLE `match_cards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `match_fouls`

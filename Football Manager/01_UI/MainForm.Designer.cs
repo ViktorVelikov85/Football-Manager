@@ -43,20 +43,20 @@ namespace Football_Manager.UI
             // btnOpenPlayers
             // 
             btnOpenPlayers.Font = new Font("Segoe UI", 14.25F);
-            btnOpenPlayers.Location = new Point(32, 132);
+            btnOpenPlayers.Location = new Point(12, 130);
             btnOpenPlayers.Name = "btnOpenPlayers";
-            btnOpenPlayers.Size = new Size(195, 48);
+            btnOpenPlayers.Size = new Size(209, 59);
             btnOpenPlayers.TabIndex = 0;
-            btnOpenPlayers.Text = "Играчи";
+            btnOpenPlayers.Text = "Играчи и трансфери";
             btnOpenPlayers.UseVisualStyleBackColor = true;
             btnOpenPlayers.Click += btnOpenPlayers_Click;
             // 
             // btnOpenClubs
             // 
             btnOpenClubs.Font = new Font("Segoe UI", 14.25F);
-            btnOpenClubs.Location = new Point(32, 64);
+            btnOpenClubs.Location = new Point(12, 46);
             btnOpenClubs.Name = "btnOpenClubs";
-            btnOpenClubs.Size = new Size(195, 48);
+            btnOpenClubs.Size = new Size(209, 48);
             btnOpenClubs.TabIndex = 1;
             btnOpenClubs.Text = "Отбори";
             btnOpenClubs.UseVisualStyleBackColor = true;
@@ -65,9 +65,9 @@ namespace Football_Manager.UI
             // btnOpenTransfers
             // 
             btnOpenTransfers.Font = new Font("Segoe UI", 14.25F);
-            btnOpenTransfers.Location = new Point(32, 205);
+            btnOpenTransfers.Location = new Point(284, 130);
             btnOpenTransfers.Name = "btnOpenTransfers";
-            btnOpenTransfers.Size = new Size(195, 58);
+            btnOpenTransfers.Size = new Size(209, 59);
             btnOpenTransfers.TabIndex = 1;
             btnOpenTransfers.Text = "История на трансферите";
             btnOpenTransfers.UseVisualStyleBackColor = true;
@@ -75,31 +75,31 @@ namespace Football_Manager.UI
             // 
             // label1
             // 
-            label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(94, 21);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(75, 25);
+            label1.Size = new Size(481, 25);
             label1.TabIndex = 2;
             label1.Text = "МЕНЮ";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnOpenLeagues
             // 
             btnOpenLeagues.Font = new Font("Segoe UI", 14.25F);
-            btnOpenLeagues.Location = new Point(32, 285);
+            btnOpenLeagues.Location = new Point(284, 46);
             btnOpenLeagues.Name = "btnOpenLeagues";
-            btnOpenLeagues.Size = new Size(195, 48);
+            btnOpenLeagues.Size = new Size(209, 48);
             btnOpenLeagues.TabIndex = 0;
-            btnOpenLeagues.Text = "Лиги";
+            btnOpenLeagues.Text = "Лиги и мачове";
             btnOpenLeagues.UseVisualStyleBackColor = true;
             btnOpenLeagues.Click += btnOpenLeagues_Click;
             // 
             // btnOpenStandings
             // 
             btnOpenStandings.Font = new Font("Segoe UI", 14.25F);
-            btnOpenStandings.Location = new Point(32, 356);
+            btnOpenStandings.Location = new Point(12, 230);
             btnOpenStandings.Name = "btnOpenStandings";
-            btnOpenStandings.Size = new Size(195, 48);
+            btnOpenStandings.Size = new Size(209, 48);
             btnOpenStandings.TabIndex = 0;
             btnOpenStandings.Text = "Класиране";
             btnOpenStandings.UseVisualStyleBackColor = true;
@@ -108,11 +108,11 @@ namespace Football_Manager.UI
             // btnOpenStatistics
             // 
             btnOpenStatistics.Font = new Font("Segoe UI", 14.25F);
-            btnOpenStatistics.Location = new Point(32, 423);
+            btnOpenStatistics.Location = new Point(284, 230);
             btnOpenStatistics.Name = "btnOpenStatistics";
-            btnOpenStatistics.Size = new Size(195, 48);
+            btnOpenStatistics.Size = new Size(209, 48);
             btnOpenStatistics.TabIndex = 0;
-            btnOpenStatistics.Text = "Класиране";
+            btnOpenStatistics.Text = "Статистика";
             btnOpenStatistics.UseVisualStyleBackColor = true;
             btnOpenStatistics.Click += btnOpenStatistics_Click;
             // 
@@ -120,7 +120,7 @@ namespace Football_Manager.UI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(267, 499);
+            ClientSize = new Size(505, 324);
             Controls.Add(label1);
             Controls.Add(btnOpenTransfers);
             Controls.Add(btnOpenClubs);
@@ -134,7 +134,6 @@ namespace Football_Manager.UI
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Футболен мениджър";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

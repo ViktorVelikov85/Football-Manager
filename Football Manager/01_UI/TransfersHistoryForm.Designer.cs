@@ -36,14 +36,14 @@ namespace Football_Manager.UI
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             dgvTransfers = new DataGridView();
-            txtSearchNameTransfer = new TextBox();
-            label1 = new Label();
-            label2 = new Label();
             colPlayerName = new DataGridViewTextBoxColumn();
             colOldClub = new DataGridViewTextBoxColumn();
             colNewClub = new DataGridViewTextBoxColumn();
             colAmount = new DataGridViewTextBoxColumn();
             colDate = new DataGridViewTextBoxColumn();
+            txtSearchNameTransfer = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvTransfers).BeginInit();
             SuspendLayout();
             // 
@@ -58,9 +58,9 @@ namespace Football_Manager.UI
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dgvTransfers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvTransfers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTransfers.Columns.AddRange(new DataGridViewColumn[] { colPlayerName, colOldClub, colNewClub, colAmount, colDate });
@@ -68,8 +68,8 @@ namespace Football_Manager.UI
             dataGridViewCellStyle4.BackColor = SystemColors.Window;
             dataGridViewCellStyle4.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Window;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.ControlText;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
             dgvTransfers.DefaultCellStyle = dataGridViewCellStyle4;
             dgvTransfers.Location = new Point(12, 122);
@@ -81,35 +81,6 @@ namespace Football_Manager.UI
             dgvTransfers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvTransfers.Size = new Size(804, 352);
             dgvTransfers.TabIndex = 0;
-            // 
-            // txtSearchNameTransfer
-            // 
-            txtSearchNameTransfer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearchNameTransfer.Location = new Point(12, 70);
-            txtSearchNameTransfer.Name = "txtSearchNameTransfer";
-            txtSearchNameTransfer.Size = new Size(254, 33);
-            txtSearchNameTransfer.TabIndex = 1;
-            txtSearchNameTransfer.TextChanged += txtSearchNameTransfer_TextChanged;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
-            label1.Location = new Point(275, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(293, 32);
-            label1.TabIndex = 2;
-            label1.Text = "История на трансферите";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(12, 42);
-            label2.Name = "label2";
-            label2.Size = new Size(185, 25);
-            label2.TabIndex = 2;
-            label2.Text = "Търси играч по име";
             // 
             // colPlayerName
             // 
@@ -158,6 +129,35 @@ namespace Football_Manager.UI
             colDate.Name = "colDate";
             colDate.ReadOnly = true;
             colDate.Width = 120;
+            // 
+            // txtSearchNameTransfer
+            // 
+            txtSearchNameTransfer.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSearchNameTransfer.Location = new Point(12, 70);
+            txtSearchNameTransfer.Name = "txtSearchNameTransfer";
+            txtSearchNameTransfer.Size = new Size(254, 33);
+            txtSearchNameTransfer.TabIndex = 1;
+            txtSearchNameTransfer.TextChanged += txtSearchNameTransfer_TextChanged;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(804, 32);
+            label1.TabIndex = 2;
+            label1.Text = "История на трансферите";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(12, 42);
+            label2.Name = "label2";
+            label2.Size = new Size(185, 25);
+            label2.TabIndex = 2;
+            label2.Text = "Търси играч по име";
             // 
             // TransfersHistoryForm
             // 
