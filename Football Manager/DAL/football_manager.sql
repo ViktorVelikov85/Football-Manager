@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2026 at 01:59 PM
+-- Generation Time: Jun 06, 2026 at 04:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,8 +44,7 @@ INSERT INTO `clubs` (`id`, `name`, `city`, `stadium`, `founded_year`) VALUES
 (2, 'Лудогорец', 'Разград', 'Хювефарма Арена', 2001),
 (3, 'ЦСКА София', 'София', 'Българска армия', 1948),
 (4, 'Черно море', 'Варна', 'Тича', 1913),
-(5, 'Тест', 'Варна', 'банан', 1999),
-(6, 'ВикторОтбор', 'Барселона', 'Барселона', 1999);
+(7, 'Берое', 'Стара Загора', 'Берое', 1916);
 
 -- --------------------------------------------------------
 
@@ -87,7 +86,7 @@ INSERT INTO `league_teams` (`league_id`, `club_id`) VALUES
 (5, 2),
 (5, 3),
 (5, 4),
-(5, 5);
+(5, 7);
 
 -- --------------------------------------------------------
 
@@ -112,26 +111,26 @@ CREATE TABLE `matches` (
 --
 
 INSERT INTO `matches` (`id`, `league_id`, `round_no`, `home_team_id`, `away_team_id`, `home_score`, `away_score`, `match_date`, `is_played`) VALUES
-(153, 5, 1, 2, 4, 0, 6, '2026-06-06 00:00:00', 1),
-(154, 5, 1, 5, 3, NULL, NULL, '2026-06-06 00:00:00', 0),
-(155, 5, 2, 1, 4, 0, 2, '2026-06-13 00:00:00', 1),
-(156, 5, 2, 2, 5, NULL, NULL, '2026-06-13 00:00:00', 0),
-(157, 5, 3, 1, 3, 2, 0, '2026-06-20 00:00:00', 1),
-(158, 5, 3, 4, 5, NULL, NULL, '2026-06-20 00:00:00', 0),
-(159, 5, 4, 1, 5, NULL, NULL, '2026-06-27 00:00:00', 0),
-(160, 5, 4, 3, 2, 1, 0, '2026-06-27 00:00:00', 1),
-(161, 5, 5, 1, 2, NULL, NULL, '2026-07-04 00:00:00', 0),
-(162, 5, 5, 3, 4, NULL, NULL, '2026-07-04 00:00:00', 0),
-(163, 5, 6, 4, 2, NULL, NULL, '2026-07-11 00:00:00', 0),
-(164, 5, 6, 3, 5, NULL, NULL, '2026-07-11 00:00:00', 0),
-(165, 5, 7, 4, 1, NULL, NULL, '2026-07-18 00:00:00', 0),
-(166, 5, 7, 5, 2, NULL, NULL, '2026-07-18 00:00:00', 0),
-(167, 5, 8, 3, 1, NULL, NULL, '2026-07-25 00:00:00', 0),
-(168, 5, 8, 5, 4, NULL, NULL, '2026-07-25 00:00:00', 0),
-(169, 5, 9, 5, 1, NULL, NULL, '2026-08-01 00:00:00', 0),
-(170, 5, 9, 2, 3, NULL, NULL, '2026-08-01 00:00:00', 0),
-(171, 5, 10, 2, 1, NULL, NULL, '2026-08-08 00:00:00', 0),
-(172, 5, 10, 4, 3, NULL, NULL, '2026-08-08 00:00:00', 0);
+(173, 5, 1, 1, 4, 3, 2, '2026-06-06 00:00:00', 1),
+(174, 5, 1, 2, 3, NULL, NULL, '2026-06-06 00:00:00', 0),
+(175, 5, 2, 7, 4, 3, 1, '2026-06-13 00:00:00', 1),
+(176, 5, 2, 1, 2, NULL, NULL, '2026-06-13 00:00:00', 0),
+(177, 5, 3, 7, 3, NULL, NULL, '2026-06-20 00:00:00', 0),
+(178, 5, 3, 4, 2, NULL, NULL, '2026-06-20 00:00:00', 0),
+(179, 5, 4, 7, 2, NULL, NULL, '2026-06-27 00:00:00', 0),
+(180, 5, 4, 3, 1, NULL, NULL, '2026-06-27 00:00:00', 0),
+(181, 5, 5, 7, 1, NULL, NULL, '2026-07-04 00:00:00', 0),
+(182, 5, 5, 3, 4, NULL, NULL, '2026-07-04 00:00:00', 0),
+(183, 5, 6, 4, 1, NULL, NULL, '2026-07-11 00:00:00', 0),
+(184, 5, 6, 3, 2, NULL, NULL, '2026-07-11 00:00:00', 0),
+(185, 5, 7, 4, 7, NULL, NULL, '2026-07-18 00:00:00', 0),
+(186, 5, 7, 2, 1, NULL, NULL, '2026-07-18 00:00:00', 0),
+(187, 5, 8, 3, 7, NULL, NULL, '2026-07-25 00:00:00', 0),
+(188, 5, 8, 2, 4, NULL, NULL, '2026-07-25 00:00:00', 0),
+(189, 5, 9, 2, 7, NULL, NULL, '2026-08-01 00:00:00', 0),
+(190, 5, 9, 1, 3, NULL, NULL, '2026-08-01 00:00:00', 0),
+(191, 5, 10, 1, 7, NULL, NULL, '2026-08-08 00:00:00', 0),
+(192, 5, 10, 4, 3, NULL, NULL, '2026-08-08 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -152,21 +151,12 @@ CREATE TABLE `match_cards` (
 --
 
 INSERT INTO `match_cards` (`id`, `match_id`, `player_id`, `card_type`, `minute`) VALUES
-(5, 155, 34, 'Жълт картон', 3),
-(6, 155, 29, 'Червен картон', 4),
-(7, 160, 6, 'Червен картон', 0),
-(8, 153, 39, 'Червен картон', 0),
-(9, 153, 39, 'Червен картон', 1),
-(10, 153, 39, 'Червен картон', 2),
-(11, 153, 39, 'Червен картон', 3),
-(12, 153, 39, 'Червен картон', 4),
-(13, 153, 39, 'Червен картон', 5),
-(14, 153, 43, 'Жълт картон', 6),
-(15, 153, 43, 'Жълт картон', 7),
-(16, 153, 43, 'Червен картон', 8),
-(17, 153, 43, 'Червен картон', 9),
-(18, 153, 43, 'Жълт картон', 10),
-(19, 153, 43, 'Жълт картон', 11);
+(36, 173, 29, 'Жълт картон', 4),
+(37, 173, 33, 'Червен картон', 39),
+(38, 173, 33, 'Червен картон', 40),
+(39, 175, 44, 'Жълт картон', 33),
+(40, 175, 37, 'Червен картон', 44),
+(41, 175, 41, 'Червен картон', 49);
 
 -- --------------------------------------------------------
 
@@ -181,6 +171,14 @@ CREATE TABLE `match_fouls` (
   `minute` int(11) NOT NULL,
   `foul_type` varchar(50) DEFAULT 'Обикновено'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `match_fouls`
+--
+
+INSERT INTO `match_fouls` (`id`, `match_id`, `player_id`, `minute`, `foul_type`) VALUES
+(18, 173, 45, 38, 'Обикновено'),
+(19, 175, 37, 43, 'Обикновено');
 
 -- --------------------------------------------------------
 
@@ -201,17 +199,15 @@ CREATE TABLE `match_goals` (
 --
 
 INSERT INTO `match_goals` (`id`, `match_id`, `player_id`, `club_id`, `minute`) VALUES
-(9, 153, 44, 4, 0),
-(10, 153, 44, 4, 1),
-(11, 153, 44, 4, 2),
-(12, 153, 44, 4, 3),
-(13, 153, 44, 4, 4),
-(14, 153, 44, 4, 5),
-(15, 155, 41, 4, 3),
-(16, 155, 41, 4, 8),
-(17, 157, 20, 1, 0),
-(18, 157, 20, 1, 1),
-(19, 160, 30, 3, 0);
+(41, 173, 8, 1, 17),
+(43, 173, 29, 1, 41),
+(44, 173, 29, 1, 94),
+(45, 173, 41, 4, 95),
+(46, 173, 41, 4, 96),
+(47, 175, 51, 7, 12),
+(48, 175, 52, 7, 34),
+(49, 175, 51, 7, 41),
+(50, 175, 37, 4, 42);
 
 -- --------------------------------------------------------
 
@@ -277,8 +273,8 @@ INSERT INTO `players` (`id`, `club_id`, `full_name`, `birth_date`, `position`, `
 (43, 4, 'Матеус Машадо', '1998-06-15', 'FW', 9, 'Active'),
 (44, 4, 'Атанас Илиев', '1994-07-09', 'FW', 19, 'Active'),
 (45, 4, 'Тест Тестов', '1995-07-14', 'GK', 67, 'Active'),
-(49, 5, 'Играч 1', '1999-08-12', 'GK', 1, 'Active'),
-(50, 5, 'Играч 2 ', '1999-11-11', 'MF', 2, 'Active');
+(51, 7, 'Играч Берое1', '1989-08-20', 'GK', 1, 'Active'),
+(52, 7, 'Играч Берое2', '2000-02-11', 'DF', 2, 'Active');
 
 -- --------------------------------------------------------
 
@@ -306,7 +302,9 @@ INSERT INTO `transfers` (`TransferId`, `PlayerId`, `FromClubId`, `ToClubId`, `Tr
 (4, 29, 3, 1, '2026-03-22 11:21:41', 12345678.00),
 (5, 33, 3, 4, '2026-03-22 12:27:25', 123456.21),
 (6, 6, 1, 3, '2026-03-22 13:12:48', 35000.00),
-(7, 5, 1, 2, '2026-03-30 19:30:16', 50.00);
+(7, 5, 1, 2, '2026-03-30 19:30:16', 50.00),
+(8, 51, 7, 1, '2026-06-06 17:28:11', 123000.00),
+(9, 51, 1, 7, '2026-06-06 17:29:26', 0.00);
 
 --
 -- Indexes for dumped tables
@@ -391,7 +389,7 @@ ALTER TABLE `transfers`
 -- AUTO_INCREMENT for table `clubs`
 --
 ALTER TABLE `clubs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `leagues`
@@ -403,37 +401,37 @@ ALTER TABLE `leagues`
 -- AUTO_INCREMENT for table `matches`
 --
 ALTER TABLE `matches`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
 
 --
 -- AUTO_INCREMENT for table `match_cards`
 --
 ALTER TABLE `match_cards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `match_fouls`
 --
 ALTER TABLE `match_fouls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `match_goals`
 --
 ALTER TABLE `match_goals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `transfers`
 --
 ALTER TABLE `transfers`
-  MODIFY `TransferId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `TransferId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -450,8 +448,8 @@ ALTER TABLE `league_teams`
 -- Constraints for table `matches`
 --
 ALTER TABLE `matches`
-  ADD CONSTRAINT `fk_match_away` FOREIGN KEY (`away_team_id`) REFERENCES `clubs` (`id`),
-  ADD CONSTRAINT `fk_match_home` FOREIGN KEY (`home_team_id`) REFERENCES `clubs` (`id`),
+  ADD CONSTRAINT `fk_match_away` FOREIGN KEY (`away_team_id`) REFERENCES `clubs` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_match_home` FOREIGN KEY (`home_team_id`) REFERENCES `clubs` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_match_league` FOREIGN KEY (`league_id`) REFERENCES `leagues` (`id`) ON DELETE CASCADE;
 
 --
@@ -480,7 +478,7 @@ ALTER TABLE `match_goals`
 -- Constraints for table `players`
 --
 ALTER TABLE `players`
-  ADD CONSTRAINT `fk_player_club` FOREIGN KEY (`club_id`) REFERENCES `clubs` (`id`);
+  ADD CONSTRAINT `fk_player_club` FOREIGN KEY (`club_id`) REFERENCES `clubs` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `transfers`

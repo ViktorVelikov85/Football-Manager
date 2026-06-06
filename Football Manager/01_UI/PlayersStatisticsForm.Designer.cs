@@ -50,7 +50,7 @@
             // 
             panelPodium.Location = new Point(12, 58);
             panelPodium.Name = "panelPodium";
-            panelPodium.Size = new Size(485, 284);
+            panelPodium.Size = new Size(485, 425);
             panelPodium.TabIndex = 1;
             panelPodium.Paint += panelPodium_Paint;
             // 
@@ -68,7 +68,7 @@
             // 
             panelMostCards.Location = new Point(551, 58);
             panelMostCards.Name = "panelMostCards";
-            panelMostCards.Size = new Size(547, 434);
+            panelMostCards.Size = new Size(547, 425);
             panelMostCards.TabIndex = 2;
             panelMostCards.Paint += panelMostCards_Paint;
             // 
@@ -76,8 +76,9 @@
             // 
             panelMostFauls.Location = new Point(1154, 58);
             panelMostFauls.Name = "panelMostFauls";
-            panelMostFauls.Size = new Size(430, 434);
+            panelMostFauls.Size = new Size(456, 425);
             panelMostFauls.TabIndex = 3;
+            panelMostFauls.Paint += panelMostFauls_Paint;
             // 
             // label3
             // 
@@ -93,7 +94,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1596, 568);
+            ClientSize = new Size(1622, 514);
             Controls.Add(panelMostFauls);
             Controls.Add(panelMostCards);
             Controls.Add(panelPodium);

@@ -134,6 +134,7 @@ namespace Football_Manager.UI
             txtSearchName.Font = new Font("Segoe UI", 14.25F);
             txtSearchName.Location = new Point(30, 38);
             txtSearchName.Name = "txtSearchName";
+            txtSearchName.PlaceholderText = "Търси по име...";
             txtSearchName.Size = new Size(305, 33);
             txtSearchName.TabIndex = 5;
             txtSearchName.TextChanged += txtSearchName_TextChanged;

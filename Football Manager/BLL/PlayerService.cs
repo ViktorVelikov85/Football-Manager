@@ -79,5 +79,9 @@ namespace Football_Manager.BLL
         {
             return _repo.GetTopPlayersByCards();
         }
+        public DataTable GetTop3ByFouls()
+        {
+            return _repo.GetTopPlayersByFouls();
+        }
     }
 }

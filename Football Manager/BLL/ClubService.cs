@@ -41,7 +41,10 @@ namespace Football_Manager.BLL
         }
 
         // Операции с данни (Изтриване)
-        public void DeleteClub(int id) => _repo.Delete(id);
+        public void DeleteClub(int id)
+        {
+            _repo.Delete(id);
+        }
 
         // Бизнес валидация
         private bool IsValid(Club club, out string msg)

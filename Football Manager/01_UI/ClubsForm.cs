@@ -90,20 +90,34 @@ namespace Football_Manager.UI
         {
             if (_selectedId == -1)
             {
-                MessageBox.Show("Моля, изберете клуб за изтриване!");
+                MessageBox.Show("Моля, изберете клуб от таблицата за изтриване!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (MessageBox.Show($"Сигурни ли сте, че искате да изтриете '{txtName.Text}'?", "Потвърждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            string clubName = dgvClubs.CurrentRow?.Cells["colName"].Value?.ToString() ?? "този отбор";
+
+            string confirmMessage = $"ВНИМАНИЕ!\n\nСигурни ли сте, че искате да изтриете отбор '{clubName}'?\n\n" +
+                                    "Това действие е необратимо и ЩЕ ИЗТРИЕ ОЩЕ:\n" +
+                                    "• Всички мачове, в които отборът участва (домакин или гост)\n" +
+                                    "• Всички футболисти, играещи в този отбор\n" +
+                                    "• Статистиката за голове, картони и фалове от тези мачове";
+
+            DialogResult result = MessageBox.Show(confirmMessage, "Потвърждение за ИЗТРИВАНЕ",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
             {
                 try
                 {
+                    // Изключително чисто извикване – UI просто казва НАЙ-ОТГОРЕ какво иска, 
+                    // а долните слоеве знаят КАК да го направят в базата данни.
                     _service.DeleteClub(_selectedId);
-                    FinishOperation("Клубът е изтрит успешно!");
+
+                    FinishOperation("Клубът и всички свързани с него мачове и играчи бяха изтрити успешно!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Грешка при изтриване: " + ex.Message);
+                    MessageBox.Show("Грешка при изтриване: " + ex.Message, "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

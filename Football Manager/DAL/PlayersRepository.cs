@@ -72,33 +72,50 @@ namespace Football_Manager.DAL
         }
         public DataTable GetTopScorers()
         {
-            // Използваме LEFT JOIN и филтрираме празни играчи, подреждаме правилно
             string query = @"
-                SELECT p.full_name, COUNT(g.id) AS goals_count
-                FROM match_goals g
-                JOIN players p ON g.player_id = p.id
-                GROUP BY p.id, p.full_name
-                ORDER BY goals_count DESC
-                LIMIT 3";
+        SELECT p.full_name, c.name AS club_name, COUNT(g.id) AS goals_count
+        FROM match_goals g
+        JOIN players p ON g.player_id = p.id
+        JOIN clubs c ON p.club_id = c.id
+        GROUP BY p.id, p.full_name, c.name
+        ORDER BY goals_count DESC
+        LIMIT 3";
 
             return Db.GetTable(query);
         }
+
         public DataTable GetTopPlayersByCards()
         {
             string query = @"
-                SELECT full_name, yellow_cards, red_cards
-                FROM (
-                    SELECT 
-                        p.full_name,
-                        SUM(CASE WHEN c.card_type = 'Жълт картон' THEN 1 ELSE 0 END) AS yellow_cards,
-                        SUM(CASE WHEN c.card_type = 'Червен картон' THEN 1 ELSE 0 END) AS red_cards
-                    FROM match_cards c
-                    JOIN players p ON p.id = c.player_id
-                    GROUP BY p.id, p.full_name
-                ) AS sub
-                WHERE (yellow_cards + red_cards) > 0
-                ORDER BY (yellow_cards + red_cards) DESC
-                LIMIT 5";
+        SELECT full_name, club_name, yellow_cards, red_cards
+        FROM (
+            SELECT 
+                p.full_name,
+                cl.name AS club_name,
+                SUM(CASE WHEN c.card_type = 'Жълт картон' THEN 1 ELSE 0 END) AS yellow_cards,
+                SUM(CASE WHEN c.card_type = 'Червен картон' THEN 1 ELSE 0 END) AS red_cards
+            FROM match_cards c
+            JOIN players p ON p.id = c.player_id
+            JOIN clubs cl ON p.club_id = cl.id
+            GROUP BY p.id, p.full_name, cl.name
+        ) AS sub
+        WHERE (yellow_cards + red_cards) > 0
+        ORDER BY (yellow_cards + red_cards) DESC
+        LIMIT 5";
+
+            return Db.GetTable(query);
+        }
+
+        public DataTable GetTopPlayersByFouls()
+        {
+            string query = @"
+        SELECT p.full_name, c.name AS club_name, COUNT(*) AS fouls_count
+        FROM match_fouls f
+        JOIN players p ON f.player_id = p.id
+        JOIN clubs c ON p.club_id = c.id
+        GROUP BY p.id, p.full_name, c.name
+        ORDER BY fouls_count DESC
+        LIMIT 3";
 
             return Db.GetTable(query);
         }

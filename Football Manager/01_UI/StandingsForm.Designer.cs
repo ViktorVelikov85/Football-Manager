@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             lblSelectLeague = new Label();
             cboLeagues = new ComboBox();
             btnRefresh = new Button();
@@ -58,9 +59,9 @@
             // 
             btnRefresh.BackColor = Color.LightGreen;
             btnRefresh.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRefresh.Location = new Point(338, 396);
+            btnRefresh.Location = new Point(323, 391);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(138, 42);
+            btnRefresh.Size = new Size(145, 47);
             btnRefresh.TabIndex = 2;
             btnRefresh.Text = "Презареди";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -74,6 +75,14 @@
             dgvStandings.AllowUserToResizeRows = false;
             dgvStandings.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvStandings.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Window;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dgvStandings.DefaultCellStyle = dataGridViewCellStyle1;
             dgvStandings.Location = new Point(12, 12);
             dgvStandings.MultiSelect = false;
             dgvStandings.Name = "dgvStandings";

@@ -36,10 +36,6 @@ namespace Football_Manager.UI
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             dgvClubs = new DataGridView();
-            colName = new DataGridViewTextBoxColumn();
-            colCity = new DataGridViewTextBoxColumn();
-            colStadium = new DataGridViewTextBoxColumn();
-            colFoundedYear = new DataGridViewTextBoxColumn();
             txtName = new TextBox();
             txtCity = new TextBox();
             btnAdd = new Button();
@@ -52,6 +48,10 @@ namespace Football_Manager.UI
             txtCreatedIn = new TextBox();
             label3 = new Label();
             label4 = new Label();
+            colName = new DataGridViewTextBoxColumn();
+            colCity = new DataGridViewTextBoxColumn();
+            colStadium = new DataGridViewTextBoxColumn();
+            colFoundedYear = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvClubs).BeginInit();
             SuspendLayout();
             // 
@@ -61,7 +61,7 @@ namespace Football_Manager.UI
             dgvClubs.AllowUserToDeleteRows = false;
             dgvClubs.AllowUserToResizeColumns = false;
             dgvClubs.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dgvClubs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvClubs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -89,41 +89,9 @@ namespace Football_Manager.UI
             dgvClubs.RowHeadersVisible = false;
             dgvClubs.RowTemplate.Height = 30;
             dgvClubs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvClubs.Size = new Size(751, 448);
+            dgvClubs.Size = new Size(753, 448);
             dgvClubs.TabIndex = 0;
             dgvClubs.CellClick += dgvClubs_CellClick;
-            // 
-            // colName
-            // 
-            colName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colName.DataPropertyName = "name";
-            colName.HeaderText = "Име на отбор";
-            colName.Name = "colName";
-            colName.ReadOnly = true;
-            // 
-            // colCity
-            // 
-            colCity.DataPropertyName = "city";
-            colCity.HeaderText = "Град";
-            colCity.Name = "colCity";
-            colCity.ReadOnly = true;
-            // 
-            // colStadium
-            // 
-            colStadium.DataPropertyName = "stadium";
-            colStadium.HeaderText = "Стадион";
-            colStadium.Name = "colStadium";
-            colStadium.ReadOnly = true;
-            // 
-            // colFoundedYear
-            // 
-            colFoundedYear.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colFoundedYear.DataPropertyName = "founded_year";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colFoundedYear.DefaultCellStyle = dataGridViewCellStyle3;
-            colFoundedYear.HeaderText = "Година на откриване";
-            colFoundedYear.Name = "colFoundedYear";
-            colFoundedYear.ReadOnly = true;
             // 
             // txtName
             // 
@@ -157,7 +125,7 @@ namespace Football_Manager.UI
             // 
             btnEdit.BackColor = Color.LightBlue;
             btnEdit.Font = new Font("Segoe UI", 14.25F);
-            btnEdit.Location = new Point(643, 675);
+            btnEdit.Location = new Point(645, 607);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(120, 60);
             btnEdit.TabIndex = 4;
@@ -169,7 +137,7 @@ namespace Football_Manager.UI
             // 
             btnDelete.BackColor = Color.Coral;
             btnDelete.Font = new Font("Segoe UI", 14.25F);
-            btnDelete.Location = new Point(645, 574);
+            btnDelete.Location = new Point(645, 541);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(120, 60);
             btnDelete.TabIndex = 5;
@@ -181,7 +149,7 @@ namespace Football_Manager.UI
             // 
             btnClear.BackColor = SystemColors.Control;
             btnClear.Font = new Font("Segoe UI", 14.25F);
-            btnClear.Location = new Point(273, 675);
+            btnClear.Location = new Point(273, 607);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(120, 60);
             btnClear.TabIndex = 6;
@@ -220,7 +188,7 @@ namespace Football_Manager.UI
             // txtCreatedIn
             // 
             txtCreatedIn.Font = new Font("Segoe UI", 14.25F);
-            txtCreatedIn.Location = new Point(12, 703);
+            txtCreatedIn.Location = new Point(458, 491);
             txtCreatedIn.Name = "txtCreatedIn";
             txtCreatedIn.Size = new Size(100, 33);
             txtCreatedIn.TabIndex = 10;
@@ -239,17 +207,52 @@ namespace Football_Manager.UI
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F);
-            label4.Location = new Point(12, 675);
+            label4.Location = new Point(415, 463);
             label4.Name = "label4";
             label4.Size = new Size(196, 25);
             label4.TabIndex = 12;
             label4.Text = "Година на откриване";
             // 
+            // colName
+            // 
+            colName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colName.DataPropertyName = "name";
+            colName.HeaderText = "Име на отбор";
+            colName.Name = "colName";
+            colName.ReadOnly = true;
+            // 
+            // colCity
+            // 
+            colCity.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colCity.DataPropertyName = "city";
+            colCity.HeaderText = "Град";
+            colCity.Name = "colCity";
+            colCity.ReadOnly = true;
+            colCity.Width = 200;
+            // 
+            // colStadium
+            // 
+            colStadium.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colStadium.DataPropertyName = "stadium";
+            colStadium.HeaderText = "Стадион";
+            colStadium.Name = "colStadium";
+            colStadium.ReadOnly = true;
+            // 
+            // colFoundedYear
+            // 
+            colFoundedYear.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colFoundedYear.DataPropertyName = "founded_year";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colFoundedYear.DefaultCellStyle = dataGridViewCellStyle3;
+            colFoundedYear.HeaderText = "Година на откриване";
+            colFoundedYear.Name = "colFoundedYear";
+            colFoundedYear.ReadOnly = true;
+            // 
             // ClubsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(775, 748);
+            ClientSize = new Size(782, 679);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(txtCreatedIn);

@@ -232,8 +232,8 @@ namespace Football_Manager.UI
             dataGridViewCellStyle4.BackColor = SystemColors.Window;
             dataGridViewCellStyle4.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Window;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.ControlText;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
             dgvTransfers.DefaultCellStyle = dataGridViewCellStyle4;
             dgvTransfers.Location = new Point(12, 90);
